@@ -3,6 +3,14 @@
 # Script name
 MyScriptName='KaizenVPN-DEB9&10 Script'
 
+function ip_address(){
+  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
+  [ ! -z "${IP}" ] && echo "${IP}" || echo
+} 
+IPADDR="$(ip_address)"
+
 # OpenSSH Ports
 SSH_Port1='22'
 SSH_Port2='226'
@@ -224,7 +232,9 @@ accept = $IPADDR:$Stunnel_Port2
 connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
- # setting stunnel ports
+# setting stunnel ports
+ sed -i "s|OpenVPN_Port1|$OpenVPN_Port1|g" /etc/stunnel/stunnel.conf
+ sed -i "s|OpenVPN_Port2|$OpenVPN_Port2|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
@@ -872,14 +882,6 @@ mySiteOvpn
  zip -qq -r configs.zip *.ovpn
  cd
 }
-
-function ip_address(){
-  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
-  [ ! -z "${IP}" ] && echo "${IP}" || echo
-} 
-IPADDR="$(ip_address)"
 
 function ConfStartup(){
  # Daily reboot time of our machine
