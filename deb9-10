@@ -212,15 +212,15 @@ socket = r:TCP_NODELAY=1
 TIMEOUTclose = 0
 
 [openvpn]
-accept = $OpenVPN_Port2
+accept = $IPADDR:$OpenVPN_Port2
 connect = 127.0.0.1:$OpenVPN_Port1
 
 [dropbear]
-accept = $Stunnel_Port1
+accept = $IPADDR:$Stunnel_Port1
 connect = 127.0.0.1:dropbear_port_c
 
 [openssh]
-accept = $Stunnel_Port2
+accept = $IPADDR:$Stunnel_Port2
 connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
