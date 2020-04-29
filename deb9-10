@@ -1115,7 +1115,7 @@ echo ""  | tee -a log-install.txt
 echo "------------------------"  | tee -a log-install.txt
 echo "OpenVPN Configs Download"  | tee -a log-install.txt
 echo "------------------------"  | tee -a log-install.txt
-echo " Download Link Web        :http://$IPADDR:$OvpnDownload_Port" | tee -a log-install.txt
+echo " Download Link Web        : http://$IPADDR:$OvpnDownload_Port" | tee -a log-install.txt
 echo " Download Link Direct     : http://$IPADDR:85/configs.zip"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
