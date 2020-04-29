@@ -1091,7 +1091,7 @@ echo "   - IPv6        : [OFF]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
-echo "   - OpenVPN SSL		: TCP $OpenVPN_Port2 "  | tee -a log-install.txt
+echo "   - OpenVPN SSL	: TCP $OpenVPN_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1, $SSH_Port2 "  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
@@ -1106,14 +1106,14 @@ echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Maklumat Penting"  | tee -a log-install.txt
 echo "   - Installation Log    : cat /root/log-install.txt"  | tee -a log-install.txt
-echo ""  | tee -a log-install.txt
 echo "   - Webmin              : http://$IPADDR:10000/"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "OpenVPN Configs Download"  | tee -a log-install.txt
-echo " http://$IPADDR:$OvpnDownload_Port" | tee -a log-install.txt
-echo " Download Link           : http://$IPADDR:85/configs.zip"  | tee -a log-install.txt
-echo " ©KaizenVPN"  | tee -a log-install.txt
+echo " Download Link Web        :http://$IPADDR:$OvpnDownload_Port" | tee -a log-install.txt
+echo " Download Link Direct     : http://$IPADDR:85/configs.zip"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo " Copyright by ©KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
