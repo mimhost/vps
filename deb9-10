@@ -28,7 +28,7 @@ Stunnel_Port2='444' # through OpenSSH
 OpenVPN_TCP_Port2='587' # through OpenVPN
 
 # OpenVPN Ports
-OpenVPN_TCP_Port1='110'
+OpenVPN_TCP_Port='110'
 OpenVPN_UDP_Port='25222'
 
 # Privoxy Ports
@@ -221,7 +221,7 @@ TIMEOUTclose = 0
 
 [openvpn]
 accept = OpenVPN_TCP_Port2
-connect = 127.0.0.1:OpenVPN_TCP_Port1
+connect = 127.0.0.1:OpenVPN_TCP_Port
 
 [dropbear]
 accept = Stunnel_Port1
@@ -233,7 +233,7 @@ connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
 # setting stunnel ports
- sed -i "s|OpenVPN_TCP_Port1|$OpenVPN_TCP_Port1|g" /etc/stunnel/stunnel.conf
+ sed -i "s|OpenVPN_TCP_Port|$OpenVPN_TCP_Port|g" /etc/stunnel/stunnel.conf
  sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
@@ -523,7 +523,7 @@ done
 NUovpn
 
  # setting openvpn server port
- sed -i "s|OVPNTCP|$OpenVPN_TCP_Port1|g" /etc/openvpn/server_tcp.conf
+ sed -i "s|OVPNTCP|$OpenVPN_TCP_Port|g" /etc/openvpn/server_tcp.conf
  sed -i "s|OVPNUDP|$OpenVPN_UDP_Port|g" /etc/openvpn/server_udp.conf
  
  # Getting some OpenVPN plugins for unix authentication
@@ -760,7 +760,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote $IPADDR $OpenVPN_TCP_Port1
+remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
 nobind
 persist-key
@@ -823,7 +823,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote 127.0.0.1 $OpenVPN_TCP_Port1
+remote 127.0.0.1 $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
@@ -1097,7 +1097,7 @@ echo ""  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
 echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
-echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port1 UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
+echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
 echo "   - OpenVPN SSL	: TCP $OpenVPN_TCP_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1, $SSH_Port2 "  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
