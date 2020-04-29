@@ -523,7 +523,7 @@ done
 NUovpn
 
  # setting openvpn server port
- sed -i "s|OVPNTCP|$OpenVPN_TCP_Port|g" /etc/openvpn/server_tcp.conf
+ sed -i "s|OVPNTCP|$OpenVPN_TCP_Port1|g" /etc/openvpn/server_tcp.conf
  sed -i "s|OVPNUDP|$OpenVPN_UDP_Port|g" /etc/openvpn/server_udp.conf
  
  # Getting some OpenVPN plugins for unix authentication
@@ -760,7 +760,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote $IPADDR $OpenVPN_TCP_Port
+remote $IPADDR $OpenVPN_TCP_Port1
 http-proxy $IPADDR $Squid_Port1
 nobind
 persist-key
@@ -823,7 +823,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote 127.0.0.1 $OpenVPN_TCP_Port
+remote 127.0.0.1 $OpenVPN_TCP_Port1
 route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
