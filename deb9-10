@@ -199,7 +199,7 @@ MyStunnelD
  rm -rf /etc/stunnel/*
  
  # Creating stunnel certifcate using openssl
- openssl req -new -x509 -days 9999 -nodes -subj "/C=PH/ST=NCR/L=Manila/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
+ openssl req -new -x509 -days 9999 -nodes -subj "/C=MY/ST=Sabah/L=KK/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
 ##  > /dev/null 2>&1
 
  # Creating stunnel server config
@@ -347,11 +347,11 @@ Certificate:
         Version: 3 (0x2)
         Serial Number: 1 (0x1)
     Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C=PH, ST=Tarlac, L=Concepcion, O=JohnFordTV, OU=JohnFordTV, CN=DebianVPN/name=John Ford Mangiliman/emailAddress=admin@johnfordtv.me
+        Issuer: C=MY, ST=Sabah, L=KK, O=KaizenVPN, OU=KaizenVPN, CN=DebianVPN/name=KaizenVPN/emailAddress=hazboyz@gmai.com
         Validity
             Not Before: Nov 25 08:06:59 2019 GMT
             Not After : Nov 22 08:06:59 2029 GMT
-        Subject: C=PH, ST=Tarlac, L=Concepcion, O=JohnFordTV, OU=JohnFordTV, CN=DebianVPN/name=John Ford Mangiliman/emailAddress=admin@johnfordtv.me
+        Subject: C=MY, ST=Sabah, L=KK, O=KaizenVPN, OU=KaizenVPN, CN=DebianVPN/name=KaizenVPN/emailAddress=hazboyz@gmai.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 Public-Key: (2048 bit)
@@ -386,7 +386,7 @@ Certificate:
                 50:31:04:C4:7A:47:C1:DA:46:CC:77:38:DE:1C:63:10:40:C3:80:22
             X509v3 Authority Key Identifier:
                 keyid:2D:71:9E:0D:00:4B:5C:23:C8:77:41:77:AF:FE:7C:14:30:A6:8C:2E
-                DirName:/C=PH/ST=Tarlac/L=Concepcion/O=JohnFordTV/OU=JohnFordTV/CN=DebianVPN/name=John Ford Mangiliman/emailAddress=admin@johnfordtv.me
+                DirName:/C=MY/ST=Sabah/L=KK/O=KaizenVPN/OU=KaizenVPN/CN=DebianVPN/name=KaizenVPN/emailAddress=hazboyz@gmai.com
                 serial:8C:5B:0D:CB:E1:EA:F3:C4
             X509v3 Extended Key Usage:
                 TLS Web Server Authentication
