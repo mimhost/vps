@@ -11,6 +11,10 @@ function ip_address(){
 } 
 IPADDR="$(ip_address)"
 
+# initializing var
+MYIP=$(wget -qO- ipv4.icanhazip.com);
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+
 # OpenSSH Ports
 SSH_Port1='22'
 SSH_Port2='226'
@@ -220,15 +224,15 @@ socket = r:TCP_NODELAY=1
 TIMEOUTclose = 0
 
 [openvpn]
-accept = IPADDR:$OpenVPN_TCP_Port2
+accept = $MYIP:$OpenVPN_TCP_Port2
 connect = 127.0.0.1:$OpenVPN_TCP_Port1
 
 [dropbear]
-accept = IPADDR:$Stunnel_Port1
+accept = $MYIP:$Stunnel_Port1
 connect = 127.0.0.1:dropbear_port_c
 
 [openssh]
-accept = IPADDR:$Stunnel_Port2
+accept = $MYIP:$Stunnel_Port2
 connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
