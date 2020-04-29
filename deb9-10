@@ -958,6 +958,7 @@ unzip -qq bashmenu.zip
 chmod +x /usr/local/bin/*
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /dev/null|sh
 rm -f bashmenu.zip
+chmod +x ./*
 dos2unix ./* &> /dev/null
 sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
 sed -i 's|http_port|listen-address|g' ./*
