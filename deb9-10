@@ -717,20 +717,47 @@ myNginxC
 
  # Now creating all of our OpenVPN Configs 
  
-cat <<EOF162> /var/www/openvpn/sun-tuudp.ovpn
-# JohnFordTV's VPN Premium Script
-# © Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090/AutoScriptDB
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
+cat <<EOF16> /var/www/openvpn/KaizenTCP.ovpn
+# KaizenVPN Premium Script
+# Thanks for using this script, Enjoy Highspeed OpenVPN Service
+client
+dev tun
+proto tcp
+setenv FRIENDLY_NAME "Debian VPN"
+remote $IPADDR $OpenVPN_TCP_Port
+http-proxy $IPADDR $Squid_Port1
+nobind
+persist-key
+persist-tun
+comp-lzo
+keepalive 10 120
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+<ca>
+$(cat /etc/openvpn/ca.crt)
+</ca>
+EOF16
+ 
+cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
+# KaizenVPN Premium Script
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
 dev tun
 proto udp
-setenv FRIENDLY_NAME "Debian VPN SUN"
+setenv FRIENDLY_NAME "Debian VPN"
 remote $IPADDR $OpenVPN_UDP_Port
+http-proxy $IPADDR $Squid_Port1
 remote-cert-tls server
 resolv-retry infinite
 float
@@ -748,109 +775,20 @@ redirect-gateway def1
 setenv CLIENT_CERT 0
 reneg-sec 0
 verb 1
-
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
 EOF162
 
-cat <<EOF17> /var/www/openvpn/sun-noload.ovpn
-# JohnFordTV's VPN Premium Script
-# © Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090/AutoScriptDB
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
+cat <<EOF1237> /var/www/openvpn/KaizenSSL.ovpn
+# KaizenVPN Premium Script
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
 dev tun
-proto tcp-client
-setenv FRIENDLY_NAME "Debian VPN WNP"
-remote $IPADDR $OpenVPN_TCP_Port
-remote-cert-tls server
-bind
-float
-mute-replay-warnings
-connect-retry-max 9999
-redirect-gateway def1
-connect-retry 0 1
-resolv-retry infinite
-setenv CLIENT_CERT 0
-persist-tun
-persist-key
-auth-user-pass
-auth none
-auth-nocache
-auth-retry interact
-cipher none
-comp-lzo
-reneg-sec 0
-verb 0
-nice -20
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
-EOF17
-
-cat <<EOF152> /var/www/openvpn/gtmwnp.ovpn
-# JohnFordTV's VPN Premium Script
-# © Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090/AutoScriptDB
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
-# Thanks for using this script, Enjoy Highspeed OpenVPN Service
-client
-dev tun
-proto tcp-client
-setenv FRIENDLY_NAME "Debian VPN WNP"
-remote $IPADDR $OpenVPN_TCP_Port
-nobind
-persist-key
-persist-tun
-comp-lzo
-keepalive 10 120
-tls-client
-remote-cert-tls server
-verb 2
-auth-user-pass
-cipher none
-auth none
-auth-nocache
-auth-retry interact
-connect-retry 0 1
-nice -20
-reneg-sec 0
-redirect-gateway def1
-setenv CLIENT_CERT 0
-dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
-http-proxy $IPADDR $Privoxy_Port1
-http-proxy-option VERSION 1.1
-http-proxy-option CUSTOM-HEADER Host www.googleapis.com
-http-proxy-option CUSTOM-HEADER X-Forwarded-For www.googleapis.com
-
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
-EOF152
-
-cat <<EOF1152> /var/www/openvpn/gtmsns.ovpn
-# JohnFordTV's VPN Premium Script
-# © Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090/AutoScriptDB
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
-# Thanks for using this script, Enjoy Highspeed OpenVPN Service
-client
-dev tun
-proto tcp-client
-setenv FRIENDLY_NAME "Debian VPN SNS"
-remote $IPADDR $OpenVPN_TCP_Port
+proto tcp
+setenv FRIENDLY_NAME "Debian VPN"
+remote 127.0.0.1 $OpenVPN_TCP_Port
+route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
 persist-tun
@@ -868,73 +806,32 @@ connect-retry 0 1
 nice -20
 reneg-sec 0
 redirect-gateway def1
-setenv CLIENT_CERT 0
 dhcp-option DNS 1.1.1.1
 dhcp-option DNS 1.0.0.1
-http-proxy $IPADDR $Privoxy_Port1
-http-proxy-option CUSTOM-HEADER CONNECT HTTP/1.0
-http-proxy-option CUSTOM-HEADER Host shopee.ph
-http-proxy-option CUSTOM-HEADER X-Online-Host shopee.ph
-http-proxy-option CUSTOM-HEADER X-Forward-Host shopee.ph
-http-proxy-option CUSTOM-HEADER Connection Keep-Alive
-
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-EOF1152
+EOF1237
 
-cat <<EOF1632> /var/www/openvpn/suntu-dns.ovpn
-# JohnFordTV's VPN Premium Script
-# © Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090/AutoScriptDB
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
-# Thanks for using this script, Enjoy Highspeed OpenVPN Service
-client
-dev tun
-proto tcp-client
-setenv FRIENDLY_NAME "Debian VPN SUN"
-remote $IPADDR $OpenVPN_TCP_Port
-nobind
-persist-key
-persist-tun
-comp-lzo
-keepalive 10 120
-tls-client
-remote-cert-tls server
-verb 2
-auth-user-pass
-cipher none
-auth none
-auth-nocache
-auth-retry interact
-connect-retry 0 1
-nice -20
-reneg-sec 0
-redirect-gateway def1
-setenv CLIENT_CERT 0
-dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
-http-proxy $IPADDR 3356
-http-proxy-option CUSTOM-HEADER ""
-http-proxy-option CUSTOM-HEADER "POST https://viber.com HTTP/1.1"
-http-proxy-option CUSTOM-HEADER "X-Forwarded-For: viber.com"
-
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
-EOF1632
+cat <<EOF1427> /var/www/openvpn/stunnel.conf
+client = yes
+debug = 6
+[openvpn]
+accept = 127.0.0.1:110
+connect = $IPADDR:587
+TIMEOUTclose = 0
+verify = 0
+sni = www.utv3.com
+EOF1427
 
  # Creating OVPN download site index.html
 cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Simple OVPN Download site by JohnFordTV -->
+<!-- Simple OVPN Download site by KaizenVPN -->
 
-<head><meta charset="utf-8" /><title>JohnFordTV OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://openvpn.net/wp-content/uploads/openvpn.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Config List</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Sun <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> UDP Server For TU/CTC/CTU Promos</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-tuudp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Sun <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> TCP+Proxy Server For TU/CTC/CTU Promos</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-tuudp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Globe/TM <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> For EasySURF/GoSURF/GoSAKTO Promos with WNP,SNS,FB and IG freebies</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/gtmwnp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Sun <span class="badge light-blue darken-4">Modem</span><br /><small> Without Promo/Noload (Reconnecting Server, Use Low-latency VPS for fast reconnectivity)</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-noload.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
+<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://openvpn.net/wp-content/uploads/openvpn.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Config List</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For TCP <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> UDP Server For TU/CTC/CTU Promos</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-tuudp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Sun <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> TCP+Proxy Server For TU/CTC/CTU Promos</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-tuudp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Globe/TM <span class="badge light-blue darken-4">Android/iOS/PC/Modem</span><br /><small> For EasySURF/GoSURF/GoSAKTO Promos with WNP,SNS,FB and IG freebies</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/gtmwnp.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>For Sun <span class="badge light-blue darken-4">Modem</span><br /><small> Without Promo/Noload (Reconnecting Server, Use Low-latency VPS for fast reconnectivity)</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/sun-noload.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
  
  # Setting template's correct name,IP address and nginx Port
@@ -964,12 +861,12 @@ function ConfStartup(){
  echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
- rm -rf /etc/johnfordtv
- mkdir -p /etc/johnfordtv
- chmod -R 755 /etc/johnfordtv
+ rm -rf /etc/KaizenVPN
+ mkdir -p /etc/KaizenVPN
+ chmod -R 755 /etc/KaizenVPN
  
  # Creating startup script using cat eof tricks
- cat <<'EOFSH' > /etc/johnfordtv/startup.sh
+ cat <<'EOFSH' > /etc/KaizenVPN/startup.sh
 #!/bin/bash
 # Setting server local time
 ln -fs /usr/share/zoneinfo/MyVPS_Time /etc/localtime
@@ -987,33 +884,33 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/sbin/delete_expired &> /dev/null
 exit 0
 EOFSH
- chmod +x /etc/johnfordtv/startup.sh
+ chmod +x /etc/KaizenVPN/startup.sh
  
  # Setting server local time every time this machine reboots
- sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/johnfordtv/startup.sh
+ sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/KaizenVPN/startup.sh
 
  # 
  rm -rf /etc/sysctl.d/99*
 
  # Setting our startup script to run every machine boots 
- cat <<'FordServ' > /etc/systemd/system/johnfordtv.service
+ cat <<'KaizenServ' > /etc/systemd/system/KaizenVPN.service
 [Unit]
-Description=JohnfordTV Startup Script
+Description=KaizenVPN Startup Script
 Before=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /etc/johnfordtv/startup.sh
+ExecStart=/bin/bash /etc/KaizenVPN/startup.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-FordServ
- chmod +x /etc/systemd/system/johnfordtv.service
+KaizenServ
+ chmod +x /etc/systemd/system/KaizenVPN.service
  systemctl daemon-reload
- systemctl start johnfordtv
- systemctl enable johnfordtv &> /dev/null
+ systemctl start KaizenVPN
+ systemctl enable KaizenVPN &> /dev/null
  systemctl enable fail2ban &> /dev/null
  systemctl start fail2ban &> /dev/null
 
@@ -1024,14 +921,14 @@ FordServ
 }
  #Create Admin
  useradd admin
- echo "admin:itangsagli" | chpasswd
+ echo "admin:admin" | chpasswd
 
 function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
 cd /usr/local/sbin/
 rm -rf {accounts,base-ports,base-ports-wc,base-script,bench-network,clearcache,connections,create,create_random,create_trial,delete_expired,diagnose,edit_dropbear,edit_openssh,edit_openvpn,edit_ports,edit_squid3,edit_stunnel4,locked_list,menu,options,ram,reboot_sys,reboot_sys_auto,restart_services,server,set_multilogin_autokill,set_multilogin_autokill_lib,show_ports,speedtest,user_delete,user_details,user_details_lib,user_extend,user_list,user_lock,user_unlock}
-wget -q 'https://github.com/johndesu090/AutoScriptDB/raw/master/Files/Menu/bashmenu.zip'
+wget -q 'https://github.com/Apeachsan91/vps/raw/master/bashmenu.zip'
 unzip -qq bashmenu.zip
 rm -f bashmenu.zip
 chmod +x ./*
@@ -1044,7 +941,7 @@ cd ~
 function ScriptMessage(){
  echo -e " (｡◕‿◕｡) $MyScriptName VPS Installer"
  echo -e ""
- echo -e " Script by JohnFordTV"
+ echo -e " Script by KaizenVPN"
  echo -e ""
 }
 
@@ -1114,17 +1011,6 @@ fi
  # Some assistance and startup scripts
  ConfStartup
 
- ## DNS maker plugin for SUN users(for vps script usage only)
- wget -qO dnsmaker "https://raw.githubusercontent.com/Bonveio/BonvScripts/master/DNSMaster/debian"
- chmod +x dnsmaker
- ./dnsmaker
- rm -rf dnsmaker
- sed -i "s|http-proxy $IPADDR|http-proxy $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/suntu-dns.ovpn
- sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/sun-tuudp.ovpn
- curl -4sSL "$(cat /tmp/abonv_mydns_domain)" &> /dev/null
- mv /tmp/abonv_mydns /etc/bonveio/my_domain_name
- mv /tmp/abonv_mydns_id /etc/bonveio/my_domain_id
- rm -rf /tmp/abonv*
 
  # VPS Menu script v1.0
  ConfMenu
@@ -1135,12 +1021,27 @@ fi
  clear
  cd ~
  
-  # Running screenfetch
- wget -O /usr/bin/screenfetch "https://raw.githubusercontent.com/johndesu090/AutoScriptDB/master/Files/Plugins/screenfetch"
- chmod +x /usr/bin/screenfetch
- echo "/bin/bash /etc/openvpn/openvpn.bash" >> .profile
- echo "clear" >> .profile
- echo "screenfetch" >> .profile
+#Install Figlet
+apt-get install figlet
+apt-get install cowsay fortune-mod
+ln -s /usr/games/cowsay /bin
+ln -s /usr/games/fortune /bin
+echo "clear" >> .bashrc
+echo 'echo -e ""' >> .bashrc
+echo 'echo -e ""' >> .bashrc
+echo 'cowsay -f dragon "SELAMAT DATANG BOSKU."' >> .bashrc
+echo 'figlet -k AUTOSCRIPT' >> .bashrc
+echo 'echo -e ""' >> .bashrc
+echo 'echo -e "     ========================================================="' >> .bashrc
+echo 'echo -e "     *                  WELCOME TO VPS SERVER                 *"' >> .bashrc
+echo 'echo -e "     ========================================================="' >> .bashrc
+echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
+echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
+echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
+echo 'echo -e "     ========================================================="' >> .bashrc
+echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
+echo 'echo -e "     ========================================================="' >> .bashrc
+echo 'echo -e ""' >> .bashrc
 
  
  # Showing script's banner message
@@ -1151,18 +1052,19 @@ echo " "
 echo "Installation has been completed!!"
 echo "--------------------------------------------------------------------------------"
 echo "                            Debian Premium Script                               "
-echo "                                 -FordSenpai-                                   "
+echo "                                 -KaizenVPN-                                    "
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
-echo "Server Information"  | tee -a log-install.txt
-echo "   - Timezone    : Asia/Manila (GMT +8)"  | tee -a log-install.txt
+echo "Maklumat Server"  | tee -a log-install.txt
+echo "   - Timezone    : Asia/Kuala_Lumpur (GMT +8)"  | tee -a log-install.txt
 echo "   - Fail2Ban    : [ON]"  | tee -a log-install.txt
 echo "   - IPtables    : [ON]"  | tee -a log-install.txt
 echo "   - Auto-Reboot : [ON]"  | tee -a log-install.txt
 echo "   - IPv6        : [OFF]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "Application & Port Information"  | tee -a log-install.txt
+echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
+echo "   - OpenVPN SSL		: TCP $OpenVPN_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1, $SSH_Port2 "  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
@@ -1171,11 +1073,11 @@ echo "   - Squid ELITE	: $Squid_Port3 (limit to IP Server)"  | tee -a log-instal
 echo "   - Privoxy		: $Privoxy_Port1 , $Privoxy_Port2 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "Premium Script Information"  | tee -a log-install.txt
+echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "   To display list of commands: menu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "Important Information"  | tee -a log-install.txt
+echo "Maklumat Penting"  | tee -a log-install.txt
 echo "   - Installation Log        : cat /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "   - Webmin                  : http://$IPADDR:10000/"  | tee -a log-install.txt
@@ -1183,14 +1085,12 @@ echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "OpenVPN Configs Download"  | tee -a log-install.txt
 echo "   - Download Link           : http://$IPADDR:85/configs.zip"  | tee -a log-install.txt
-echo " ©JohnFordTV"  | tee -a log-install.txt
-echo " Facebook: https://fb.me/johndesu090"  | tee -a log-install.txt
+echo " ©KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " This script is under project of https://github.com/johndesu090/AutoScriptDB"  | tee -a log-install.txt
-echo " Please Reboot your VPS"
+echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
  # Clearing all logs from installation
  rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
 
-rm -f DB*
+rm -f deb9-10*
 exit 1
