@@ -1066,7 +1066,7 @@ echo 'cowsay -f dragon "SELAMAT DATANG BOSKU."' >> .bashrc
 echo 'figlet -k AUTOSCRIPT' >> .bashrc
 echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                  WELCOME TO VPS SERVER                 *"' >> .bashrc
+echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
