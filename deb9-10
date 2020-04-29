@@ -1079,18 +1079,22 @@ echo " "
 echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS anda!"
 echo " "
 echo "--------------------------------------------------------------------------------"
-echo "                            Debian Premium Script                               "
-echo "                                 -KaizenVPN-                                    "
+echo "*                            Debian Premium Script                             *"
+echo "*                                 -KaizenVPN-                                 *"
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
+echo "---------------"  | tee -a log-install.txt
 echo "Maklumat Server"  | tee -a log-install.txt
+echo "---------------"  | tee -a log-install.txt
 echo "   - Timezone    : Asia/Kuala_Lumpur (GMT +8)"  | tee -a log-install.txt
 echo "   - Fail2Ban    : [ON]"  | tee -a log-install.txt
 echo "   - IPtables    : [ON]"  | tee -a log-install.txt
 echo "   - Auto-Reboot : [ON]"  | tee -a log-install.txt
 echo "   - IPv6        : [OFF]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
+echo "---------------------------"  | tee -a log-install.txt
 echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
+echo "---------------------------"  | tee -a log-install.txt
 echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
 echo "   - OpenVPN SSL	: TCP $OpenVPN_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1, $SSH_Port2 "  | tee -a log-install.txt
@@ -1100,19 +1104,22 @@ echo "   - Squid Proxy	: $Squid_Port1 , $Squid_Port2 (limit to IP Server)"  | te
 echo "   - Squid ELITE	: $Squid_Port3 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 , $Privoxy_Port2 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo ""  | tee -a log-install.txt
-echo "Maklumat Premium Script"  | tee -a log-install.txt
-echo "Untuk menampulkan senarai menu: mainmenu"  | tee -a log-install.txt
-echo ""  | tee -a log-install.txt
-echo ""  | tee -a log-install.txt
+echo "----------------"  | tee -a log-install.txt
 echo "Maklumat Penting"  | tee -a log-install.txt
+echo "----------------"  | tee -a log-install.txt
 echo "   - Installation Log    : cat /root/log-install.txt"  | tee -a log-install.txt
 echo "   - Webmin              : http://$IPADDR:10000/"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo ""  | tee -a log-install.txt
+echo "------------------------"  | tee -a log-install.txt
 echo "OpenVPN Configs Download"  | tee -a log-install.txt
+echo "------------------------"  | tee -a log-install.txt
 echo " Download Link Web        :http://$IPADDR:$OvpnDownload_Port" | tee -a log-install.txt
 echo " Download Link Direct     : http://$IPADDR:85/configs.zip"  | tee -a log-install.txt
+echo ""  | tee -a log-install.txt
+echo "-----------------------"  | tee -a log-install.txt
+echo "Maklumat Premium Script"  | tee -a log-install.txt
+echo "-----------------------"  | tee -a log-install.txt
+echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo " Copyright by ©KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
