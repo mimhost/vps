@@ -763,8 +763,8 @@ tls-client
 remote-cert-tls server
 verb 3
 auth-user-pass
-auth SHA256
-cipher AES-128-GCM
+auth SHA512
+cipher AES-256-CBC
 auth-nocache
 auth-retry interact
 connect-retry 0 1
@@ -795,8 +795,8 @@ persist-key
 persist-remote-ip
 persist-tun
 auth-user-pass
-auth SHA256
-cipher AES-128-GCM
+auth SHA512
+cipher AES-256-CBC
 auth-nocache
 comp-lzo
 redirect-gateway def1
@@ -826,8 +826,8 @@ tls-client
 remote-cert-tls server
 verb 3
 auth-user-pass
-auth SHA256
-cipher AES-128-GCM
+auth SHA512
+cipher AES-256-CBC
 auth-nocache
 auth-retry interact
 connect-retry 0 1
