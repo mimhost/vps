@@ -763,8 +763,8 @@ tls-client
 remote-cert-tls server
 verb 3
 auth-user-pass
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 auth-nocache
 auth-retry interact
 connect-retry 0 1
@@ -772,6 +772,7 @@ reneg-sec 0
 redirect-gateway def1
 dhcp-option DNS 1.1.1.1
 dhcp-option DNS 1.0.0.1
+setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
@@ -785,7 +786,6 @@ dev tun
 proto udp
 setenv FRIENDLY_NAME "Debian VPN"
 remote $IPADDR $OpenVPN_UDP_Port
-http-proxy $IPADDR $Squid_Port1
 remote-cert-tls server
 resolv-retry infinite
 float
@@ -795,12 +795,13 @@ persist-key
 persist-remote-ip
 persist-tun
 auth-user-pass
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 auth-nocache
 comp-lzo
 redirect-gateway def1
 setenv CLIENT_CERT 0
+setenv opt block-outside-dns 
 reneg-sec 0
 verb 1
 <ca>
@@ -826,8 +827,8 @@ tls-client
 remote-cert-tls server
 verb 3
 auth-user-pass
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 auth-nocache
 auth-retry interact
 connect-retry 0 1
@@ -836,6 +837,7 @@ reneg-sec 0
 redirect-gateway def1
 dhcp-option DNS 1.1.1.1
 dhcp-option DNS 1.0.0.1
+setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
