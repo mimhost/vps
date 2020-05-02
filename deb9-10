@@ -6,14 +6,12 @@ MyScriptName='KaizenVPN-DEB9&10 Script'
 
 # OpenSSH Ports
 SSH_Port1='22'
-SSH_Port2='226'
 
 # Your SSH Banner
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='445'
-Dropbear_Port2='442'
+Dropbear_Port1='442'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -21,17 +19,16 @@ Stunnel_Port2='444' # through OpenSSH
 OpenVPN_TCP_Port2='587' # through OpenVPN
 
 # OpenVPN Ports
-OpenVPN_TCP_Port='110'
+OpenVPN_TCP_Port='465'
 OpenVPN_UDP_Port='25222'
 
 # Privoxy Ports
-Privoxy_Port1='3356'
-Privoxy_Port2='8086'
+Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='3355'
-Squid_Port2='8085'
-Squid_Port3='60000'
+Squid_Port1='8000'
+Squid_Port2='8080'
+Squid_Port3='3128'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -111,7 +108,6 @@ function InstSSH(){
  cat <<'MySSHConfig' > /etc/ssh/sshd_config
 # My OpenSSH Server config
 Port myPORT1
-Port myPORT2
 AddressFamily inet
 ListenAddress 0.0.0.0
 HostKey /etc/ssh/ssh_host_rsa_key
@@ -136,7 +132,6 @@ MySSHConfig
 
  # Now we'll put our ssh ports inside of sshd_config
  sed -i "s|myPORT1|$SSH_Port1|g" /etc/ssh/sshd_config
- sed -i "s|myPORT2|$SSH_Port2|g" /etc/ssh/sshd_config
 
  # Download our SSH Banner
  rm -f /etc/banner
@@ -174,7 +169,6 @@ MyDropbear
 
  # Now changing our desired dropbear ports
  sed -i "s|PORT01|$Dropbear_Port1|g" /etc/default/dropbear
- sed -i "s|PORT02|$Dropbear_Port2|g" /etc/default/dropbear
  
  # Restarting dropbear service
  systemctl restart dropbear
@@ -575,7 +569,6 @@ logdir /var/log/privoxy
 filterfile default.filter
 logfile logfile
 listen-address 0.0.0.0:Privoxy_Port1
-listen-address 0.0.0.0:Privoxy_Port2
 toggle 1
 enable-remote-toggle 0
 enable-remote-http-toggle 0
@@ -598,7 +591,6 @@ privoxy
  
  # Setting privoxy ports
  sed -i "s|Privoxy_Port1|$Privoxy_Port1|g" /etc/privoxy/config
- sed -i "s|Privoxy_Port2|$Privoxy_Port2|g" /etc/privoxy/config
 
  # Removing Duplicate Squid config
  rm -rf /etc/squid/squid.con*
@@ -847,7 +839,7 @@ cat <<EOF1427> /var/www/openvpn/stunnel.conf
 client = yes
 debug = 6
 [openvpn]
-accept = 127.0.0.1:110
+accept = 127.0.0.1:465
 connect = $IPADDR:587
 TIMEOUTclose = 0
 verify = 0
@@ -1107,12 +1099,12 @@ echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
 echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
 echo "   - OpenVPN SSL	: TCP $OpenVPN_TCP_Port2 "  | tee -a log-install.txt
-echo "   - OpenSSH		: $SSH_Port1, $SSH_Port2 "  | tee -a log-install.txt
-echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
+echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
+echo "   - Dropbear		: $Dropbear_Port1"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
 echo "   - Squid Proxy	: $Squid_Port1 , $Squid_Port2 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Squid ELITE	: $Squid_Port3 (limit to IP Server)"  | tee -a log-install.txt
-echo "   - Privoxy		: $Privoxy_Port1 , $Privoxy_Port2 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "----------------"  | tee -a log-install.txt
 echo "Maklumat Penting"  | tee -a log-install.txt
