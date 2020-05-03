@@ -979,7 +979,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "
 echo "--------------------------------------------------------------------------------"
 echo "*                            Debian Premium Script                             *"
-echo "*                                 -KaizenVPN-                                 *"
+echo "*                                 -KaizenVPN-                                  *"
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
