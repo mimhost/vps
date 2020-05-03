@@ -228,7 +228,6 @@ MyStunnelC
 
  # Restarting stunnel service
  systemctl restart $StunnelDir
-
 }
 
 function InsOpenVPN(){
