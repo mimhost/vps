@@ -3,7 +3,6 @@
 # Script name
 MyScriptName='KaizenVPN-DEB9&10 Script'
 
-
 # OpenSSH Ports
 SSH_Port1='22'
 
@@ -79,7 +78,7 @@ function InstUpdates(){
  echo "deb http://build.openvpn.net/debian/openvpn/stable $(lsb_release -sc) main" > /etc/apt/sources.list.d/openvpn.list
  wget -qO - http://build.openvpn.net/debian/openvpn/stable/pubkey.gpg|apt-key add -
  apt-get update
- apt-get install openvpn -y
+ apt-get install openvpn easy-rsa -y
 }
 
 function InstWebmin(){
@@ -240,9 +239,46 @@ function InsOpenVPN(){
 
  # Removing all existing openvpn server files
  rm -rf /etc/openvpn/*
+ 
+  # Creating server.conf, ca.crt, server.crt and server.key
+cp -r /usr/share/easy-rsa/ /etc/openvpn
+mkdir /etc/openvpn/easy-rsa/keys
+sed -i 's|export KEY_COUNTRY="MY"|export KEY_COUNTRY="MY"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_PROVINCE="SBH"|export KEY_PROVINCE="Sabah"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_CITY="Kota Kinabalu"|export KEY_CITY="Kota Kinabalu"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_ORG="KaizenVPN"|export KEY_ORG="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_EMAIL="hazboyz@gmail.com"|export KEY_EMAIL="hazboyz@gmail.com"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU="KaizenVPN"|export KEY_OU="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
+sed -i 's|export KEY_OU=changeme|export KEY_OU=KaizenVPN|' /etc/openvpn/easy-rsa/vars
 
- # Creating server.conf, ca.crt, server.crt and server.key
- cat <<'myOpenVPNconf' > /etc/openvpn/server_tcp.conf
+# Create Diffie-Helman Pem
+openssl dhparam -out /etc/openvpn/dh.pem 1024
+
+# Create PKI
+cd /etc/openvpn/easy-rsa
+cp openssl-1.0.0.cnf openssl.cnf
+. ./vars
+./clean-all
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool" --initca $*
+
+# Create key server
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool" --server server
+
+# Setting KEY CN
+export EASY_RSA="${EASY_RSA:-.}"
+"$EASY_RSA/pkitool" client
+
+# cp /etc/openvpn/easy-rsa/keys/{server.crt,server.key,ca.crt} /etc/openvpn
+cd
+cp /etc/openvpn/easy-rsa/keys/server.crt /etc/openvpn/server.crt
+cp /etc/openvpn/easy-rsa/keys/server.key /etc/openvpn/server.key
+cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
+chmod +x /etc/openvpn/ca.crt
+
+  cat <<'myOpenVPNconf' > /etc/openvpn/server_tcp.conf
 # My OpenVPN 
 port MyOvpnPort
 dev tun
@@ -328,46 +364,14 @@ push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 myOpenVPNconf2
 
-cp -r /usr/share/easy-rsa/ /etc/openvpn
-mkdir /etc/openvpn/easy-rsa/keys
-sed -i 's|export KEY_COUNTRY="MY"|export KEY_COUNTRY="MY"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_PROVINCE="SBH"|export KEY_PROVINCE="Sabah"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_CITY="Kota Kinabalu"|export KEY_CITY="Kota Kinabalu"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_ORG="KaizenVPN"|export KEY_ORG="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_EMAIL="hazboyz@gmail.com"|export KEY_EMAIL="hazboyz@gmail.com"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU="KaizenVPN"|export KEY_OU="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_NAME="EasyRSA"|export KEY_NAME="KaizenVPN"|' /etc/openvpn/easy-rsa/vars
-sed -i 's|export KEY_OU=changeme|export KEY_OU=KaizenVPN|' /etc/openvpn/easy-rsa/vars
-
-# Create Diffie-Helman Pem
-openssl dhparam -out /etc/openvpn/dh.pem 2048
-
-# Create PKI
-cd /etc/openvpn/easy-rsa
-cp openssl-1.0.0.cnf openssl.cnf
-. ./vars
-./clean-all
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --initca $*
-
-# Create key server
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" --server server
-
-# Setting KEY CN
-export EASY_RSA="${EASY_RSA:-.}"
-"$EASY_RSA/pkitool" client
-
-# cp /etc/openvpn/easy-rsa/keys/{server.crt,server.key,ca.crt} /etc/openvpn
-cd
-cp /etc/openvpn/easy-rsa/keys/server.crt /etc/openvpn/server.crt
-cp /etc/openvpn/easy-rsa/keys/server.key /etc/openvpn/server.key
-cp /etc/openvpn/easy-rsa/keys/ca.crt /etc/openvpn/ca.crt
-chmod +x /etc/openvpn/ca.crt
-
  # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
  grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
 	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server_tcp.conf
+done
+
+ # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
+ grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
+	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server.conf
 done
 
  # Creating a New update message in server.conf
@@ -391,32 +395,25 @@ done
  # executed/raised from this script (OpenVPN_TCP_Port/OpenVPN_UDP_Port)
  #
  # Enjoy the new update
- # Script Updated by KaizenVPN
-
-NUovpn
-
+ NUovpn
  # setting openvpn server port
- sed -i "s|OVPNTCP|$OpenVPN_TCP_Port|g" /etc/openvpn/server_tcp.conf
- sed -i "s|OVPNUDP|$OpenVPN_UDP_Port|g" /etc/openvpn/server_udp.conf
+ sed -i "s|MyOvpnPort|$OpenVPN_TCP_Port|g" /etc/openvpn/server_tcp.conf
+ sed -i "s|MyOvpnPort|$OpenVPN_UDP_Port|g" /etc/openvpn/server_udp.conf 
  
  # Getting some OpenVPN plugins for unix authentication
- cd
- wget https://github.com/Apeachsan91/vps/raw/master/plugin.tgz
- tar -xzvf /root/plugin.tgz -C /etc/openvpn/
- rm -f plugin.tgz
+ wget -qO /etc/openvpn/b.zip 'https://github.com/Apeachsan91/vps/raw/master/plugin.tgz'
+ unzip -qq /etc/openvpn/b.zip -d /etc/openvpn
+ rm -f /etc/openvpn/b.zip
  
- # Some workaround for OpenVZ machines for "Startup error" openvpn service
+# Some workaround for OpenVZ machines for "Startup error" openvpn service
  if [[ "$(hostnamectl | grep -i Virtualization | awk '{print $2}' | head -n1)" == 'openvz' ]]; then
  sed -i 's|LimitNPROC|#LimitNPROC|g' /lib/systemd/system/openvpn*
  systemctl daemon-reload
 fi
-
  # Allow IPv4 Forwarding
  sed -i '/net.ipv4.ip_forward.*/d' /etc/sysctl.conf
- sed -i '/net.ipv4.ip_forward.*/d' /etc/sysctl.d/*.conf
  echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/20-openvpn.conf
  sysctl --system &> /dev/null
-
  # Iptables Rule for OpenVPN server
  cat <<'EOFipt' > /etc/openvpn/openvpn.bash
 #!/bin/bash
@@ -431,24 +428,26 @@ iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
-
+ 
  # Enabling IPv4 Forwarding
  echo 1 > /proc/sys/net/ipv4/ip_forward
  
- # Starting OpenVPN server
+  # Starting OpenVPN server
  systemctl start openvpn@server_tcp
  systemctl enable openvpn@server_tcp
  systemctl start openvpn@server_udp
  systemctl enable openvpn@server_udp
-
+ 
+ # Pulling OpenVPN no internet fixer script
+ wget -qO /etc/openvpn/openvpn.bash "https://raw.githubusercontent.com/Apeachsan91/vps/master/openvpn.bash"
+ chmod +x /etc/openvpn/openvpn.bash
 }
 function InsProxy(){
-
  # Removing Duplicate privoxy config
  rm -rf /etc/privoxy/config*
  
  # Creating Privoxy server config using cat eof tricks
- cat <<'privoxy' > /etc/privoxy/config
+ cat <<'myPrivoxy' > /etc/privoxy/config
 # My Privoxy Server Config
 user-manual /usr/share/doc/privoxy/user-manual
 confdir /etc/privoxy
@@ -471,16 +470,16 @@ keep-alive-timeout 5
 tolerate-pipelining 1
 socket-timeout 300
 permit-access 0.0.0.0/0 IP-ADDRESS
-privoxy
+myPrivoxy
 
  # Setting machine's IP Address inside of our privoxy config(security that only allows this machine to use this proxy server)
  sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/privoxy/config
  
  # Setting privoxy ports
  sed -i "s|Privoxy_Port1|$Privoxy_Port1|g" /etc/privoxy/config
-
+ 
  # Removing Duplicate Squid config
- rm -rf /etc/squid/squid.con*
+ rm -rf /etc/squid/squid.conf*
  
  #install PPTP
 apt-get -y install pptpd
@@ -514,89 +513,30 @@ mkdir /var/lib/premium-script
 acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all 
-http_port 0.0.0.0:Squid_Port1
-http_port 0.0.0.0:Squid_Port2
-http_port 0.0.0.0:Squid_Port3
-### Allow Headers
-request_header_access Allow allow all 
-request_header_access Authorization allow all 
-request_header_access WWW-Authenticate allow all 
-request_header_access Proxy-Authorization allow all 
-request_header_access Proxy-Authenticate allow all 
-request_header_access Cache-Control allow all 
-request_header_access Content-Encoding allow all 
-request_header_access Content-Length allow all 
-request_header_access Content-Type allow all 
-request_header_access Date allow all 
-request_header_access Expires allow all 
-request_header_access Host allow all 
-request_header_access If-Modified-Since allow all 
-request_header_access Last-Modified allow all 
-request_header_access Location allow all 
-request_header_access Pragma allow all 
-request_header_access Accept allow all 
-request_header_access Accept-Charset allow all 
-request_header_access Accept-Encoding allow all 
-request_header_access Accept-Language allow all 
-request_header_access Content-Language allow all 
-request_header_access Mime-Version allow all 
-request_header_access Retry-After allow all 
-request_header_access Title allow all 
-request_header_access Connection allow all 
-request_header_access Proxy-Connection allow all 
-request_header_access User-Agent allow all 
-request_header_access Cookie allow all 
-request_header_access All deny all
-### HTTP Anonymizer Paranoid
-reply_header_access Allow allow all 
-reply_header_access Authorization allow all 
-reply_header_access WWW-Authenticate allow all 
-reply_header_access Proxy-Authorization allow all 
-reply_header_access Proxy-Authenticate allow all 
-reply_header_access Cache-Control allow all 
-reply_header_access Content-Encoding allow all 
-reply_header_access Content-Length allow all 
-reply_header_access Content-Type allow all 
-reply_header_access Date allow all 
-reply_header_access Expires allow all 
-reply_header_access Host allow all 
-reply_header_access If-Modified-Since allow all 
-reply_header_access Last-Modified allow all 
-reply_header_access Location allow all 
-reply_header_access Pragma allow all 
-reply_header_access Accept allow all 
-reply_header_access Accept-Charset allow all 
-reply_header_access Accept-Encoding allow all 
-reply_header_access Accept-Language allow all 
-reply_header_access Content-Language allow all 
-reply_header_access Mime-Version allow all 
-reply_header_access Retry-After allow all 
-reply_header_access Title allow all 
-reply_header_access Connection allow all 
-reply_header_access Proxy-Connection allow all 
-reply_header_access User-Agent allow all 
-reply_header_access Cookie allow all 
-reply_header_access All deny all
-### CoreDump
+http_port Squid_Port1
+http_port Squid_Port2
+http_port Squid_Port3
 coredump_dir /var/spool/squid
 dns_nameservers 8.8.8.8 8.8.4.4
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname KaizenVPN
+visible_hostname MyScriptName
 mySquid
 
- # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
+# Setting machine's IP Address inside of our squid config(security that only allows this machine to use this proxy server)
  sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/squid/squid.conf
  
  # Setting squid ports
  sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
  sed -i "s|Squid_Port2|$Squid_Port2|g" /etc/squid/squid.conf
  sed -i "s|Squid_Port3|$Squid_Port3|g" /etc/squid/squid.conf
+ sed -i "s|MyScriptName|$MyScriptName|g" /etc/squid/squid.conf
 
- # Starting Proxy server
- echo -e "Restarting proxy server..."
+# Starting Proxy server
+ echo -e "Restarting proxy server.."
+ systemctl restart privoxy
  systemctl restart squid
 }
 
@@ -624,7 +564,7 @@ myNginxC
 
  # Now creating all of our OpenVPN Configs 
  
-cat <<EOF16> /var/www/openvpn/KaizenTCP.ovpn
+cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
 # KaizenVPN Premium Script
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
@@ -662,7 +602,7 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-EOF16
+EOF17
  
 cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
 # KaizenVPN Premium Script
@@ -688,11 +628,10 @@ auth-nocache
 cipher none
 keysize 0
 comp-lzo
-redirect-gateway def1
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
 reneg-sec 0
-verb 1
+verb 3
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
@@ -746,7 +685,7 @@ EOF1427
  # Creating OVPN download site index.html
 cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
 
 <!-- Simple OVPN Download site by KaizenVPN -->
 
@@ -754,6 +693,7 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 mySiteOvpn
  
  # Setting template's correct name,IP address and nginx Port
+ sed -i "s|MyScriptName|$MyScriptName|g" /var/www/openvpn/index.html
  sed -i "s|NGINXPORT|$OvpnDownload_Port|g" /var/www/openvpn/index.html
  sed -i "s|IP-ADDRESS|$IPADDR|g" /var/www/openvpn/index.html
 
