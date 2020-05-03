@@ -375,7 +375,7 @@ done
 done
 
  # Creating a New update message in server.conf
- cat <<'NUovpn' > /etc/openvpn/server.conf
+ cat <<'NUovpn' >> /etc/openvpn/server.conf
  # New Update are now released, OpenVPN Server
  # are now running both TCP and UDP Protocol. (Both are only running on IPv4)
  # But our native server.conf are now removed and divided
