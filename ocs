@@ -69,9 +69,10 @@ function InstUpdates(){
  apt-get autoremove -y
  
  # Installing sury repo by pulling its repository inside sources.list file 
+ apt-get -y install apt-transport-https lsb-release ca-certificates curl
  wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
  sleep 2
- echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+ sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
  apt-get update
  
  # Installing php 5.6
@@ -80,11 +81,11 @@ function InstUpdates(){
 
 function InstMysql(){
  # Installing mysql server
- #apt-get install mariadb-server -y
- wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
- sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
- apt-get update -y
+ #wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
+ #sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+ #apt-get update -y
  apt-get install mysql-server -y
+
  
  # Set Database Permissions
  cd
