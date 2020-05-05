@@ -28,23 +28,6 @@ MyVPS_Time='Asia/Kuala_Lumpur'
 #############################
 #############################
 
-function InstAsk(){
- clear
- echo ""
- echo "I need to ask some questions before starting setup"
- echo "You can leave the default option and just hit enter if you agree with the option"
- echo ""
- echo "First I need to know the new password of MySQL root user:"
- read -p "Password: " -e -i kaizenvpn DatabasePass
- echo ""
- echo "Finally, name the Database Name for OCS Panel"
- echo " Please, use one word only, no special characters other than Underscore (_)"
- read -p " Database Name: " -e -i ocspanel DatabaseName
- echo ""
- echo "Okay, that's all I need. We are ready to setup your OCS Panel now"
- read -n1 -r -p "Press any key to continue..."
-}
-
 function InstUpdates(){
  export DEBIAN_FRONTEND=noninteractive
  apt-get update
