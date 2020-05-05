@@ -1,3 +1,83 @@
+#!/bin/bash
+#KaizenVPN Panel Premium Script
+
+#############################
+#############################
+# Variables (Can be changed depends on your preferred values)
+# Script name
+MyScriptName='KaizenVPN-OCS Script'
+
+# My VPS IP
+MYIP=$(wget -qO- ipv4.icanhazip.com);
+
+
+
+# Server local time
+MyVPS_Time='Asia/Kuala_Lumpur'
+#############################
+#############################
+
+
+#############################
+#############################
+## All function used for this script
+#############################
+## WARNING: Do not modify or edit anything
+## if you did'nt know what to do.
+## This part is too sensitive.
+#############################
+#############################
+
+function InstAsk(){
+ clear
+ echo ""
+ echo "I need to ask some questions before starting setup"
+ echo "You can leave the default option and just hit enter if you agree with the option"
+ echo ""
+ echo "First I need to know the new password of MySQL root user:"
+ read -p "Password: " -e -i kaizenvpn DatabasePass
+ echo ""
+ echo "Finally, name the Database Name for OCS Panel"
+ echo " Please, use one word only, no special characters other than Underscore (_)"
+ read -p " Database Name: " -e -i ocspanel DatabaseName
+ echo ""
+ echo "Okay, that's all I need. We are ready to setup your OCS Panel now"
+ read -n1 -r -p "Press any key to continue..."
+}
+
+function InstUpdates(){
+ export DEBIAN_FRONTEND=noninteractive
+ apt-get update
+ apt-get upgrade -y
+ 
+ # Removing some firewall tools that may affect other services
+ apt-get remove --purge ufw firewalld -y
+ 
+ # Installing some important machine essentials
+ apt-get install nano git wget curl zip unzip tar gzip p7zip-full bc rc openssl cron build-essential expect net-tools screen bzip2 ccrypt lsof -y
+ 
+ # Installing apt-transport-https and needed files
+ apt-get install apt-transport-https lsb-release libdbi-perl libecap3 -y
+
+ # Installing nginx
+ apt-get install nginx -y
+ 
+ # Installing a text colorizer
+ gem install lolcat
+
+ # Trying to remove obsolette packages after installation
+ apt-get autoremove -y
+ 
+ # Installing sury repo by pulling its repository inside sources.list file 
+ wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+ sleep 2
+ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list
+ apt-get update
+ 
+ # Installing php 5.6
+ apt-get install php5.6 php5.6-fpm php5.6-cli php5.6-mbstring php5.6-mysql php5.6-mcrypt php5.6-xml php5.6-ssh2 -y
+}
+
 function InstMysql(){
  # Installing mysql server
  apt-get install mariadb-server -y
