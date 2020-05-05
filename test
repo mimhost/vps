@@ -247,6 +247,3 @@ echo "[DONATION] GCash: 09206200840 Paypal: johnford090@gmail.com " | tee -a log
 echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
-cd ~/
-
-rm DP
