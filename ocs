@@ -80,8 +80,7 @@ function InstUpdates(){
 
 function InstMysql(){
  # Installing mysql server
- apt-get install mysql-server -y
- 
+ apt-get install mariadb-server -y
  
  # Set Database Permissions
  chown -R mysql:mysql /var/lib/mysql/
