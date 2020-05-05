@@ -160,18 +160,6 @@ function InstNginx(){
  service nginx restart
 }
 
- # Setup dir and permissions
- useradd -m panel
- mkdir -p /home/panel/html
- echo "<?php phpinfo() ?>" > /home/panel/html/info.php
- chown -R www-data:www-data /home/panel/html
- chmod -R g+rw /home/panel/html
- 
- # Then restart to take effect
- service php5.6-fpm restart
- service nginx restart
-}
-
 function InstPanel(){
  
  # Pull OCS Source Code
