@@ -1136,8 +1136,8 @@ fi
  cd ~
  
 #Install Figlet
-apt-get install figlet
-apt-get install cowsay fortune-mod
+apt-get install figlet -y
+apt-get install cowsay fortune-mod -y
 ln -s /usr/games/cowsay /bin
 ln -s /usr/games/fortune /bin
 echo "clear" >> .bashrc
