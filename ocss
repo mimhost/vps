@@ -81,8 +81,10 @@ function InstUpdates(){
 
 function InstMysql(){
  # Installing mysql server
-wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+#wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.9-1_all.deb
+#sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.9-1_all.deb
 apt-get update -y
 apt-get install mysql-server -y
 
@@ -155,7 +157,7 @@ function InstNginx(){
  chmod -R g+rw /home/panel/html
  
  # Then restart to take effect
- service php5.7-fpm restart
+ service php5.6-fpm restart
  service nginx restart
 }
 
