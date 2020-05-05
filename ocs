@@ -81,7 +81,6 @@ function InstUpdates(){
 function InstMysql(){
  # Installing mysql server
  #apt-get install mariadb-server -y
- cd /tmp
  wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
  sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
  apt-get update -y
