@@ -141,11 +141,11 @@ function InstNginx(){
  mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
  mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup 
  wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/nginx.conf" 
- wget -O /etc/nginx/conf.d/kaizenvpn.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vpss.conf" 
+ wget -O /etc/nginx/conf.d/kaizenvpn.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vps.conf" 
  rm /etc/php/5.6/fpm/php.ini
  rm /etc/php/5.6/fpm/pool.d/www.conf
- wget -O /etc/php/5.6/fpm/php.ini "https://raw.githubusercontent.com/Apeachsan91/vps/master/phpp.ini" 
- wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/wwww.conf" 
+ wget -O /etc/php/5.6/fpm/php.ini "https://raw.githubusercontent.com/Apeachsan91/vps/master/php.ini" 
+ wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/www.conf" 
  
  # Setup dir and permissions
  useradd -m panel
