@@ -83,11 +83,12 @@ function InstMysql(){
  #apt-get install mariadb-server -y
  cd /tmp
  wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
- sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb -y
+ sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
  apt-get update -y
  apt-get install mysql-server -y
  
  # Set Database Permissions
+ cd
  chown -R mysql:mysql /var/lib/mysql/
  chmod -R 755 /var/lib/mysql/
  
@@ -145,7 +146,7 @@ function InstNginx(){
  wget -O /etc/nginx/conf.d/kaizenvpn.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vpss.conf" 
  rm /etc/php/5.6/fpm/php.ini
  rm /etc/php/5.6/fpm/pool.d/www.conf
-	"https://raw.githubusercontent.com/Apeachsan91/vps/master/phpp.ini" 
+ wget -O /etc/php/5.6/fpm/php.ini "https://raw.githubusercontent.com/Apeachsan91/vps/master/phpp.ini" 
  wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/wwww.conf" 
  
  # Setup dir and permissions
