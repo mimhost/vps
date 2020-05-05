@@ -102,6 +102,7 @@ expect \"\";  sleep 3; send \"Y\r\"
 expect \"\";  sleep 3; send \"n\r\"
 expect \"\";  sleep 3; send \"Y\r\"
 expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"$DatabasePass\r\"
 expect eof; ")
 echo "$so1"
 
