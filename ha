@@ -96,6 +96,7 @@ apt-get install mysql-server -y
 
 mysql -u root -p
 mysql -u root -p
+}
 
 function InstNginx(){
  #modify nginx configs
