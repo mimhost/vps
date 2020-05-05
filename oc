@@ -115,7 +115,7 @@ echo "$so1"
  #Y
 
 mysql -u root -p
-
+mysql -u root -p
 
 function InstNginx(){
  #modify nginx configs
