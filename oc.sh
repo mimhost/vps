@@ -103,38 +103,8 @@ function InstMysql(){
  chmod -R 755 /var/lib/mysql/
  
 mysql_secure_installation
+mysql -u root -p
 
-
- #\r
- #Y
- #password
- #password
- #Y
- #n
- #Y
- #Y
- 
- # Grant privileges on database to root
-so2=$(expect -c "
-spawn mysql -u root -p; sleep 3
-expect \"\";  sleep 3; send \"$DatabasePass\r\"
-expect \"\";  sleep 3; send \"CREATE DATABASE IF NOT EXISTS $DatabaseName;\r\"
-expect \"\";  sleep 3; send \"GRANT ALL PRIVILEGES ON $DatabaseName.* TO 'root'@'localhost';\r\"
-expect \"\";  sleep 3; send \"FLUSH PRIVILEGES;\r\"
-expect \"\";  sleep 3; send \"EXIT;\r\"
-expect eof; ")
-echo "$so2"
-
- # Use MySQL Plugin
- so3=$(expect -c "
-spawn mysql -u root -p; sleep 3
-expect \"\";  sleep 3; send \"$DatabasePass\r\"
-expect \"\";  sleep 3; send \"use mysql;\r\"
-expect \"\";  sleep 3; send \"update user set plugin='' where User='root';\r\"
-expect \"\";  sleep 3; send \"flush privileges;\r\"
-expect \"\";  sleep 3; send \"\q\r\"
-expect eof; ")
-echo "$so3"
 }
 
 function InstNginx(){
