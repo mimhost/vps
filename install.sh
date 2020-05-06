@@ -1138,11 +1138,11 @@ fi
 
 
  #sed -i "s|http-proxy $IPADDR|http-proxy $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/suntu-dns.ovpn
- sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/KaizenUDP.ovpn
- curl -4sSL "$(cat /tmp/abonv_mydns_domain)" &> /dev/null
- mv /tmp/abonv_mydns /etc/KaizenVPN/my_domain_name
- mv /tmp/abonv_mydns_id /etc/KaizenVPN/my_domain_id
- rm -rf /tmp/abonv*
+ #sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/KaizenUDP.ovpn
+ #curl -4sSL "$(cat /tmp/abonv_mydns_domain)" &> /dev/null
+ #mv /tmp/abonv_mydns /etc/KaizenVPN/my_domain_name
+ #mv /tmp/abonv_mydns_id /etc/KaizenVPN/my_domain_id
+ #rm -rf /tmp/abonv*
 
  # VPS Menu script v1.0
  ConfMenu
@@ -1231,7 +1231,7 @@ echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
  # Clearing all logs from installation
- #rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
+rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
 
 rm -f install.sh*
 exit 1
