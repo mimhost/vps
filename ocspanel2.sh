@@ -137,6 +137,7 @@ echo "$so2"
 
 sudo mysql -u root -e "use mysql;update user set plugin='' where User='root';flush privileges;"
 
+}
 function InstNginx(){
  #modify nginx configs
  mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
