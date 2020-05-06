@@ -279,6 +279,5 @@ echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
 cd ~/
-
 rm -f ocs9.sh*
-exit1
+cd
