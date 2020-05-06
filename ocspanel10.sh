@@ -106,7 +106,6 @@ function InstMysql(){
  so1=$(expect -c "
 spawn mysql_secure_installation; sleep 3
 expect \"\";  sleep 3; send \"\r\"
-expect \"\";  sleep 3; send \"Y\r\"
 expect \"\";  sleep 3; send \"$DatabasePass\r\"
 expect \"\";  sleep 3; send \"$DatabasePass\r\"
 expect \"\";  sleep 3; send \"Y\r\"
