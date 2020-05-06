@@ -102,8 +102,18 @@ function InstMysql(){
  chown -R mysql:mysql /var/lib/mysql/
  chmod -R 755 /var/lib/mysql/
  
-mysql_secure_installation
-
+ # mysql_secure_installation
+ so1=$(expect -c "
+spawn mysql_secure_installation; sleep 3
+expect \"\";  sleep 3; send \"n\r\"
+expect \"\";  sleep 3; send \"$DatabasePass\r\"
+expect \"\";  sleep 3; send \"$DatabasePass\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"n\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect \"\";  sleep 3; send \"Y\r\"
+expect eof; ")
+echo "$so1"
 
  #\r
  #Y
@@ -125,17 +135,7 @@ expect \"\";  sleep 3; send \"EXIT;\r\"
 expect eof; ")
 echo "$so2"
 
- # Use MySQL Plugin
- so3=$(expect -c "
-spawn mysql -u root -p; sleep 3
-expect \"\";  sleep 3; send \"$DatabasePass\r\"
-expect \"\";  sleep 3; send \"use mysql;\r\"
-expect \"\";  sleep 3; send \"update user set plugin='' where User='root';\r\"
-expect \"\";  sleep 3; send \"flush privileges;\r\"
-expect \"\";  sleep 3; send \"\q\r\"
-expect eof; ")
-echo "$so3"
-}
+sudo mysql -u root -e "use mysql;update user set plugin='' where User='root';flush privileges;"
 
 function InstNginx(){
  #modify nginx configs
