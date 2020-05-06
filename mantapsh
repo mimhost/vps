@@ -187,15 +187,15 @@ function InstNginx(){
 function InstPanel(){
  
  # Pull OCS Source Code
- wget -O /home/panel/html/okvpn.zip https://github.com/Apeachsan91/vps/raw/master/okvpn.zip
+ wget -O /home/panel/html/okvpn.zip https://github.com/Apeachsan91/vps/raw/master/mantapvpn.zip
  sleep 2
  
  # Change dir to Webroot
  cd /home/panel/html
  
  # Deflate panel and set permissions
- unzip okvpn.zip
- rm -f okvpn.zip
+ unzip mantapvpn.zip
+ rm -f mantapvpn.zip
  
  # Chmod Config
  chmod 777 /home/panel/html/config
