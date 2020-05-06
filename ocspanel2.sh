@@ -302,7 +302,7 @@ fi
  sleep 3
 
 # info
-clear
+#clear
 echo "=======================================================" | tee -a log-install.txt
 echo "OCSPanel is installed at http://$MYIP please proceed installation on your Browser" | tee -a log-install.txt
 echo "" | tee -a log-install.txt
@@ -316,7 +316,7 @@ echo "[DONATION] GCash: 09206200840 Paypal: johnford090@gmail.com " | tee -a log
 echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
-cd ~/
+#cd ~/
 
-rm -f OCSPANEL*
-exit1
+#rm -f OCSPANEL*
+#exit1
