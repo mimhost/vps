@@ -205,12 +205,12 @@ function InstPanel(){
 ### sed -i "s|mydatabase|$DatabaseName|g" /home/panel/html/system/.env
 ###}
 
-function InstHistory(){
+#function InstHistory(){
  # Clear Machine History
- cd
- rm -f /root/.bash_history && history -c
- echo "unset HISTFILE" >> /etc/profile
-}
+ #cd
+ #rm -f /root/.bash_history && history -c
+ #echo "unset HISTFILE" >> /etc/profile
+#}
 
 function ScriptMessage(){
  echo -e " (ï½¡â—•â€¿â—•ï½¡) $MyScriptName"
@@ -290,9 +290,9 @@ fi
 ### InstImpSql
  
  # Clear history
- echo -e "Finalizing Installation..."
- InstHistory
- sleep 5
+ #echo -e "Finalizing Installation..."
+ #InstHistory
+ #sleep 5
  
  # Setting server local time
  ln -fs /usr/share/zoneinfo/$MyVPS_Time /etc/localtime
