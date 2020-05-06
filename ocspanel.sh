@@ -1,30 +1,17 @@
 #!/bin/bash
-# JohnFordTV's Panel Premium Script
-# Â© Github.com/johndesu090
-# Official Repository: https://github.com/johndesu090
-# For Updates, Suggestions, and Bug Reports, Join to my Messenger Groupchat(VPS Owners): https://m.me/join/AbbHxIHfrY9SmoBO
-# For Donations, Im accepting prepaid loads or GCash transactions:
-# Smart: 09206200840
-# Facebook: https://fb.me/johndesu090
-# Thanks for using this script
+# KaizenVPN Panel Premium Script
 
 #############################
 #############################
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='JohnFordTV-OCS Script'
+MyScriptName='KaizenVPN OCS Script'
 
 # My VPS IP
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 
-# Default Password
-#DatabasePass='JohnFordTV'
-
-# Default Database
-#DatabaseName='ocspanel'
-
 # Server local time
-MyVPS_Time='Asia/Manila'
+MyVPS_Time='Asia/Kuala_Lumpur'
 #############################
 #############################
 
@@ -46,11 +33,11 @@ function InstAsk(){
  echo "You can leave the default option and just hit enter if you agree with the option"
  echo ""
  echo "First I need to know the new password of MySQL root user:"
- read -p "Password: " -e -i JohnFordTV DatabasePass
+ read -p "Password: " -e -i kaizenvpn DatabasePass
  echo ""
  echo "Finally, name the Database Name for OCS Panel"
  echo " Please, use one word only, no special characters other than Underscore (_)"
- read -p " Database Name: " -e -i ocspanel DatabaseName
+ read -p " Database Name: " -e -i kaizenocs DatabaseName
  echo ""
  echo "Okay, that's all I need. We are ready to setup your OCS Panel now"
  read -n1 -r -p "Press any key to continue..."
@@ -148,12 +135,12 @@ function InstNginx(){
  #modify nginx configs
  mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.backup 
  mv /etc/nginx/conf.d/vps.conf /etc/nginx/conf.d/vps.conf.backup 
- wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/johndesu090/AutoScriptDeb8/master/Files/Nginx/nginx.conf" 
- wget -O /etc/nginx/conf.d/johnfordtv.conf "https://raw.githubusercontent.com/johndesu090/AutoScriptDeb8/master/Files/Nginx/vps.conf" 
+ wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/nginx.conf" 
+ wget -O /etc/nginx/conf.d/johnfordtv.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vps.conf" 
  rm /etc/php/5.6/fpm/php.ini
  rm /etc/php/5.6/fpm/pool.d/www.conf
-	"https://raw.githubusercontent.com/johndesu090/AutoScriptDeb8/master/Files/Nginx/php.ini" 
- wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/johndesu090/AutoScriptDeb8/master/Files/Nginx/www.conf" 
+	"https://raw.githubusercontent.com/Apeachsan91/vps/master/php.ini" 
+ wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/www.conf" 
  
  # Setup dir and permissions
  useradd -m panel
@@ -170,7 +157,7 @@ function InstNginx(){
 function InstPanel(){
  
  # Pull OCS Source Code
- wget -O /home/panel/html/debianvpn.zip https://raw.githubusercontent.com/johndesu090/johnfordtv/master/debianvpn.zip
+ wget -O /home/panel/html/debianvpn.zip https://github.com/Apeachsan91/vps/raw/master/debianvpn.zip
  sleep 2
  
  # Change dir to Webroot
@@ -210,27 +197,10 @@ function InstHistory(){
 }
 
 function ScriptMessage(){
- echo -e " (ï½¡â—•â€¿â—•ï½¡) $MyScriptName"
+ echo -e " (｡◕‿◕｡) $MyScriptName OCS Installer"
  echo -e ""
- echo -e "FB.COM/johndesu090"
+ echo -e " Script by KaizenVPN"
  echo -e ""
-}
-
-function SetBanner(){
- # Install BashRC Banner
- echo "clear"                                                              >> .bashrc
- echo 'echo -e "\e[0m                                                   "' >> .bashrc
- echo 'echo -e "\e[94m    ::::::::::  ::::::::  :::::::::   ::::::::    "' >> .bashrc
- echo 'echo -e "\e[94m    :+:        :+:    :+: :+:    :+:  :+:   :+:   "' >> .bashrc
- echo 'echo -e "\e[94m    +:+        +:+    +:+ +:+    +:+  +:+   +:+   "' >> .bashrc
- echo 'echo -e "\e[94m    +#+#+#+#:  +#+    +#: +#+ #+#++:  +#+   +:+   "' >> .bashrc
- echo 'echo -e "\e[94m    +#+        +#+    +#+ +#+    +#+  +#+   +#+   "' >> .bashrc
- echo 'echo -e "\e[94m    #+#        #+#    #+# #+#    #+#  #+#   #+#   "' >> .bashrc
- echo 'echo -e "\e[94m    ###         ########  ###    ###  ########    "' >> .bashrc
- echo 'echo -e "\e[91m               Script by  JohnFordTV              "' >> .bashrc
- echo 'echo -e "\e[0m"'                                                    >> .bashrc
- echo 'echo -e "\e[92m             [OCSPANEL PREMIUM SCRIPT]            "' >> .bashrc
- echo 'echo -e "\e[0m                  fb.com/johndesu090               "' >> .bashrc
 }
 
 #############################
@@ -261,8 +231,6 @@ fi
 
  # Begin Installation by Updating and Upgrading machine and then Installing all our wanted packages/services to be install.
  ScriptMessage
- sleep 2
- SetBanner
  sleep 2
  InstAsk
  
@@ -303,17 +271,14 @@ clear
 echo "=======================================================" | tee -a log-install.txt
 echo "OCSPanel is installed at http://$MYIP please proceed installation on your Browser" | tee -a log-install.txt
 echo "" | tee -a log-install.txt
-echo "OCS Script Installer by JohnFordTV"  | tee -a log-install.txt
-echo "        (http://fb.com/johndesu090)         "  | tee -a log-install.txt
+echo "OCS Script Installer by KaizenVPN"  | tee -a log-install.txt
 echo "" | tee -a log-install.txt
 echo "Run This Command on your VPS Terminal After Finishing Installation " | tee -a log-install.txt
 echo "rm -rf /home/panel/html/installation" | tee -a log-install.txt
-echo "" | tee -a log-install.txt
-echo "[DONATION] GCash: 09206200840 Paypal: johnford090@gmail.com " | tee -a log-install.txt
 echo "" | tee -a log-install.txt
 echo "Installation Log --> /root/log-install.txt" | tee -a log-install.txt
 echo "=======================================================" | tee -a log-install.txt
 cd ~/
 
-rm -f OCSPANEL*
+rm -f ocspanel.sh*
 exit1
