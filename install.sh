@@ -1053,7 +1053,20 @@ function ScriptMessage(){
  echo -e ""
 }
 
-
+function InstBadVPN(){
+ # Pull BadVPN Binary 64bit or 32bit
+if [ "$(getconf LONG_BIT)" == "64" ]; then
+ wget -O /usr/bin/badvpn-udpgw "https://github.com/Apeachsan91/vps/raw/master/badvpn-udpgw64"
+else
+ wget -O /usr/bin/badvpn-udpgw "https://github.com/Apeachsan91/vps/raw/master/badvpn-udpgw"
+fi
+ # Set BadVPN to Start on Boot via .profile
+ sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /root/.profile
+ # Change Permission to make it Executable
+ chmod +x /usr/bin/badvpn-udpgw
+ # Start BadVPN via Screen
+ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
+}
 
 #############################################
 #############################################
@@ -1069,7 +1082,7 @@ function ScriptMessage(){
  source /etc/os-release
 if [[ "$ID" != 'debian' ]]; then
  ScriptMessage
- echo -e "[\e[1;31mError\e[0m] This script is for Debian only, exting..." 
+ echo -e "[\e[1;31mError\e[0m] This script is for Debian only, exiting..." 
  exit 1
 fi
 
@@ -1101,6 +1114,10 @@ fi
  echo -e "Configuring stunnel..."
  InsStunnel
  
+ # Configure BadVPN UDPGW
+ echo -e "Configuring BadVPN UDPGW..."
+ InstBadVPN
+ 
  # Configure Webmin
  echo -e "Configuring webmin..."
  InstWebmin
@@ -1118,6 +1135,7 @@ fi
 
  # Some assistance and startup scripts
  ConfStartup
+
 
  #sed -i "s|http-proxy $IPADDR|http-proxy $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/suntu-dns.ovpn
  sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/KaizenUDP.ovpn
@@ -1215,5 +1233,5 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
  # Clearing all logs from installation
  rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
 
-rm -f deb9-10*
+rm -f install.sh*
 exit 1
