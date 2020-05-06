@@ -102,18 +102,8 @@ function InstMysql(){
  chown -R mysql:mysql /var/lib/mysql/
  chmod -R 755 /var/lib/mysql/
  
- # mysql_secure_installation
- so1=$(expect -c "
-spawn mysql_secure_installation; sleep 3
-expect \"\";  sleep 3; send \"\r\"
-expect \"\";  sleep 3; send \"$DatabasePass\r\"
-expect \"\";  sleep 3; send \"$DatabasePass\r\"
-expect \"\";  sleep 3; send \"Y\r\"
-expect \"\";  sleep 3; send \"n\r\"
-expect \"\";  sleep 3; send \"Y\r\"
-expect \"\";  sleep 3; send \"Y\r\"
-expect eof; ")
-echo "$so1"
+mysql_secure_installation
+
 
  #\r
  #Y
