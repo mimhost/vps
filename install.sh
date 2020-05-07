@@ -219,8 +219,8 @@ connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
 # setting stunnel ports
- sed -i "s|OpenVPN_TCP_Port|$OpenVPN_TCP_Port|g" /etc/stunnel/stunnel.conf
  sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
+ sed -i "s|OpenVPN_TCP_Port|$(netstat -tlnp | grep -i openvpn | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
@@ -892,7 +892,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote $IPADDR $OpenVPN_TCP_Port
+remote 127.0.0.1 $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
@@ -923,11 +923,11 @@ cat <<EOF1427> /var/www/openvpn/stunnel.conf
 client = yes
 debug = 6
 [openvpn]
-accept = 127.0.0.1:465
-connect = $IPADDR:587
+accept = 127.0.0.1:OpenVPN_TCP_Port
+connect = OpenVPN_TCP_Port2
 TIMEOUTclose = 0
 verify = 0
-sni = www.utv3.com
+sni = m.facebook.com
 EOF1427
 
  # Creating OVPN download site index.html
