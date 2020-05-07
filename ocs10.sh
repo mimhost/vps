@@ -187,15 +187,15 @@ function InstNginx(){
 function InstPanel(){
  
  # Pull OCS Source Code
- wget -O /home/panel/html/kaizenvpn.zip https://github.com/Apeachsan91/vps/raw/master/kaizenvpn.zip
+ wget -O /home/panel/html/debianvpn.zip https://github.com/Apeachsan91/vps/raw/master/debianvpn.zip
  sleep 2
  
  # Change dir to Webroot
  cd /home/panel/html
  
  # Deflate panel and set permissions
- unzip kaizenvpn.zip
- rm -f kaizenvpn.zip
+ unzip debianvpn.zip
+ rm -f debianvpn.zip
  
  # Chmod Config
  chmod 777 /home/panel/html/config
