@@ -25,9 +25,7 @@ OpenVPN_UDP_Port='25222'
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8000'
-Squid_Port2='8080'
-Squid_Port3='3128'
+Squid_Port1='3128'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -702,77 +700,14 @@ mkdir /var/lib/premium-script
 acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all 
-http_port 0.0.0.0:Squid_Port1
-http_port 0.0.0.0:Squid_Port2
-http_port 0.0.0.0:Squid_Port3
-### Allow Headers
-request_header_access Allow allow all 
-request_header_access Authorization allow all 
-request_header_access WWW-Authenticate allow all 
-request_header_access Proxy-Authorization allow all 
-request_header_access Proxy-Authenticate allow all 
-request_header_access Cache-Control allow all 
-request_header_access Content-Encoding allow all 
-request_header_access Content-Length allow all 
-request_header_access Content-Type allow all 
-request_header_access Date allow all 
-request_header_access Expires allow all 
-request_header_access Host allow all 
-request_header_access If-Modified-Since allow all 
-request_header_access Last-Modified allow all 
-request_header_access Location allow all 
-request_header_access Pragma allow all 
-request_header_access Accept allow all 
-request_header_access Accept-Charset allow all 
-request_header_access Accept-Encoding allow all 
-request_header_access Accept-Language allow all 
-request_header_access Content-Language allow all 
-request_header_access Mime-Version allow all 
-request_header_access Retry-After allow all 
-request_header_access Title allow all 
-request_header_access Connection allow all 
-request_header_access Proxy-Connection allow all 
-request_header_access User-Agent allow all 
-request_header_access Cookie allow all 
-request_header_access All deny all
-### HTTP Anonymizer Paranoid
-reply_header_access Allow allow all 
-reply_header_access Authorization allow all 
-reply_header_access WWW-Authenticate allow all 
-reply_header_access Proxy-Authorization allow all 
-reply_header_access Proxy-Authenticate allow all 
-reply_header_access Cache-Control allow all 
-reply_header_access Content-Encoding allow all 
-reply_header_access Content-Length allow all 
-reply_header_access Content-Type allow all 
-reply_header_access Date allow all 
-reply_header_access Expires allow all 
-reply_header_access Host allow all 
-reply_header_access If-Modified-Since allow all 
-reply_header_access Last-Modified allow all 
-reply_header_access Location allow all 
-reply_header_access Pragma allow all 
-reply_header_access Accept allow all 
-reply_header_access Accept-Charset allow all 
-reply_header_access Accept-Encoding allow all 
-reply_header_access Accept-Language allow all 
-reply_header_access Content-Language allow all 
-reply_header_access Mime-Version allow all 
-reply_header_access Retry-After allow all 
-reply_header_access Title allow all 
-reply_header_access Connection allow all 
-reply_header_access Proxy-Connection allow all 
-reply_header_access User-Agent allow all 
-reply_header_access Cookie allow all 
-reply_header_access All deny all
-### CoreDump
+http_port Squid_Port1
 coredump_dir /var/spool/squid
 dns_nameservers 8.8.8.8 8.8.4.4
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname KaizenVPN
+visible_hostname MyScriptName
 mySquid
 
  # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
@@ -780,8 +715,8 @@ mySquid
  
  # Setting squid ports
  sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
- sed -i "s|Squid_Port2|$Squid_Port2|g" /etc/squid/squid.conf
- sed -i "s|Squid_Port3|$Squid_Port3|g" /etc/squid/squid.conf
+ sed -i "s|MyScriptName|$MyScriptName|g" /etc/squid/squid.conf
+
 
  # Starting Proxy server
  echo -e "Restarting proxy server..."
@@ -1197,8 +1132,7 @@ echo "   - OpenVPN SSL	: TCP $OpenVPN_TCP_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
-echo "   - Squid Proxy	: $Squid_Port1 , $Squid_Port2 (limit to IP Server)"  | tee -a log-install.txt
-echo "   - Squid ELITE	: $Squid_Port3 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - Squid Proxy	: $Squid_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "----------------"  | tee -a log-install.txt
