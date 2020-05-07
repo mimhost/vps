@@ -40,11 +40,12 @@ sed -i -e 's/\r$//' /usr/local/bin/sub4
 sed -i -e 's/\r$//' /usr/local/bin/sub5
 sed -i -e 's/\r$//' /usr/local/bin/user-auto-limit
 sed -i -e 's/\r$//' /usr/local/bin/user-auto-limit-script
-sed -i -e 's/\r$//' /usr/local/bin/edit-port
-sed -i -e 's/\r$//' /usr/local/bin/edit-port-squid
-sed -i -e 's/\r$//' /usr/local/bin/edit-port-openvpn
-sed -i -e 's/\r$//' /usr/local/bin/edit-port-openssh
-sed -i -e 's/\r$//' /usr/local/bin/edit-port-dropbear
+sed -i -e 's/\r$//' /usr/local/bin/edit_ports
+sed -i -e 's/\r$//' /usr/local/bin/edit_squid
+sed -i -e 's/\r$//' /usr/local/bin/edit_openvpn
+sed -i -e 's/\r$//' /usr/local/bin/edit_openssh
+sed -i -e 's/\r$//' /usr/local/bin/edit_dropbear
+sed -i -e 's/\r$//' /usr/local/bin/edit_stunnel4
 sed -i -e 's/\r$//' /usr/local/bin/autokill
 sed -i -e 's/\r$//' /root/limit.sh
 sed -i -e 's/\r$//' /root/ban.sh
