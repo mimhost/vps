@@ -169,7 +169,7 @@ function InstNginx(){
  wget -O /etc/nginx/conf.d/johnfordtv.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vps.conf" 
  rm /etc/php/5.6/fpm/php.ini
  rm /etc/php/5.6/fpm/pool.d/www.conf
-	"https://raw.githubusercontent.com/Apeachsan91/vps/master/php.ini" 
+ wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/php.ini" 
  wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/www.conf"  
  
  # Setup dir and permissions
@@ -187,15 +187,15 @@ function InstNginx(){
 function InstPanel(){
  
  # Pull OCS Source Code
- wget -O /home/panel/html/testvpn.zip https://github.com/Apeachsan91/vps/raw/master/testvpn.zip
+ wget -O /home/panel/html/debianvpn.zip https://github.com/Apeachsan91/vps/raw/master/debianvpn.zip
  sleep 2
  
  # Change dir to Webroot
  cd /home/panel/html
  
  # Deflate panel and set permissions
- unzip testvpn.zip
- rm -f testvpn.zip
+ unzip debianvpn.zip
+ rm -f debianvpn.zip
  
  # Chmod Config
  chmod 777 /home/panel/html/config
