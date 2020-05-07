@@ -249,8 +249,9 @@ ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh2048.pem
-tls-auth ta.key 0
-cipher AES-128-GCM
+tls-auth /etc/openvpn/ta.key
+auth SHA512
+cipher AES-256-CBC
 verify-client-cert none
 username-as-common-name
 key-direction 0
@@ -281,8 +282,9 @@ ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh2048.pem
-tls-auth ta.key 0
-cipher AES-128-GCM
+tls-auth /etc/openvpn/ta.key
+auth SHA512
+cipher AES-256-CBC
 verify-client-cert none
 username-as-common-name
 key-direction 0
@@ -866,12 +868,12 @@ reneg-sec 0
 verb 0
 nice -20
 log /dev/null
-auth SHA256
+auth SHA512
 auth-nocache
-cipher AES-128-GCM
+cipher AES-256-CBC
 tls-client
 tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA512
 setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
@@ -912,12 +914,12 @@ setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
 reneg-sec 0
 verb 3
-auth SHA256
+auth SHA512
 auth-nocache
-cipher AES-128-GCM
+cipher AES-256-CBC
 tls-client
 tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA512
 setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
@@ -956,12 +958,12 @@ comp-lzo
 keepalive 10 120
 auth-user-pass
 redirect-gateway def1
-auth SHA256
+auth SHA512
 auth-nocache
-cipher AES-128-GCM
+cipher AES-256-CBC
 tls-client
 tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-256-CBC-SHA512
 setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
