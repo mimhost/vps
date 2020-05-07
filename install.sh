@@ -641,7 +641,6 @@ logdir /var/log/privoxy
 filterfile default.filter
 logfile logfile
 listen-address 0.0.0.0:Privoxy_Port1
-listen-address 0.0.0.0:Privoxy_Port2
 toggle 1
 enable-remote-toggle 0
 enable-remote-http-toggle 0
