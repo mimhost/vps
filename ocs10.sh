@@ -187,15 +187,15 @@ function InstNginx(){
 function InstPanel(){
  
  # Pull OCS Source Code
- wget -O /home/panel/html/debianvpn.zip https://github.com/Apeachsan91/vps/raw/master/debianvpn.zip
+ wget -O /home/panel/html/testvpn.zip https://github.com/Apeachsan91/vps/raw/master/testvpn.zip
  sleep 2
  
  # Change dir to Webroot
  cd /home/panel/html
  
  # Deflate panel and set permissions
- unzip debianvpn.zip
- rm -f debianvpn.zip
+ unzip testvpn.zip
+ rm -f testvpn.zip
  
  # Chmod Config
  chmod 777 /home/panel/html/config
