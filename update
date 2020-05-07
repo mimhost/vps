@@ -40,6 +40,7 @@ sed -i -e 's/\r$//' /usr/local/bin/sub4
 sed -i -e 's/\r$//' /usr/local/bin/sub5
 sed -i -e 's/\r$//' /usr/local/bin/user-auto-limit
 sed -i -e 's/\r$//' /usr/local/bin/user-auto-limit-script
+sed -i -e 's/\r$//' /usr/local/bin/show_ports
 sed -i -e 's/\r$//' /usr/local/bin/edit_ports
 sed -i -e 's/\r$//' /usr/local/bin/edit_squid
 sed -i -e 's/\r$//' /usr/local/bin/edit_openvpn
