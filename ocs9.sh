@@ -139,7 +139,6 @@ function InstNginx(){
  wget -O /etc/nginx/conf.d/johnfordtv.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/vps.conf" 
  rm /etc/php/5.6/fpm/php.ini
  rm /etc/php/5.6/fpm/pool.d/www.conf
- wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/php.ini" 
  wget -O /etc/php/5.6/fpm/pool.d/www.conf "https://raw.githubusercontent.com/Apeachsan91/vps/master/www.conf" 
  
  # Setup dir and permissions
