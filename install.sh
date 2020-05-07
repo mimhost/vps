@@ -25,9 +25,7 @@ OpenVPN_UDP_Port='25222'
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8000'
-Squid_Port2='8080'
-Squid_Port3='3128'
+Squid_Port='3128'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -701,10 +699,8 @@ mkdir /var/lib/premium-script
 # My Squid Proxy Server Config
 acl VPN dst IP-ADDRESS/32
 http_access allow VPN
-http_access deny all 
-http_port 0.0.0.0:Squid_Port1
-http_port 0.0.0.0:Squid_Port2
-http_port 0.0.0.0:Squid_Port3
+http_access deny all
+http_port 3128
 ### Allow Headers
 request_header_access Allow allow all 
 request_header_access Authorization allow all 
@@ -779,9 +775,7 @@ mySquid
  sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/squid/squid.conf
  
  # Setting squid ports
- sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
- sed -i "s|Squid_Port2|$Squid_Port2|g" /etc/squid/squid.conf
- sed -i "s|Squid_Port3|$Squid_Port3|g" /etc/squid/squid.conf
+ sed -i "s|Squid_Port|$Squid_Port|g" /etc/squid/squid.conf
 
  # Starting Proxy server
  echo -e "Restarting proxy server..."
@@ -820,7 +814,7 @@ dev tun
 proto tcp-client
 setenv FRIENDLY_NAME "Debian VPN"
 remote $IPADDR $OpenVPN_TCP_Port
-http-proxy $IPADDR $Squid_Port1
+http-proxy $IPADDR $Squid_Port
 remote-cert-tls server
 bind
 float
@@ -1205,8 +1199,7 @@ echo "   - OpenVPN SSL	: TCP $OpenVPN_TCP_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
-echo "   - Squid Proxy	: $Squid_Port1 , $Squid_Port2 (limit to IP Server)"  | tee -a log-install.txt
-echo "   - Squid ELITE	: $Squid_Port3 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - Squid Proxy	: $Squid_Port (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "----------------"  | tee -a log-install.txt
