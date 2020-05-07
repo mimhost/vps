@@ -1034,11 +1034,11 @@ function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
 cd /usr/local/sbin/
-wget -q 'https://github.com/Apeachsan91/vps/raw/master/bashmenu.zip'
-unzip -qq bashmenu.zip
+wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
+unzip -qq menu.zip
 chmod +x /usr/local/bin/*
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /dev/null|sh
-rm -f bashmenu.zip
+rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
 sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
@@ -1135,14 +1135,6 @@ fi
 
  # Some assistance and startup scripts
  ConfStartup
-
-
- #sed -i "s|http-proxy $IPADDR|http-proxy $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/suntu-dns.ovpn
- #sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/KaizenUDP.ovpn
- #curl -4sSL "$(cat /tmp/abonv_mydns_domain)" &> /dev/null
- #mv /tmp/abonv_mydns /etc/KaizenVPN/my_domain_name
- #mv /tmp/abonv_mydns_id /etc/KaizenVPN/my_domain_id
- #rm -rf /tmp/abonv*
 
  # VPS Menu script v1.0
  ConfMenu
