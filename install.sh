@@ -551,7 +551,7 @@ EOF13
 
  # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
  grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
-	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server_tcp.conf
+	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server.conf
 done
 
  # Creating a New update message in server.conf
