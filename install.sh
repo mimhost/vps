@@ -249,6 +249,9 @@ ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh2048.pem
+tls-auth /etc/openvpn/ta.key
+cipher AES-128-GCM
+auth SHA256
 verify-client-cert none
 username-as-common-name
 key-direction 0
@@ -267,8 +270,6 @@ status openvpn-status.log
 log tcp.log
 verb 2
 ncp-disable
-cipher none
-auth none
 myOpenVPNconf
 
 cat <<'myOpenVPNconf2' > /etc/openvpn/server_udp.conf
@@ -280,6 +281,9 @@ ca /etc/openvpn/ca.crt
 cert /etc/openvpn/server.crt
 key /etc/openvpn/server.key
 dh /etc/openvpn/dh2048.pem
+tls-auth /etc/openvpn/ta.key
+cipher AES-128-GCM
+auth SHA256
 verify-client-cert none
 username-as-common-name
 key-direction 0
@@ -298,8 +302,6 @@ status openvpn-status.log
 log udp.log
 verb 2
 ncp-disable
-cipher none
-auth none
 myOpenVPNconf2
 
   cat <<'EOF7'> /etc/openvpn/ca.crt
@@ -550,6 +552,26 @@ nwa5KzPyF5psMXfvjhyrwt2+36hGGkGlHnTHEJqk3kiWL0x7znV3oA3S92REYhkn
 Oavyn36KwNDG8VPOfJYMIlUBRY3lX7pDcwIBAg==
 -----END DH PARAMETERS-----
 EOF13
+cat <<'EOF15'> /etc/openvpn/ta.key
+-----BEGIN OpenVPN Static key V1-----
+26ae1ab797746c4b2ad71c53c108175e
+0ede4caf5a37706dab5795a321cb469c
+890125a412be6f9197a68d052a237f71
+62b3fcf6e35a47fddded6c6ac18ad98a
+b98e18f27974b8974db5fdb1421a0902
+f41f8c86f72137f7e4808ca48d67e80f
+5e6da313942b7231c1d1bf7f4aefdc79
+920da03b19fd07449d1eac4908711fa9
+a93f852dce1374b5bb39842019e6f5fe
+e3423bca36f19eabe5ee94f14edb5abc
+c46b3e13c87af39278b6570c7c614345
+855727727418c9761df9cb43354a2c3f
+0d0c39549f2d8ec2400dec84ccf9c623
+ab5386aab4f73d016929f763d8c83f51
+27c1ad4d956f0c77ea64aa34bfb75957
+b181caf4002be92f7e83f0dd08357497
+-----END OpenVPN Static key V1-----
+EOF15
 
  # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
  grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
@@ -836,20 +858,33 @@ setenv CLIENT_CERT 0
 persist-tun
 persist-key
 auth-user-pass
-auth none
-auth-nocache
 auth-retry interact
-cipher none
 keysize 0
 comp-lzo
 reneg-sec 0
 verb 0
 nice -20
 log /dev/null
-setenv opt block-outside-dns 
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
+tls-client
+tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+ignore-unknown-option block-outside-dns
+setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-auth>
+$(cat /etc/openvpn/ta.key)
+</tls-auth>
 EOF17
  
 cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
@@ -871,18 +906,31 @@ persist-key
 persist-remote-ip
 persist-tun
 auth-user-pass
-auth none
-auth-nocache
-cipher none
 keysize 0
 comp-lzo
-setenv CLIENT_CERT 0
-setenv opt block-outside-dns 
+setenv CLIENT_CERT 0 
 reneg-sec 0
 verb 3
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
+tls-client
+tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+ignore-unknown-option block-outside-dns
+setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-auth>
+$(cat /etc/openvpn/ta.key)
+</tls-auth>
 EOF162
 
 cat <<EOF1237> /var/www/openvpn/KaizenSSL.ovpn
@@ -899,24 +947,36 @@ persist-key
 persist-tun
 comp-lzo
 keepalive 10 120
-tls-client
 remote-cert-tls server
 verb 3
 auth-user-pass
-auth none
-cipher none
-auth-nocache
 auth-retry interact
 connect-retry 0 1
 nice -20
 reneg-sec 0
 redirect-gateway def1
 dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
-setenv opt block-outside-dns 
+dhcp-option DNS 1.0.0.1 
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
+tls-client
+tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+ignore-unknown-option block-outside-dns
+setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-auth>
+$(cat /etc/openvpn/ta.key)
+</tls-auth>
 EOF1237
 
 cat <<EOF1427> /var/www/openvpn/stunnel.conf
@@ -1135,14 +1195,6 @@ fi
 
  # Some assistance and startup scripts
  ConfStartup
-
-
- #sed -i "s|http-proxy $IPADDR|http-proxy $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/suntu-dns.ovpn
- #sed -i "s|remote $IPADDR|remote $(cat /tmp/abonv_mydns)|g" /var/www/openvpn/KaizenUDP.ovpn
- #curl -4sSL "$(cat /tmp/abonv_mydns_domain)" &> /dev/null
- #mv /tmp/abonv_mydns /etc/KaizenVPN/my_domain_name
- #mv /tmp/abonv_mydns_id /etc/KaizenVPN/my_domain_id
- #rm -rf /tmp/abonv*
 
  # VPS Menu script v1.0
  ConfMenu
