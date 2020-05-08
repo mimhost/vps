@@ -57,7 +57,7 @@ if [ $? -eq 0 ]; then
 	if grep -Fxq $Port_New /root/stunnel4port; then
 		echo -e ""
 		echo -e " Berlanggar dengan Port Stunnel4!"
-		echo -e " Port sudah digunakan oleh servis lain!"         "
+		echo -e " Port sudah digunakan oleh servis lain!"
 		echo -e ""
 		exit
 	fi
@@ -81,7 +81,9 @@ if [ $? -eq 0 ]; then
 	echo -e ""
 else
 	clear
-  echo -e ""
-  echo -e "$TITLE"
-  echo -e " Port tidak terdapat didalam config server Squid, exiting.."
+ 	 echo -e ""
+ 	 echo -e "$TITLE"
+ 	 echo -e " Port tidak terdapat didalam config server Squid, exiting.."
 	echo -e ""
+exit
+fi
