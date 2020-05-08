@@ -388,7 +388,9 @@ done
  # executed/raised from this script (OpenVPN_TCP_Port/OpenVPN_UDP_Port)
  #
  # Enjoy the new update
- NUovpn
+ # Script Updated by KaizenVPN
+
+NUovpn
 
  # setting openvpn server port
  sed -i "s|MyOvpnPort|$OpenVPN_TCP_Port|g" /etc/openvpn/server_tcp.conf
