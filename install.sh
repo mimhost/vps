@@ -3,6 +3,9 @@
 # Script name
 MyScriptName='KaizenVPN-DEB9&10 Script'
 
+MYIP=$(wget -qO- ipv4.icanhazip.com);
+MYIP2="s/xxxxxxxxx/$MYIP/g";
+
 # OpenSSH Ports
 SSH_Port1='22'
 
@@ -198,31 +201,33 @@ MyStunnelD
 # My Stunnel Config
 pid = /var/run/stunnel.pid
 cert = /etc/stunnel/stunnel.pem
-client = no
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-TIMEOUTclose = 0
+client = no
+
+debug = info
+output = /var/log/stunnel.log
 
 [openvpn]
-accept = OpenVPN_TCP_Port2
+accept = $MYIP:OpenVPN_TCP_Port2
 connect = 127.0.0.1:OpenVPN_TCP_Port
 
 [dropbear]
-accept = Stunnel_Port1
-connect = 127.0.0.1:dropbear_port_c
+accept = $MYIP:Stunnel_Port1
+connect = 127.0.0.1:Dropbear_Port1
 
 [openssh]
-accept = Stunnel_Port2
-connect = 127.0.0.1:openssh_port_c
+accept = $MYIP:Stunnel_Port2
+connect = 127.0.0.1:SSH_Port1
 MyStunnelC
 
 # setting stunnel ports
  sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
  sed -i "s|OpenVPN_TCP_Port|$(netstat -tlnp | grep -i openvpn | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
- sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
+ sed -i "s|Dropbear_Port1|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
- sed -i "s|openssh_port_c|$(netstat -tlnp | grep -i ssh | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
+ sed -i "s|SSH_Port1|$(netstat -tlnp | grep -i ssh | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  # Restarting stunnel service
  systemctl restart $StunnelDir
 }
@@ -908,9 +913,9 @@ redirect-gateway def1
 dhcp-option DNS 1.1.1.1
 dhcp-option DNS 1.0.0.1
 setenv opt block-outside-dns 
-<stunnel>
-$(cat /etc/stunnel/stunnel.pem)
-</stunnel>
+<ca>
+$(cat /etc/openvpn/ca.crt)
+</ca>
 EOF1237
 
 cat <<EOF1427> /var/www/openvpn/stunnel.conf
@@ -918,7 +923,7 @@ client = yes
 debug = 6
 [openvpn]
 accept = 127.0.0.1:OpenVPN_TCP_Port
-connect = OpenVPN_TCP_Port2
+connect = $MYIP:OpenVPN_TCP_Port2
 TIMEOUTclose = 0
 verify = 0
 sni = www.utv3.com
