@@ -205,7 +205,6 @@ connect = 127.0.0.1:OpenVPN_TCP_Port' > /etc/stunnel/stunnel.conf
     sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
     echo -e "[ ${green}DONE${noclr} ]"
     sleep 3
-}
 
 # setting stunnel ports
  sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
