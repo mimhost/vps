@@ -76,8 +76,8 @@ if [ $? -eq 0 ]; then
 	clear
 	echo -e ""
 	echo -e "$TITLE"
-  echo -e " Port berjaya ditambah"
-  echo -e " Port Squid anda sekarang ialah: $squidport"
+  	echo -e " Port berjaya ditambah"
+  	echo -e " Port Squid anda sekarang ialah: $squidport"
 	echo -e ""
 else
 	clear
@@ -85,4 +85,3 @@ else
   echo -e "$TITLE"
   echo -e " Port tidak terdapat didalam config server Squid, exiting.."
 	echo -e ""
-fi
