@@ -190,32 +190,30 @@ MyStunnelD
  rm -rf /etc/stunnel/*
  
  # Creating stunnel certifcate using openssl
- openssl req -new -x509 -days 9999 -nodes -subj "/C=MY/ST=Sabah/L=KK/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
+ openssl req -new -x509 -days 9999 -nodes -subj "/C=MY/ST=SBH/L=KotaKinabalu/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
 ##  > /dev/null 2>&1
 
  # Creating stunnel server config
  cat <<'MyStunnelC' > /etc/stunnel/stunnel.conf
 # My Stunnel Config
-sslVersion = all
 pid = /var/run/stunnel.pid
+cert = /etc/stunnel/stunnel.pem
+client = no
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-client = no
+TIMEOUTclose = 0
 
 [openvpn]
 accept = OpenVPN_TCP_Port2
 connect = 127.0.0.1:OpenVPN_TCP_Port
-cert = /etc/stunnel/stunnel.pem
 
 [dropbear]
 accept = Stunnel_Port1
 connect = 127.0.0.1:dropbear_port_c
-cert = /etc/stunnel/stunnel.pem
 
 [openssh]
 accept = Stunnel_Port2
 connect = 127.0.0.1:openssh_port_c
-cert = /etc/stunnel/stunnel.pem
 MyStunnelC
 
 # setting stunnel ports
@@ -923,7 +921,7 @@ accept = 127.0.0.1:OpenVPN_TCP_Port
 connect = OpenVPN_TCP_Port2
 TIMEOUTclose = 0
 verify = 0
-sni = www.utv3.com
+sni = m.facebook.com
 EOF1427
 
  # Creating OVPN download site index.html
