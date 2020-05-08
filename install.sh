@@ -196,24 +196,26 @@ MyStunnelD
  # Creating stunnel server config
  cat <<'MyStunnelC' > /etc/stunnel/stunnel.conf
 # My Stunnel Config
+sslVersion = all
 pid = /var/run/stunnel.pid
-cert = /etc/stunnel/stunnel.pem
-client = no
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-TIMEOUTclose = 0
+client = no
 
 [openvpn]
 accept = OpenVPN_TCP_Port2
 connect = 127.0.0.1:OpenVPN_TCP_Port
+cert = /etc/stunnel/stunnel.pem
 
 [dropbear]
 accept = Stunnel_Port1
 connect = 127.0.0.1:dropbear_port_c
+cert = /etc/stunnel/stunnel.pem
 
 [openssh]
 accept = Stunnel_Port2
 connect = 127.0.0.1:openssh_port_c
+cert = /etc/stunnel/stunnel.pem
 MyStunnelC
 
 # setting stunnel ports
