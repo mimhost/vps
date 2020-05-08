@@ -218,11 +218,12 @@ MyStunnelC
 
 # setting stunnel ports
  sed -i "s|OpenVPN_TCP_Port|$OpenVPN_TCP_Port|g" /etc/stunnel/stunnel.conf
- sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
+ sed -i "s|OpenVPN_TCP_Port2|$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
  sed -i "s|openssh_port_c|$(netstat -tlnp | grep -i ssh | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
+ sed -i "s|OpenVPN_TCP_Port2|dropbear_port_c|openssh_port_c|$(netstat -nlpt | grep -i stunnel | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)|g" /etc/stunnel/stunnel.conf
 
  # Restarting stunnel service
  systemctl restart $StunnelDir
@@ -857,8 +858,8 @@ cat <<EOF1427> /var/www/openvpn/stunnel.conf
 client = yes
 debug = 6
 [openvpn]
-accept = 127.0.0.1:465
-connect = $IPADDR:587
+accept = 127.0.0.1:OpenVPN_TCP_Port
+connect = OpenVPN_TCP_Port2
 TIMEOUTclose = 0
 verify = 0
 sni = www.utv3.com
