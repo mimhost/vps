@@ -184,6 +184,7 @@ echo 'pid = /var/run/stunnel.pid
 cert = /etc/stunnel/stunnel.pem
 socket = r:TCP_NODELAY=1
 socket = l:TCP_NODELAY=1
+client = no
 debug = info
 output = /var/log/stunnel.log
 
@@ -908,7 +909,7 @@ client = yes
 debug = 6
 [openvpn]
 accept = 127.0.0.1:OpenVPN_TCP_Port
-connect = $MYIP:OpenVPN_TCP_Port2
+connect = $IPADDR:OpenVPN_TCP_Port2
 TIMEOUTclose = 0
 verify = 0
 sni = www.utv3.com
