@@ -3,9 +3,6 @@
 # Script name
 MyScriptName='KaizenVPN-DEB9&10 Script'
 
-MYIP=$(wget -qO- ipv4.icanhazip.com);
-MYIP2="s/xxxxxxxxx/$MYIP/g";
-
 # OpenSSH Ports
 SSH_Port1='22'
 
@@ -175,51 +172,39 @@ MyDropbear
 }
 
 function InsStunnel(){
- StunnelDir=$(ls /etc/default | grep stunnel | head -n1)
+    touch /etc/stunnel/stunnel.conf
+    touch /etc/stunnel/stunnel.pem
+    openssl req -new -x509 -days 1095 -nodes \
+    -subj "/C=MY/ST=Sabah/L=KotaKinabalu/O=KaizenVPN Team/OU=Private Server/CN=kaizenvpn.xyz" \
+    -out /etc/stunnel/cert.pem -keyout /etc/stunnel/key.pem &>/dev/null
+    cat /etc/stunnel/cert.pem >> /etc/stunnel/stunnel.pem
+    cat /etc/stunnel/key.pem >> /etc/stunnel/stunnel.pem
 
- # Creating stunnel startup config using cat eof tricks
-cat <<'MyStunnelD' > /etc/default/$StunnelDir
-# My Stunnel Config
-ENABLED=1
-FILES="/etc/stunnel/*.conf"
-OPTIONS=""
-BANNER="/etc/banner"
-PPP_RESTART=0
-# RLIMITS="-n 4096 -d unlimited"
-RLIMITS=""
-MyStunnelD
-
- # Removing all stunnel folder contents
- rm -rf /etc/stunnel/*
- 
- # Creating stunnel certifcate using openssl
- openssl req -new -x509 -days 9999 -nodes -subj "/C=PH/ST=NCR/L=Manila/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
-##  > /dev/null 2>&1
-
- # Creating stunnel server config
- cat <<'MyStunnelC' > /etc/stunnel/stunnel.conf
-# My Stunnel Config
-pid = /var/run/stunnel.pid
+echo 'pid = /var/run/stunnel.pid
 cert = /etc/stunnel/stunnel.pem
-socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-client = no
-
+socket = l:TCP_NODELAY=1
 debug = info
 output = /var/log/stunnel.log
 
-[openvpn]
-accept = $MYIP:OpenVPN_TCP_Port2
-connect = 127.0.0.1:OpenVPN_TCP_Port
+[openssh]
+accept = $IPADDR:Stunnel_Port2
+connect = 127.0.0.1:SSH_Port1
 
 [dropbear]
-accept = $MYIP:Stunnel_Port1
+accept = $IPADDR:Stunnel_Port1
 connect = 127.0.0.1:Dropbear_Port1
 
-[openssh]
-accept = $MYIP:Stunnel_Port2
-connect = 127.0.0.1:SSH_Port1
-MyStunnelC
+[openvpn]
+accept = $IPADDR:OpenVPN_TCP_Port2
+connect = 127.0.0.1:OpenVPN_TCP_Port' > /etc/stunnel/stunnel.conf
+
+    chmod 600 /etc/stunnel/stunnel.pem
+    sed -i $IPADDR /etc/stunnel/stunnel.conf
+    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    echo -e "[ ${green}DONE${noclr} ]"
+    sleep 3
+}
 
 # setting stunnel ports
  sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
