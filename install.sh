@@ -697,6 +697,18 @@ mkdir /var/lib/premium-script
  # Creating Squid server config using cat eof tricks
  cat <<'mySquid' > /etc/squid/squid.conf
 # My Squid Proxy Server Config
+acl localhost src 127.0.0.1/32 ::1
+acl to_localhost dst 127.0.0.0/8 0.0.0.0/32 ::1
+acl SSL_ports port 443
+acl SSL_ports port 444
+acl SSL_ports port 587
+acl Safe_ports port 10-65535
+acl CONNECT method CONNECT
+acl SSH dst xxxxxxxxx-xxxxxxxxx/255.255.255.255
+http_access allow SSH
+http_access allow manager localhost
+http_access deny manager
+http_access allow localhost
 acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all 
@@ -976,8 +988,8 @@ wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /de
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
-sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
-sed -i 's|http_port|listen-address|g' ./*
+#sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
+#sed -i 's|http_port|listen-address|g' ./*
 cd ~
 }
 
