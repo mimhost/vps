@@ -190,32 +190,30 @@ MyStunnelD
  rm -rf /etc/stunnel/*
  
  # Creating stunnel certifcate using openssl
- openssl req -new -x509 -days 9999 -nodes -subj "/C=MY/ST=Sabah/L=KK/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
+ openssl req -new -x509 -days 9999 -nodes -subj "/C=PH/ST=NCR/L=Manila/O=$MyScriptName/OU=$MyScriptName/CN=$MyScriptName" -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem &> /dev/null
 ##  > /dev/null 2>&1
 
  # Creating stunnel server config
  cat <<'MyStunnelC' > /etc/stunnel/stunnel.conf
 # My Stunnel Config
-sslVersion = all
 pid = /var/run/stunnel.pid
+cert = /etc/stunnel/stunnel.pem
+client = no
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
-client = no
+TIMEOUTclose = 0
 
 [openvpn]
 accept = OpenVPN_TCP_Port2
-connect = 127.0.0.1:OpenVPN_TCP_Port
-cert = /etc/stunnel/stunnel.pem
+connect = OpenVPN_TCP_Port
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:dropbear_port_c
-cert = /etc/stunnel/stunnel.pem
+connect = dropbear_port_c
 
 [openssh]
 accept = Stunnel_Port2
-connect = 127.0.0.1:openssh_port_c
-cert = /etc/stunnel/stunnel.pem
+connect = openssh_port_c
 MyStunnelC
 
 # setting stunnel ports
@@ -888,7 +886,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote 127.0.0.1 $OpenVPN_TCP_Port
+remote $IPADDR $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
@@ -1033,7 +1031,7 @@ cd /usr/local/sbin/
 wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
 unzip -qq menu.zip
 chmod +x /usr/local/bin/*
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /dev/null|sh
+#wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /dev/null|sh
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
