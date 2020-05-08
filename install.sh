@@ -1135,7 +1135,6 @@ echo "---------------------------"  | tee -a log-install.txt
 echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
 echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port "  | tee -a log-install.txt
-echo "   - OpenVPN SSL	: TCP $OpenVPN_TCP_Port2 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
