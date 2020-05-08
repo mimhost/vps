@@ -205,15 +205,15 @@ TIMEOUTclose = 0
 
 [openvpn]
 accept = OpenVPN_TCP_Port2
-connect = OpenVPN_TCP_Port
+connect = 127.0.0.1:OpenVPN_TCP_Port
 
 [dropbear]
 accept = Stunnel_Port1
-connect = dropbear_port_c
+connect = 127.0.0.1:dropbear_port_c
 
 [openssh]
 accept = Stunnel_Port2
-connect = openssh_port_c
+connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
 # setting stunnel ports
@@ -908,9 +908,9 @@ redirect-gateway def1
 dhcp-option DNS 1.1.1.1
 dhcp-option DNS 1.0.0.1
 setenv opt block-outside-dns 
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
+<stunnel>
+$(cat /etc/stunnel/stunnel.pem)
+</stunnel>
 EOF1237
 
 cat <<EOF1427> /var/www/openvpn/stunnel.conf
