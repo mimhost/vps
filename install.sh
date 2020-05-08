@@ -827,7 +827,7 @@ client
 dev tun
 proto tcp
 setenv FRIENDLY_NAME "Debian VPN"
-remote $IPADDR $OpenVPN_TCP_Port
+remote 127.0.0.1 $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
 persist-key
