@@ -15,7 +15,6 @@ Dropbear_Port1='442'
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
 Stunnel_Port2='444' # through OpenSSH
-OpenVPN_TCP_Port2='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='465'
@@ -203,10 +202,6 @@ socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 TIMEOUTclose = 0
 
-[openvpn]
-accept = OpenVPN_TCP_Port2
-connect = 127.0.0.1:OpenVPN_TCP_Port
-
 [dropbear]
 accept = Stunnel_Port1
 connect = 127.0.0.1:dropbear_port_c
@@ -217,8 +212,6 @@ connect = 127.0.0.1:openssh_port_c
 MyStunnelC
 
 # setting stunnel ports
- sed -i "s|OpenVPN_TCP_Port2|$OpenVPN_TCP_Port2|g" /etc/stunnel/stunnel.conf
- sed -i "s|OpenVPN_TCP_Port|$(netstat -tlnp | grep -i openvpn | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port1|$Stunnel_Port1|g" /etc/stunnel/stunnel.conf
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
@@ -879,51 +872,6 @@ $(cat /etc/openvpn/ca.crt)
 </ca>
 EOF162
 
-cat <<EOF1237> /var/www/openvpn/KaizenSSL.ovpn
-# KaizenVPN Premium Script
-# Thanks for using this script, Enjoy Highspeed OpenVPN Service
-client
-dev tun
-proto tcp
-setenv FRIENDLY_NAME "Debian VPN"
-remote 127.0.0.1 $OpenVPN_TCP_Port
-route $IPADDR 255.255.255.255 net_gateway
-nobind
-persist-key
-persist-tun
-comp-lzo
-keepalive 10 120
-tls-client
-remote-cert-tls server
-verb 3
-auth-user-pass
-auth none
-cipher none
-auth-nocache
-auth-retry interact
-connect-retry 0 1
-nice -20
-reneg-sec 0
-redirect-gateway def1
-dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
-setenv opt block-outside-dns 
-<ca>
-$(cat /etc/openvpn/ca.crt)
-</ca>
-EOF1237
-
-cat <<EOF1427> /var/www/openvpn/stunnel.conf
-client = yes
-debug = 6
-[openvpn]
-accept = 127.0.0.1:OpenVPN_TCP_Port
-connect = OpenVPN_TCP_Port2
-TIMEOUTclose = 0
-verify = 0
-sni = m.facebook.com
-EOF1427
-
  # Creating OVPN download site index.html
 cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 <!DOCTYPE html>
@@ -931,7 +879,7 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 
 <!-- Simple OVPN Download site by KaizenVPN -->
 
-<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config SSL<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSSL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
+<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
  
  # Setting template's correct name,IP address and nginx Port
