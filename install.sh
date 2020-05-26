@@ -140,9 +140,9 @@ MySSHConfig
 
  # Some command to identify null shells when you tunnel through SSH or using Stunnel, it will fix user/pass authentication error on HTTP Injector, KPN Tunnel, eProxy, SVI, HTTP Proxy Injector etc ssh/ssl tunneling apps.
  sed -i '/\/bin\/false/d' /etc/shells
- sed -i '/\/usr\/sbin\/nologin/d' /etc/shells
+ sed -i '/\/usr\/bin\/nologin/d' /etc/shells
  echo '/bin/false' >> /etc/shells
- echo '/usr/sbin/nologin' >> /etc/shells
+ echo '/usr/bin/nologin' >> /etc/shells
  
  # Restarting openssh service
  systemctl restart ssh
