@@ -809,14 +809,12 @@ cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
 client
 dev tun
 proto tcp-client
-setenv FRIENDLY_NAME "Debian VPN"
+setenv FRIENDLY_NAME "KaizenVPN"
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
 remote-cert-tls server
 bind
 float
-tun-mtu 1500
-tun-mtu-extra 32
 mssfix 1450
 mute-replay-warnings
 connect-retry-max 9999
@@ -831,11 +829,9 @@ auth none
 auth-nocache
 auth-retry interact
 cipher none
-keysize 0
 comp-lzo
 reneg-sec 0
 verb 0
-nice -20
 log /dev/null
 setenv opt block-outside-dns 
 <ca>
@@ -849,7 +845,7 @@ cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
 client
 dev tun
 proto udp
-setenv FRIENDLY_NAME "Debian VPN"
+setenv FRIENDLY_NAME "KaizenVPN"
 remote $IPADDR $OpenVPN_UDP_Port
 remote-cert-tls server
 resolv-retry infinite
