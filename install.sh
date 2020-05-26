@@ -140,9 +140,9 @@ MySSHConfig
 
  # Some command to identify null shells when you tunnel through SSH or using Stunnel, it will fix user/pass authentication error on HTTP Injector, KPN Tunnel, eProxy, SVI, HTTP Proxy Injector etc ssh/ssl tunneling apps.
  sed -i '/\/bin\/false/d' /etc/shells
- sed -i '/\/usr\/sbin\/nologin/d' /etc/shells
+ sed -i '/\/usr\/bin\/nologin/d' /etc/shells
  echo '/bin/false' >> /etc/shells
- echo '/usr/sbin/nologin' >> /etc/shells
+ echo '/usr/bin/nologin' >> /etc/shells
  
  # Restarting openssh service
  systemctl restart ssh
@@ -930,7 +930,7 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /bin/bash /etc/openvpn/openvpn.bash
 
 # Deleting Expired SSH Accounts
-/usr/local/sbin/delete_expired &> /dev/null
+/usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
  chmod +x /etc/KaizenVPN/startup.sh
@@ -975,7 +975,7 @@ KaizenServ
 function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
-cd /usr/local/sbin/
+cd /usr/local/bin/
 wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
 unzip -qq menu.zip
 chmod +x /usr/local/bin/*
