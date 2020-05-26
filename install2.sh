@@ -977,11 +977,11 @@ function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
 cd /usr/local/bin/
-wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
-unzip -qq menu.zip
+wget -q 'https://github.com/Apeachsan91/vps/raw/master/bashmenu.zip'
+unzip -qq bashmenu.zip
 chmod +x /usr/local/bin/*
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /dev/null|sh
-rm -f menu.zip
+rm -f bashmenu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
 #sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
