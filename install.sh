@@ -934,7 +934,7 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /bin/bash /etc/openvpn/openvpn.bash
 
 # Deleting Expired SSH Accounts
-/usr/local/sbin/delete_expired &> /dev/null
+/usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
  chmod +x /etc/KaizenVPN/startup.sh
