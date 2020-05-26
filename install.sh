@@ -979,7 +979,7 @@ KaizenServ
 function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
-cd /usr/local/sbin/
+cd /usr/local/bin/
 wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
 unzip -qq menu.zip
 chmod +x /usr/local/bin/*
@@ -1162,7 +1162,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by ©KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by Â©KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
