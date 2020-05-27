@@ -15,6 +15,7 @@ Dropbear_Port1='442'
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
 Stunnel_Port2='444' # through OpenSSH
+Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='465'
@@ -204,11 +205,16 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:Dropbear_Port1
+connect = 127.0.0.1:442
 
 [openssh]
 accept = Stunnel_Port2
-connect = 127.0.0.1:SSH_Port1
+connect = 127.0.0.1:22
+
+[openvpn]
+accept = Stunnel_Port3
+connect = 127.0.0.1:465
+
 MyStunnelC
 
 # setting stunnel ports
@@ -216,6 +222,9 @@ MyStunnelC
  sed -i "s|dropbear_port_c|$(netstat -tlnp | grep -i dropbear | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
  sed -i "s|Stunnel_Port2|$Stunnel_Port2|g" /etc/stunnel/stunnel.conf
  sed -i "s|openssh_port_c|$(netstat -tlnp | grep -i ssh | awk '{print $4}' | cut -d: -f2 | xargs | awk '{print $2}' | head -n1)|g" /etc/stunnel/stunnel.conf
+ sed -i "s|Stunnel_Port3|$Stunnel_Port3|g" /etc/stunnel/stunnel.conf
+ sed -i "s|openvpnport|$(netstat -nltp | grep -i openvpn | grep -i 0.0.0.0 | awk '{print $4}' | cut -d: -f2)" /etc/stunnel/stunnel.conf
+  
  # Restarting stunnel service
  systemctl restart $StunnelDir
 }
@@ -869,6 +878,81 @@ verb 3
 $(cat /etc/openvpn/ca.crt)
 </ca>
 EOF162
+
+cat <<EOF165> /var/www/openvpn/KaizenSSL.ovpn
+# KaizenVPN Premium Script
+# Thanks for using this script, Enjoy Highspeed OpenVPN Service
+auth-user-pass
+client
+dev tun
+proto tcp
+remote 127.0.0.1 $OpenVPN_TCP_Port
+route $IPADDR 255.255.255.255 net_gateway
+setenv FRIENDLY_NAME "KaizenVPN"
+nobind
+persist-key
+persist-tun
+comp-lzo
+keepalive 10 120
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+<ca>
+$(cat /etc/openvpn/ca.crt)
+</ca>
+EOF165
+
+cat <<EOF167> /var/www/openvpn/KaizenSSL2.ovpn
+# KaizenVPN Premium Script
+# Thanks for using this script, Enjoy Highspeed OpenVPN Service
+auth-user-pass
+client
+dev tun
+proto tcp
+remote $IPADDR $Stunnel_Port3
+http-proxy $IPADDR $Squid_Port1
+setenv FRIENDLY_NAME "KaizenVPN"
+nobind
+persist-key
+persist-tun
+comp-lzo
+keepalive 10 120
+tls-client
+remote-cert-tls server
+verb 3
+auth-user-pass
+cipher none
+auth none
+auth-nocache
+auth-retry interact
+connect-retry 0 1
+reneg-sec 0
+redirect-gateway def1
+dhcp-option DNS 1.1.1.1
+dhcp-option DNS 1.0.0.1
+<ca>
+$(cat /etc/openvpn/ca.crt)
+</ca>
+EOF167
+
+client = yes
+debug = 6
+[openvpn]
+accept = 127.0.0.1:465
+connect = Stunnel_Port3
+TIMEOUTclose = 0
+verify = 0
+sni = images.digi.com.my
 
  # Creating OVPN download site index.html
 cat <<'mySiteOvpn' > /var/www/openvpn/index.html
