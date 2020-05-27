@@ -673,7 +673,8 @@ privoxy
  rm -rf /etc/squid/squid.con*
  
  #install PPTP
-apt-get -y install pptpd
+sudo dpkg --configure -a
+apt-get -y install pptpd -f
 cat > /etc/ppp/pptpd-options <<END
 name pptpd
 refuse-pap
