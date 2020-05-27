@@ -204,11 +204,11 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:Dropbear_Port1
+connect = 127.0.0.1:442
 
 [openssh]
 accept = Stunnel_Port2
-connect = 127.0.0.1:SSH_Port1
+connect = 127.0.0.1:22
 MyStunnelC
 
 # setting stunnel ports
