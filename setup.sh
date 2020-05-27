@@ -140,9 +140,9 @@ MySSHConfig
 
  # Some command to identify null shells when you tunnel through SSH or using Stunnel, it will fix user/pass authentication error on HTTP Injector, KPN Tunnel, eProxy, SVI, HTTP Proxy Injector etc ssh/ssl tunneling apps.
  sed -i '/\/bin\/false/d' /etc/shells
- sed -i '/\/usr\/bin\/nologin/d' /etc/shells
+ sed -i '/\/usr\/sbin\/nologin/d' /etc/shells
  echo '/bin/false' >> /etc/shells
- echo '/usr/bin/nologin' >> /etc/shells
+ echo '/usr/sbin/nologin' >> /etc/shells
  
  # Restarting openssh service
  systemctl restart ssh
@@ -204,11 +204,11 @@ TIMEOUTclose = 0
 
 [dropbear]
 accept = Stunnel_Port1
-connect = 127.0.0.1:dropbear_port_c
+connect = 127.0.0.1:Dropbear_Port1
 
 [openssh]
 accept = Stunnel_Port2
-connect = 127.0.0.1:openssh_port_c
+connect = 127.0.0.1:SSH_Port1
 MyStunnelC
 
 # setting stunnel ports
@@ -852,7 +852,6 @@ resolv-retry infinite
 float
 fast-io
 nobind
-tun-mtu 1500
 mssfix 1460
 persist-key
 persist-remote-ip
@@ -861,7 +860,6 @@ auth-user-pass
 auth none
 auth-nocache
 cipher none
-keysize 0
 comp-lzo
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
