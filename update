@@ -21,15 +21,12 @@ sed -i -e 's/\r$//' /usr/local/bin/user-detail-pptp
 sed -i -e 's/\r$//' /usr/local/bin/bench-network
 sed -i -e 's/\r$//' /usr/local/bin/speedtest
 sed -i -e 's/\r$//' /usr/local/bin/ram
-sed -i -e 's/\r$//' /usr/local/bin/log-limit
-sed -i -e 's/\r$//' /usr/local/bin/log-ban
 sed -i -e 's/\r$//' /usr/local/bin/user-generate
 sed -i -e 's/\r$//' /usr/local/bin/user-list
 sed -i -e 's/\r$//' /usr/local/bin/diagnosa
 sed -i -e 's/\r$//' /usr/local/bin/premium-script
 sed -i -e 's/\r$//' /usr/local/bin/user-delete-expired
 sed -i -e 's/\r$//' /usr/local/bin/auto-reboot
-sed -i -e 's/\r$//' /usr/local/bin/log-install
 sed -i -e 's/\r$//' /usr/local/bin/mainmenu
 sed -i -e 's/\r$//' /usr/local/bin/menu1
 sed -i -e 's/\r$//' /usr/local/bin/menu2
