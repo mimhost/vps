@@ -263,7 +263,7 @@ user nobody
 group nogroup
 persist-key
 persist-tun
-status /var/www/openvpn/tcpstatus.txt
+status openvpn-status.log
 log tcp.log
 verb 2
 ncp-disable
@@ -294,7 +294,7 @@ user nobody
 group nogroup
 persist-key
 persist-tun
-status /var/www/openvpn/udpstatus.txt
+status openvpn-status.log
 log udp.log
 verb 2
 ncp-disable
@@ -812,15 +812,6 @@ myNginxC
  mkdir -p /var/www/openvpn
 
  # Now creating all of our OpenVPN Configs 
- 
- cat <<'EOF' > /var/www/openvpn/tcpstatus.txt
-
-EOF
- cat <<'EOF' > /var/www/openvpn/udpstatus.txt
-
-EOF
- # Change permission of Status Files
- chmod 775 /var/www/openvpn/*
  
 cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
 # KaizenVPN Premium Script
