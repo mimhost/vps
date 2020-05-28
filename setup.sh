@@ -882,7 +882,6 @@ auth none
 auth-nocache
 auth-retry interact
 connect-retry 0 1
-nice -20
 reneg-sec 0
 redirect-gateway def1
 dhcp-option DNS 1.1.1.1
@@ -943,7 +942,6 @@ resolv-retry infinite
 float
 fast-io
 nobind
-tun-mtu 1500
 mssfix 1460
 persist-key
 persist-remote-ip
@@ -952,7 +950,6 @@ auth-user-pass
 auth none
 auth-nocache
 cipher none
-keysize 0
 comp-lzo
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
@@ -970,14 +967,9 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 
 <!-- Simple OVPN Download site by KaizenVPN -->
 
-<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
+<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config Stunnel SNI<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSTUNNEL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config  Stunnel Direct<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSSL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
 
-#for3link
-#<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config SSL<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSSL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
-#mySiteOvpn
-
- 
  # Setting template's correct name,IP address and nginx Port
  sed -i "s|MyScriptName|$MyScriptName|g" /var/www/openvpn/index.html
  sed -i "s|NGINXPORT|$OvpnDownload_Port|g" /var/www/openvpn/index.html
@@ -1212,11 +1204,11 @@ echo 'echo -e ""' >> .bashrc
  # Showing additional information from installating this script
 echo " "
 echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS anda!"
-echo " "
-echo "--------------------------------------------------------------------------------"
-echo "*                            Debian Premium Script                             *"
-echo "*                                 -KaizenVPN-                                  *"
-echo "--------------------------------------------------------------------------------"
+echo " "  | tee -a log-install.txt
+echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
+echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
+echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
+echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
 echo "Maklumat Server"  | tee -a log-install.txt
@@ -1230,9 +1222,9 @@ echo ""  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
 echo "Maklumat Applikasi dan Port"  | tee -a log-install.txt
 echo "---------------------------"  | tee -a log-install.txt
-echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port SSL Stunnel_Port3 "  | tee -a log-install.txt
+echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port SSL $Stunnel_Port3 "  | tee -a log-install.txt
 echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
-echo "   - Dropbear		: $Dropbear_Port1"  | tee -a log-install.txt
+echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
 echo "   - Squid Proxy	: $Squid_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
