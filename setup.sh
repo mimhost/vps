@@ -1062,13 +1062,11 @@ wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /de
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
-#sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
-#sed -i 's|http_port|listen-address|g' ./*
 cd ~
 }
 
 function ScriptMessage(){
- echo -e " (?????) $MyScriptName VPS Installer"
+ echo -e " $MyScriptName VPS Installer"
  echo -e ""
  echo -e " Script by KaizenVPN"
  echo -e ""
