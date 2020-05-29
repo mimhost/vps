@@ -693,7 +693,7 @@ privoxy
  # Removing Duplicate Squid config
  rm -rf /etc/squid/squid.con*
  
-wget https://raw.githubusercontent.com/Apeachsan91/pptpd-vpn/master/install.sh && chmod +x install.sh && ./install.sh
+wget https://raw.githubusercontent.com/Apeachsan91/pptpd-vpn/master/pptpd.sh && chmod +x pptpd.sh && ./pptpd.sh
 mkdir /var/lib/premium-script
 /etc/init.d/pptpd restart
  
