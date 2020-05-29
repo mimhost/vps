@@ -1,7 +1,7 @@
 #############################
 #############################
 # Script name
-MyScriptName='KaizenVPN-DEB9&10 Script'
+MyScriptName='HelloKittyVPN-DEB9&10 Script'
 
 # OpenSSH Ports
 SSH_Port1='22'
@@ -815,7 +815,7 @@ mySquid
 
 function OvpnConfigs(){
  # Creating nginx config for our ovpn config downloads webserver
- cat <<'myNginxC' > /etc/nginx/conf.d/KaizenVPN-ovpn-config.conf
+ cat <<'myNginxC' > /etc/nginx/conf.d/HelloKittyVPN-ovpn-config.conf
 # My OpenVPN Config Download Directory
 server {
  listen 0.0.0.0:myNginx;
@@ -826,7 +826,7 @@ server {
 myNginxC
 
  # Setting our nginx config port for .ovpn download site
- sed -i "s|myNginx|$OvpnDownload_Port|g" /etc/nginx/conf.d/KaizenVPN-ovpn-config.conf
+ sed -i "s|myNginx|$OvpnDownload_Port|g" /etc/nginx/conf.d/HelloKittyVPN-ovpn-config.conf
 
  # Removing Default nginx page(port 80)
  rm -rf /etc/nginx/sites-*
@@ -837,13 +837,12 @@ myNginxC
 
  # Now creating all of our OpenVPN Configs 
  
-cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
-# KaizenVPN Premium Script
+cat <<EOF17> /var/www/openvpn/HKTCP.ovpn
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
 dev tun
 proto tcp-client
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "HelloKittyVPN"
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
 remote-cert-tls server
@@ -882,14 +881,13 @@ $(cat /etc/openvpn/ta.key)
 </tls-crypt>
 EOF17
 
-cat <<EOF17> /var/www/openvpn/KaizenSTUNNEL.ovpn
-# KaizenVPN Premium Script
+cat <<EOF17> /var/www/openvpn/HKSTUNNEL.ovpn
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 auth-user-pass
 client
 dev tun
 proto tcp
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "HelloKittyVPN"
 remote 127.0.0.1 $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
@@ -917,14 +915,13 @@ $(cat /etc/openvpn/ca.crt)
 </ca>
 EOF17
 
-cat <<EOF17> /var/www/openvpn/KaizenSSL.ovpn
-# KaizenVPN Premium Script
+cat <<EOF17> /var/www/openvpn/HKSSL.ovpn
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 auth-user-pass
 client
 dev tun
 proto udp
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "HelloKittyVPN"
 remote $IPADDR 25222
 rport $Stunnel_Port3
 nobind
@@ -962,13 +959,12 @@ $(cat /etc/openvpn/ta.key)
 </tls-crypt>
 EOF17
  
-cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
-# KaizenVPN Premium Script
+cat <<EOF162> /var/www/openvpn/HKUDP.ovpn
 # Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
 dev tun
 proto udp
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "HelloKittyVPN"
 remote $IPADDR $OpenVPN_UDP_Port
 remote-cert-tls server
 resolv-retry infinite
@@ -1007,9 +1003,9 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 <!DOCTYPE html>
 <html lang="en"
 
-<!-- Simple OVPN Download site by KaizenVPN -->
+<!-- Simple OVPN Download site by HelloKittyVPN -->
 
-<head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config Stunnel SNI<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSTUNNEL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config  Stunnel Direct<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenSSL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
+<head><meta charset="utf-8" /><title>HelloKittyVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/HKTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/HKUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config Stunnel SNI<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/HKSTUNNEL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config  Stunnel Direct<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/HKSSL.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
 
  # Setting template's correct name,IP address and nginx Port
@@ -1040,12 +1036,12 @@ function ConfStartup(){
  echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
- rm -rf /etc/KaizenVPN
- mkdir -p /etc/KaizenVPN
- chmod -R 755 /etc/KaizenVPN
+ rm -rf /etc/HelloKittyVPN
+ mkdir -p /etc/HelloKittyVPN
+ chmod -R 755 /etc/HelloKittyVPN
  
  # Creating startup script using cat eof tricks
- cat <<'EOFSH' > /etc/KaizenVPN/startup.sh
+ cat <<'EOFSH' > /etc/HelloKittyVPN/startup.sh
 #!/bin/bash
 # Setting server local time
 ln -fs /usr/share/zoneinfo/MyVPS_Time /etc/localtime
@@ -1063,33 +1059,33 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
- chmod +x /etc/KaizenVPN/startup.sh
+ chmod +x /etc/HelloKittyVPN/startup.sh
  
  # Setting server local time every time this machine reboots
- sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/KaizenVPN/startup.sh
+ sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/HelloKittyVPN/startup.sh
 
  # 
  rm -rf /etc/sysctl.d/99*
 
  # Setting our startup script to run every machine boots 
- cat <<'KaizenServ' > /etc/systemd/system/KaizenVPN.service
+ cat <<'HelloKittyServ' > /etc/systemd/system/HelloKittyVPN.service
 [Unit]
-Description=KaizenVPN Startup Script
+Description=HelloKittyVPN Startup Script
 Before=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /etc/KaizenVPN/startup.sh
+ExecStart=/bin/bash /etc/HelloKittyVPN/startup.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-KaizenServ
- chmod +x /etc/systemd/system/KaizenVPN.service
+HelloKittyServ
+ chmod +x /etc/systemd/system/HelloKittyVPN.service
  systemctl daemon-reload
- systemctl start KaizenVPN
- systemctl enable KaizenVPN &> /dev/null
+ systemctl start HelloKittyVPN
+ systemctl enable HelloKittyVPN &> /dev/null
  systemctl enable fail2ban &> /dev/null
  systemctl start fail2ban &> /dev/null
 
@@ -1119,7 +1115,7 @@ cd ~
 function ScriptMessage(){
  echo -e " $MyScriptName VPS Installer"
  echo -e ""
- echo -e " Script by KaizenVPN"
+ echo -e " Script by HelloKittyVPN"
  echo -e ""
 }
 
@@ -1223,15 +1219,15 @@ ln -s /usr/games/fortune /bin
 echo "clear" >> .bashrc
 echo 'echo -e ""' >> .bashrc
 echo 'echo -e ""' >> .bashrc
-echo 'cowsay -f dragon "SELAMAT DATANG BOSKU."' >> .bashrc
+echo 'cowsay -f dragon "HELLO KITTY CHANNEL."' >> .bashrc
 echo 'figlet -k AUTOSCRIPT' >> .bashrc
 echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
+echo 'echo -e "     *                 Autoscript By HelloKittyVPN           *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
-echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
+echo 'echo -e "     *                   Telegram: @amymariah                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
@@ -1247,7 +1243,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
-echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
+echo "*                               -HelloKittyVPN-                                *"  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
@@ -1287,7 +1283,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by ©KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by ©HelloKittyVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
