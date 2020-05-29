@@ -541,7 +541,7 @@ XbSRSAbCk9dd94vV7cNbx2uhxtmaXuHnZcj4QXRJO5DaYd/YrrrXFzRjMgEmBzWe
 hgiphZwZY1XzAThlsxdBEzK+6kMIjYo=
 -----END PRIVATE KEY-----
 EOF10
- cat <<'EOF13'> /etc/openvpn/ta.key
+ cat <<'EOF13'> /etc/openvpn/dh2048.pem
 -----BEGIN DH PARAMETERS-----
 MIIBCAKCAQEA8sZPuFbSjnjVIi5Iat2nhEMj9SHZL11plX5jhujN/plKIWljUEzC
 xiIzIltWSmpDV4o2HZL8T5RPLLu4Sv0Zidh6C4C+b8KdZdvjQfbvBGqxh2Ia9/d/
@@ -552,9 +552,6 @@ FI2L3z3pdTqq2HEZmuZShPvxiHbE3xn+kwIBAg==
 -----END DH PARAMETERS-----
 EOF13
  cat <<'EOF19'> /etc/openvpn/ta.key
-#
-# 2048 bit OpenVPN static key
-#
 -----BEGIN OpenVPN Static key V1-----
 5a90bdd3b6cc1d9e0924044f6065a662
 6d4cc7aeb98d18c5276d746442faa23b
@@ -573,7 +570,7 @@ cc06322c296350a3842b267eadea4811
 7712fd7d332f481ac6062dea0135bdc7
 e51a070334405aaa543231110e7f5418
 -----END OpenVPN Static key V1-----
- EOF19
+EOF19
  # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
  grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
 	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server_tcp.conf
@@ -1280,4 +1277,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f setup.sh*
+rm -f install.sh*
