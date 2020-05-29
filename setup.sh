@@ -849,6 +849,15 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-crypt>
+$(cat /etc/openvpn/ta.key)
+</tls-crypt>
 EOF17
 
 cat <<EOF17> /var/www/openvpn/KaizenSTUNNEL.ovpn
@@ -866,12 +875,12 @@ persist-key
 persist-tun
 comp-lzo
 keepalive 10 120
+cipher AES-128-GCM
 tls-client
+auth SHA256
 remote-cert-tls server
 verb 0
 auth-user-pass
-cipher none
-auth none
 auth-nocache
 auth-retry interact
 connect-retry 0 1
@@ -884,6 +893,15 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-crypt>
+$(cat /etc/openvpn/ta.key)
+</tls-crypt>
 EOF17
 
 cat <<EOF17> /var/www/openvpn/KaizenSSL.ovpn
@@ -902,7 +920,6 @@ persist-key
 persist-tun
 comp-lzo
 keepalive 10 120
-tls-client
 remote-cert-tls server
 verb 0
 auth-user-pass
@@ -921,6 +938,15 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-crypt>
+$(cat /etc/openvpn/ta.key)
+</tls-crypt>
 EOF17
  
 cat <<EOF162> /var/www/openvpn/KaizenUDP.ovpn
@@ -953,6 +979,15 @@ verb 3
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
+<cert>
+$(cat /etc/openvpn/server.crt)
+</cert>
+<key>
+$(cat /etc/openvpn/server.key)
+</key>
+<tls-crypt>
+$(cat /etc/openvpn/ta.key)
+</tls-crypt>
 EOF162
 
  # Creating OVPN download site index.html
