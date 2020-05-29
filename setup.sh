@@ -901,6 +901,7 @@ auth-nocache
 auth SHA512
 cipher AES-256-CBC
 remote-cert-tls server
+tls-client
 verb 0
 auth-user-pass
 auth-retry interact
@@ -947,6 +948,7 @@ auth-user-pass
 auth-nocache
 auth SHA512
 cipher AES-256-CBC
+tls-client
 auth-retry interact
 connect-retry 0 1
 reneg-sec 0
