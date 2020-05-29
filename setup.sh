@@ -268,12 +268,8 @@ status openvpn-status.log
 log tcp.log
 verb 2
 ncp-disable
-auth SHA256
-auth-nocache
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 myOpenVPNconf
 
 cat <<'myOpenVPNconf2' > /etc/openvpn/server_udp.conf
@@ -304,12 +300,8 @@ status openvpn-status.log
 log udp.log
 verb 2
 ncp-disable
-auth SHA256
-auth-nocache
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 myOpenVPNconf2
 
   cat <<'EOF7'> /etc/openvpn/ca.crt
@@ -869,11 +861,8 @@ persist-key
 auth-user-pass
 auth-nocache
 auth-retry interact
-auth SHA256
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 comp-lzo
 reneg-sec 0
 verb 0
@@ -908,12 +897,9 @@ persist-key
 persist-tun
 comp-lzo
 keepalive 10 120
-auth SHA256
 auth-nocache
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 remote-cert-tls server
 verb 0
 auth-user-pass
@@ -958,12 +944,9 @@ keepalive 10 120
 remote-cert-tls server
 verb 0
 auth-user-pass
-auth SHA256
 auth-nocache
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 auth-retry interact
 connect-retry 0 1
 reneg-sec 0
@@ -1004,12 +987,9 @@ persist-key
 persist-remote-ip
 persist-tun
 auth-user-pass
-auth SHA256
 auth-nocache
-cipher AES-128-GCM
-tls-client
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
+auth SHA512
+cipher AES-256-CBC
 comp-lzo
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
