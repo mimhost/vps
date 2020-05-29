@@ -216,7 +216,6 @@ connect = 127.0.0.1:openssh_port_c
 [openvpn]
 accept = Stunnel_Port3
 connect = 127.0.0.1:openvpn_port_c
-sni = mydigiapp.digi.com.my
 MyStunnelC
 
 # setting stunnel ports
