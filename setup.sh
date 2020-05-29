@@ -1253,6 +1253,7 @@ echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.t
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
 echo "   - Squid Proxy	: $Squid_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - PPTPD		: 1723 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "----------------"  | tee -a log-install.txt
 echo "Maklumat Penting"  | tee -a log-install.txt
