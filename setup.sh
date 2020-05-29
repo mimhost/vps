@@ -216,6 +216,7 @@ connect = 127.0.0.1:openssh_port_c
 [openvpn]
 accept = Stunnel_Port3
 connect = 127.0.0.1:openvpn_port_c
+sni = mydigiapp.digi.com.my
 MyStunnelC
 
 # setting stunnel ports
@@ -898,8 +899,8 @@ persist-tun
 comp-lzo
 keepalive 10 120
 auth-nocache
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 remote-cert-tls server
 tls-client
 verb 0
@@ -915,15 +916,6 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-<cert>
-$(cat /etc/openvpn/server.crt)
-</cert>
-<key>
-$(cat /etc/openvpn/server.key)
-</key>
-<tls-crypt>
-$(cat /etc/openvpn/ta.key)
-</tls-crypt>
 EOF17
 
 cat <<EOF17> /var/www/openvpn/KaizenSSL.ovpn
