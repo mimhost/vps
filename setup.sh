@@ -268,11 +268,12 @@ status openvpn-status.log
 log tcp.log
 verb 2
 ncp-disable
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 myOpenVPNconf
 
 cat <<'myOpenVPNconf2' > /etc/openvpn/server_udp.conf
@@ -303,11 +304,12 @@ status openvpn-status.log
 log udp.log
 verb 2
 ncp-disable
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 myOpenVPNconf2
 
   cat <<'EOF7'> /etc/openvpn/ca.crt
@@ -699,9 +701,35 @@ privoxy
  # Removing Duplicate Squid config
  rm -rf /etc/squid/squid.con*
  
-wget https://raw.githubusercontent.com/Apeachsan91/pptpd-vpn/master/pptpd.sh && chmod +x pptpd.sh && ./pptpd.sh
+#install PPTP
+apt-get -y install pptpd
+cat > /etc/ppp/pptpd-options <<END
+name pptpd
+refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+proxyarp
+nodefaultroute
+lock
+nobsdcomp
+END
+echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
+echo "logwtmp" >> /etc/pptpd.conf
+echo "localip 10.1.0.1" >> /etc/pptpd.conf
+echo "remoteip 10.1.0.5-100" >> /etc/pptpd.conf
+cat >> /etc/ppp/ip-up <<END
+ifconfig ppp0 mtu 1400
+END
 mkdir /var/lib/premium-script
-/etc/init.d/pptpd restart
+/etc/init.d/pptpd restart 
+ 
+#wget https://raw.githubusercontent.com/Apeachsan91/pptpd-vpn/master/pptpd.sh && chmod +x pptpd.sh && ./pptpd.sh
+#mkdir /var/lib/premium-script
+#/etc/init.d/pptpd restart
  
  # Creating Squid server config using cat eof tricks
  cat <<'mySquid' > /etc/squid/squid.conf
@@ -841,11 +869,11 @@ persist-key
 auth-user-pass
 auth-nocache
 auth-retry interact
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 comp-lzo
 reneg-sec 0
 verb 0
@@ -880,15 +908,15 @@ persist-key
 persist-tun
 comp-lzo
 keepalive 10 120
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 remote-cert-tls server
 verb 0
 auth-user-pass
-auth-nocache
 auth-retry interact
 connect-retry 0 1
 reneg-sec 0
@@ -930,12 +958,12 @@ keepalive 10 120
 remote-cert-tls server
 verb 0
 auth-user-pass
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
-auth-nocache
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 auth-retry interact
 connect-retry 0 1
 reneg-sec 0
@@ -976,12 +1004,12 @@ persist-key
 persist-remote-ip
 persist-tun
 auth-user-pass
-cipher AES-256-CBC
-auth SHA512
-tls-cipher TLS-DHE-RSA-WITH-AES-256-CBC-SHA256
+auth SHA256
+auth-nocache
+cipher AES-128-GCM
 tls-client
 tls-version-min 1.2
-auth-nocache
+tls-cipher TLS-ECDHE-ECDSA-WITH-AES-128-GCM-SHA256
 comp-lzo
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
