@@ -304,44 +304,44 @@ myOpenVPNconf2
 
   cat <<'EOF7'> /etc/openvpn/ca.crt
 -----BEGIN CERTIFICATE-----
-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
-mQXmMKc1Owxb
+MIIHBzCCBO+gAwIBAgIUJWekorsiMtlPx4dLr6yh1teIZogwDQYJKoZIhvcNAQEL
+BQAwgasxCzAJBgNVBAYTAk1ZMQ4wDAYDVQQIEwVTYWJhaDEWMBQGA1UEBxMNS290
+YSBLaW5hYmFsdTEVMBMGA1UEChMMS2FpemVuVlBOLmNvMRYwFAYDVQQLEw1LYWl6
+ZW52cG4ub3JnMRIwEAYDVQQDEwlLYWl6ZW5WUE4xDzANBgNVBCkTBkthaXplbjEg
+MB4GCSqGSIb3DQEJARYRaGF6Ym95ekBnbWFpbC5jb20wHhcNMjAwNTAzMTY1OTAz
+WhcNMzAwNTAxMTY1OTAzWjCBqzELMAkGA1UEBhMCTVkxDjAMBgNVBAgTBVNhYmFo
+MRYwFAYDVQQHEw1Lb3RhIEtpbmFiYWx1MRUwEwYDVQQKEwxLYWl6ZW5WUE4uY28x
+FjAUBgNVBAsTDUthaXplbnZwbi5vcmcxEjAQBgNVBAMTCUthaXplblZQTjEPMA0G
+A1UEKRMGS2FpemVuMSAwHgYJKoZIhvcNAQkBFhFoYXpib3l6QGdtYWlsLmNvbTCC
+AiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANXy1RODy3bXvms6fWdV3rED
+++5qLMpH3zh9xaX8wHAxSlSsDfACFaZNjBX9PcyGqWAErLx2Ev89lCBLDBoWCkPF
+rJ6h2HmXku7i2Yc8WPqCaIWyD+VQGkZ4mGeEFeIacllPosRjfO9Fccc1Mmb/lpCw
+swb72lKGZFOa0DDZNFm3UMUvug2XUNnqcHim+icWKfyJ5w5zcj2HYcalU64511Zu
+sKCA1DZqPgZgIY1R43S9FYCKWCXDbns0o4LrVsVTn4Z56+LFoOZjqUZPkFIZRd3s
+tePXqlOiwGHNMyoFBOe6BPg3as9du2ax0aM8cKFn/L96SNiyG7gE6ySciM50ZW7n
+klpnvake0nFYLS5sgV04tCrH0JcCMAJ1vvAjZmRZRMTpLMnqRHd9QPS9br0VSFFB
+ChIRZ03TKEHcvUJA9L/6PJDiBGAj+SveZMEq+EkeYjZJonlIBYwQ81r0CSMtL4mv
+Z3WYjzIscNaWKEqzjEPQWhk5v7d9vmsAFcgEGR9T1qfnLz3sy0O6EH6xL70Yyfxo
+Jq+aoB/qg6qF02C7Y1a78CxZhr0RzZwoUijW7H7Ohnu0OIHEKBEi2kHGcRo7F69p
+8P4sZmPYXU2/dPdKJKWZ7j9HsETtIzP9Xaqlw+VeeIJOiQgZNzL/sHozwKH8brUv
+4Pbua6xntQQiZARsl/vnAgMBAAGjggEfMIIBGzAdBgNVHQ4EFgQUo2shX11pmcpb
+Wz6RjSTQHeE1aQ8wgesGA1UdIwSB4zCB4IAUo2shX11pmcpbWz6RjSTQHeE1aQ+h
+gbGkga4wgasxCzAJBgNVBAYTAk1ZMQ4wDAYDVQQIEwVTYWJhaDEWMBQGA1UEBxMN
+S290YSBLaW5hYmFsdTEVMBMGA1UEChMMS2FpemVuVlBOLmNvMRYwFAYDVQQLEw1L
+YWl6ZW52cG4ub3JnMRIwEAYDVQQDEwlLYWl6ZW5WUE4xDzANBgNVBCkTBkthaXpl
+bjEgMB4GCSqGSIb3DQEJARYRaGF6Ym95ekBnbWFpbC5jb22CFCVnpKK7IjLZT8eH
+S6+sodbXiGaIMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIBAF01FydA
+FpF1UmYPeQ79k0Nq/CVuc5CP5f1HbEHF1CzrriEi63DtJNmEXWrQCvYi33tjDc5y
+DDEtV2tD90jiSdeu2uNU31fxd9a3PIHX56PwyyFQWpd7sXcBAZRnbX0kmUWtpVRp
+CuTj0xfuHnA63dsM06LOBKYSGf2ysw5sP0jQkSr8TwKvsHW+AOoOoKJ0CqkijGSY
+CD469DiNijWN4Eq/A+GQMR9GF9GtQzTjB8n9MEwHnvIVOcfAZdiExhq/thrkGS0N
+Wrq0g9XQCYcNgbP52CJc0vlhfqlnEZDh2uzy22iZVVSP3/WLb+9jFfrLhFyL/AKs
+oR7pDwdSI9oxztwfRWi4e7qxvRDr4hAGxar7coRYM51WLnggycm5JOw5LYQkYuyg
+nBGOW3ZCTxKEn1yQ5U0oprrLKuCDUjMKIZCT1KhwOpv9cKBPQ7JJi6Yobhv0MHlX
+zQPi1dQenxxopw+oeeAkN0GiozyuwDFtjFy9WagPWGmTUSb8wJ3JmB22wIAjXKAI
+D1CjXERhBKJy02NIZOKX7buVxt+w2dgDdQ6zKOXoOcpHoNzmjEFK+5wRm3VIq62s
+PtdpRj/gU26VKou3G/DhGWHkA+CLDNCpLJ9LptNDOgqapO5/OBC1bZg+EkTYVqcg
+3rfLwzLervwJ9fqoXliCRFBfqIqBeUjSbA3q
 -----END CERTIFICATE-----
 EOF7
  cat <<'EOF9'> /etc/openvpn/server.crt
@@ -350,50 +350,50 @@ Certificate:
         Version: 3 (0x2)
         Serial Number: 1 (0x1)
         Signature Algorithm: sha256WithRSAEncryption
-        Issuer: C=MY, ST=SBH, L=KotaKinabalu, O=KaizenVPN, OU=admin, CN=KaizenVPN_MY/name=KaizenVPN/emailAddress=kaizenvpn@gmail.com
+        Issuer: C=MY, ST=Sabah, L=Kota Kinabalu, O=KaizenVPN.co, OU=Kaizenvpn.org, CN=KaizenVPN/name=Kaizen/emailAddress=hazboyz@gmail.com
         Validity
-            Not Before: May 29 17:09:42 2020 GMT
-            Not After : May 27 17:09:42 2030 GMT
-        Subject: C=MY, ST=SBH, L=KotaKinabalu, O=KaizenVPN, OU=admin, CN=server/name=KaizenVPN/emailAddress=kaizenvpn@gmail.com
+            Not Before: May  3 17:00:21 2020 GMT
+            Not After : May  1 17:00:21 2030 GMT
+        Subject: C=MY, ST=Sabah, L=Kota Kinabalu, O=KaizenVPN.co, OU=KaizenVPN.org, CN=KaizenVPN/name=Kaizen/emailAddress=hazboyz@gmail.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
                 RSA Public-Key: (4096 bit)
                 Modulus:
-                    00:ac:a6:e2:ae:46:8f:9d:e6:2b:fb:30:b9:ff:17:
-                    6a:5e:25:5f:63:39:24:ea:93:f1:6f:7e:4a:b0:81:
-                    c3:e3:e1:0a:0f:cc:83:18:5a:cc:7e:9d:47:53:56:
-                    52:84:92:c2:41:57:45:14:43:1a:5b:2f:58:74:81:
-                    33:45:04:6e:16:7b:54:12:e8:a5:b8:00:8e:cc:15:
-                    c0:1b:bf:6b:66:1f:48:78:91:2f:58:0f:82:42:e6:
-                    80:3a:de:c5:77:f5:39:28:84:03:8e:85:8c:55:33:
-                    3a:f3:2e:c9:ec:2a:8b:9c:c4:29:55:71:16:d7:77:
-                    a0:a3:0a:3c:6e:24:d0:b4:88:d2:3a:5a:81:da:96:
-                    b6:c0:c7:d8:85:f5:27:19:33:70:99:a7:eb:13:6b:
-                    27:e0:2b:9b:4e:08:a3:29:78:14:3f:9e:f6:b9:a7:
-                    1c:c4:d6:bc:a3:fe:a7:98:7d:46:cc:f2:d4:e2:56:
-                    41:3f:10:4c:a0:31:63:21:1b:00:a1:e1:38:0e:dd:
-                    6b:57:f9:77:66:ba:6e:bb:db:38:26:ff:41:44:72:
-                    69:31:97:a0:72:8b:e8:83:90:d1:c6:7f:38:2b:2b:
-                    bb:fc:5b:bf:7e:5e:eb:b9:0c:ac:e3:f7:5b:26:91:
-                    48:ed:08:5c:16:25:27:22:c6:83:b5:4d:cb:fc:af:
-                    7c:9a:6c:b1:5d:ef:9b:37:f3:ba:63:70:05:9c:92:
-                    f5:33:b0:fa:ec:2e:fb:10:fe:46:93:02:cb:77:f4:
-                    15:e5:1b:52:17:0d:b4:56:2d:9f:16:ac:56:29:ca:
-                    49:ed:58:14:a1:d4:d0:ff:83:62:fe:7a:8c:5b:73:
-                    1d:93:52:09:9a:e5:09:c8:71:c6:17:56:de:72:86:
-                    a3:f3:1a:c8:09:04:8f:11:e6:79:8f:ca:53:e4:82:
-                    a1:8a:2d:93:98:79:0d:42:12:ba:61:4f:9f:ce:4e:
-                    05:25:d0:de:9f:b9:15:b7:34:a0:d2:4f:e3:99:03:
-                    a3:be:38:6c:ae:6d:07:56:e2:a7:62:c6:b9:c8:ff:
-                    13:8f:1b:36:61:35:85:61:14:9c:23:23:47:60:1c:
-                    62:84:00:16:1a:de:48:06:f3:5d:b9:99:5a:2c:91:
-                    e7:0d:9f:12:0e:99:3a:cd:5f:27:b8:8b:10:c7:64:
-                    7f:28:d3:a9:44:ae:05:7c:95:35:a4:86:b1:e0:07:
-                    db:74:22:50:fb:55:72:3e:45:e3:52:38:6f:1d:c2:
-                    80:39:e4:7b:1e:b2:76:86:40:90:66:be:e5:e4:34:
-                    d2:9a:52:14:c4:15:32:93:d5:a9:6e:1a:78:03:39:
-                    d7:61:61:0e:8a:82:6b:d0:d7:92:88:67:fe:28:92:
-                    3f:40:6b
+                    00:e9:d0:94:12:e1:1f:7d:98:58:94:6d:86:86:e2:
+                    5f:b6:d2:2d:c6:bd:58:c2:b6:fe:ee:11:f5:0b:71:
+                    a1:4b:28:1c:03:7d:b5:b9:ee:27:d9:62:ee:cd:81:
+                    a3:55:78:b0:ac:61:b1:bc:f0:4b:fb:88:eb:ff:54:
+                    0e:c4:ac:c2:5b:a8:28:74:71:89:ac:b9:08:07:b9:
+                    99:bf:18:a7:2a:77:ae:88:08:17:77:e7:2b:ab:c4:
+                    1b:9a:2a:16:5d:4a:9e:43:95:a8:6e:f4:e6:a9:01:
+                    97:d9:b6:26:86:f7:a9:90:4a:93:1c:92:bf:ed:bb:
+                    ce:9b:7a:b9:cb:c9:53:b5:68:d9:38:30:4e:58:26:
+                    2c:ab:c4:be:ee:0a:15:e4:c5:e4:9f:d4:b0:5e:fc:
+                    b1:53:27:5f:ad:20:af:a8:1b:fc:38:d6:a5:e2:e6:
+                    3f:e5:d4:bd:6e:4a:c9:c5:83:6b:a3:f7:0f:d5:8e:
+                    c1:42:bc:09:c1:dd:e3:97:5a:e0:7c:1f:a0:d4:75:
+                    cc:78:f6:3f:4a:5a:c3:e1:7d:72:e0:ea:1d:a1:bb:
+                    42:eb:c3:cc:bc:82:5d:89:ce:92:e9:7a:ad:36:67:
+                    d0:5c:59:18:e8:88:1b:59:bd:6f:ff:2b:28:98:bb:
+                    82:62:c7:8a:ab:d8:8c:5e:e5:7b:47:b6:28:a4:3a:
+                    1f:7e:0b:fe:78:be:24:cd:ad:46:f2:31:54:72:a0:
+                    ff:40:5b:53:fc:cc:d7:9d:aa:df:05:0b:bf:16:49:
+                    74:d4:f8:7a:f1:a4:08:2b:b0:0c:9e:76:b2:f1:ce:
+                    0e:3d:6f:c9:7a:ae:e1:e1:9d:56:fe:5e:77:35:34:
+                    61:f8:46:d9:23:55:1d:3c:85:fc:1b:bc:b1:32:cb:
+                    17:1a:aa:0a:fb:78:3d:0f:24:06:34:dd:14:9e:a5:
+                    c7:fb:db:10:72:8d:60:8f:28:e6:29:22:bc:8c:2d:
+                    be:96:35:c5:7c:09:bf:5a:f0:27:87:06:77:04:0d:
+                    4a:0d:4d:b2:ea:3c:2f:17:b4:5a:f5:ea:31:25:43:
+                    59:ed:e7:0d:f6:a8:57:5d:d2:65:02:bd:9a:0e:c4:
+                    ad:e2:26:4f:2a:96:ab:bd:db:13:54:fd:e5:28:87:
+                    dd:e1:9c:e9:f2:da:d4:45:60:a3:db:e0:41:41:5f:
+                    7c:86:8b:7a:71:2f:57:aa:2c:09:09:bb:ca:73:97:
+                    03:b2:4d:c0:c8:4c:6a:5e:be:84:2f:d0:95:cc:96:
+                    13:25:a3:7e:4f:9c:bd:df:12:dc:4e:56:d5:8f:39:
+                    7e:e8:2b:c7:0e:53:1e:11:fc:fc:ad:e1:05:14:da:
+                    3a:f0:89:1e:5a:a5:b4:cb:b3:a6:24:ca:c4:ce:b0:
+                    b8:74:ab
                 Exponent: 65537 (0x10001)
         X509v3 extensions:
             X509v3 Basic Constraints: 
@@ -403,152 +403,154 @@ Certificate:
             Netscape Comment: 
                 Easy-RSA Generated Server Certificate
             X509v3 Subject Key Identifier: 
-                35:7F:4E:D6:FE:0F:E8:AB:4D:EE:8D:3B:C3:3B:71:47:56:4C:1F:C1
+                8F:41:EA:A8:FD:7E:50:BA:6A:3E:2B:ED:59:F5:F9:C9:4F:63:F5:33
             X509v3 Authority Key Identifier: 
-                keyid:60:05:3E:A5:24:02:9F:89:03:32:0A:17:99:0A:A6:FD:04:1D:87:F0
-                DirName:/C=MY/ST=SBH/L=KotaKinabalu/O=KaizenVPN/OU=admin/CN=KaizenVPN_MY/name=KaizenVPN/emailAddress=kaizenvpn@gmail.com
-                serial:4E:5D:E5:59:B3:0A:F4:90:3A:EA:EB:38:86:15:A7:A5:20:0C:02:AB
+                keyid:A3:6B:21:5F:5D:69:99:CA:5B:5B:3E:91:8D:24:D0:1D:E1:35:69:0F
+                DirName:/C=MY/ST=Sabah/L=Kota Kinabalu/O=KaizenVPN.co/OU=Kaizenvpn.org/CN=KaizenVPN/name=Kaizen/emailAddress=hazboyz@gmail.com
+                serial:25:67:A4:A2:BB:22:32:D9:4F:C7:87:4B:AF:AC:A1:D6:D7:88:66:88
 
             X509v3 Extended Key Usage: 
                 TLS Web Server Authentication
             X509v3 Key Usage: 
                 Digital Signature, Key Encipherment
     Signature Algorithm: sha256WithRSAEncryption
-         56:2d:d8:9a:80:e0:b4:a0:9d:f8:aa:32:5d:ff:f4:23:ee:91:
-         1f:1d:32:99:a8:5a:48:5b:bd:5d:7f:6b:d9:97:cb:3b:5d:7c:
-         65:6d:01:0c:7c:fc:ff:fb:f7:c2:4c:df:65:6d:87:4f:2a:e4:
-         99:b8:1f:04:bd:f3:ec:50:3e:f2:d1:9f:3a:b9:38:8f:fd:ad:
-         b0:48:81:29:7b:ce:1d:58:b5:b7:d6:7d:04:ed:47:8d:25:f9:
-         c9:27:82:b8:3f:c1:ab:7d:4b:97:94:0c:72:f7:e6:2a:11:00:
-         97:9b:10:9d:54:27:e6:b2:2f:9f:6a:d9:f7:82:93:e7:f9:04:
-         e4:7a:25:f3:bf:a1:af:03:df:c1:d3:ad:54:78:14:e8:b6:a3:
-         71:5d:e2:50:52:72:8c:57:0f:86:52:7e:ed:b6:77:2f:ad:20:
-         d9:2b:11:44:0c:19:04:66:93:09:e7:1a:4e:de:50:0a:ae:dd:
-         ea:0a:f5:02:f6:0e:d6:05:4e:a2:d0:18:3b:9f:08:e2:28:f4:
-         83:68:a2:f6:87:91:12:39:be:02:01:10:91:dd:c5:6c:4f:cd:
-         e0:8e:a0:af:7e:a9:e7:2f:c3:a4:8d:ee:19:26:7a:76:9a:e6:
-         0c:46:1f:cf:b5:2a:34:eb:04:33:4d:8c:1a:a7:3a:09:82:5d:
-         d9:7f:a8:0c:bd:c4:58:25:be:76:77:70:d9:8b:26:2b:98:60:
-         4c:e4:bd:c9:68:24:f1:dd:6b:78:e6:63:be:36:40:79:96:ff:
-         38:d3:34:0a:ba:c0:63:ec:09:c2:ce:b1:9b:e5:19:ac:51:1b:
-         23:c7:02:b4:0c:97:ea:c0:9a:c6:72:7b:cc:35:c9:17:5e:d8:
-         0b:5a:0a:75:db:c5:42:55:3f:50:77:8a:3b:e9:31:64:4f:2d:
-         34:70:03:c4:c7:37:06:df:99:b9:40:be:8b:ce:b0:72:6d:8e:
-         b1:29:07:6c:41:ee:b8:67:59:53:25:5e:61:7a:90:15:e3:8c:
-         1a:e3:b3:14:9c:6f:74:e4:9a:50:e1:8c:bb:ce:01:27:0f:f3:
-         0d:de:16:c6:f9:7a:73:f3:1f:fb:0f:73:eb:2f:7c:52:a8:e1:
-         22:83:61:e3:20:8f:d5:fc:25:bc:f6:1a:73:e6:e9:99:90:89:
-         c0:e7:69:ea:0d:be:ba:d1:a4:62:f9:a4:dd:b3:fd:03:2f:36:
-         a8:92:ed:27:c0:1a:32:19:c7:83:3d:4a:9c:38:ad:82:bd:29:
-         e9:71:c6:fe:0d:b8:29:57:af:2b:19:a2:ef:32:46:c4:f6:08:
-         4e:a8:75:90:f3:5d:d2:bb:63:61:b3:e6:e0:c9:8d:8f:81:6f:
-         9f:90:47:01:f8:e5:3d:17
+         43:13:69:f8:a4:dc:54:87:f9:96:82:bc:9d:11:c4:1f:66:a6:
+         26:d8:be:1c:bc:9e:4c:80:03:d6:9e:94:b6:31:76:b0:73:75:
+         00:b5:62:82:ca:66:f3:39:1b:bc:31:d5:64:76:07:c1:20:56:
+         9c:e5:2d:32:ab:1e:51:4d:2e:91:aa:be:e8:1b:91:18:14:38:
+         25:5a:5d:b4:15:ad:9f:fd:1b:89:84:e1:60:a7:8d:31:d1:f1:
+         2a:04:0e:d6:da:e6:1f:65:27:ee:eb:b1:75:b4:23:2c:80:87:
+         bc:61:0c:18:90:f4:59:e5:39:d8:e5:32:95:14:05:51:f1:cd:
+         ce:8d:e6:73:c4:74:1c:2a:99:c8:57:5f:97:98:b4:a2:d1:57:
+         84:08:dc:85:e8:e4:5a:60:14:b1:9f:bf:76:f8:b7:c3:86:79:
+         13:cb:11:60:5a:34:55:e8:c7:8e:80:bc:9a:28:90:e3:20:de:
+         a0:f0:de:1b:cd:0c:15:47:48:08:bd:6d:77:e7:80:bf:c3:31:
+         23:84:a8:ad:8a:c7:d0:a4:2e:cb:9f:16:98:ab:93:91:d5:77:
+         4d:00:63:04:f1:8f:8e:45:99:13:c3:6c:f6:a9:41:91:07:30:
+         c5:23:41:37:4a:a9:2b:f6:cf:1c:cd:e5:bf:e5:40:b1:2f:61:
+         78:1a:1d:56:13:6a:98:2e:c8:21:4d:d4:47:6e:a9:a5:85:76:
+         0e:3b:aa:62:ee:06:a2:ef:c2:c0:54:ff:99:4b:b5:7c:d9:28:
+         85:c4:3c:95:9a:87:da:34:b0:05:cb:c4:3f:b8:7f:f8:ec:29:
+         56:8b:93:09:58:42:0d:53:7d:aa:b5:aa:eb:ff:4f:78:f6:37:
+         5b:af:0b:fe:b8:8c:65:f2:f1:7a:53:03:36:aa:30:e9:e8:c2:
+         b8:b1:71:35:10:44:05:3b:d3:c9:5e:ec:29:83:16:ad:51:72:
+         4b:aa:fc:76:ed:df:10:43:20:40:99:16:9f:6b:25:3d:da:b1:
+         8e:00:5d:86:9e:7f:3f:e0:ae:38:22:4a:cf:bc:28:4c:af:37:
+         19:f2:84:00:0c:df:96:24:76:d9:17:22:8a:5e:da:5d:2e:52:
+         50:2b:64:74:d0:f7:c7:08:4f:83:ac:f9:5e:5d:4c:01:55:ac:
+         f1:56:3f:c0:a5:dc:e7:05:d5:b6:4a:c3:20:67:48:8c:73:fc:
+         8f:24:60:e7:a6:83:7e:2a:a9:88:86:ea:9d:0b:e5:d9:5a:63:
+         a5:b6:ba:6e:82:f1:3a:46:62:9e:ce:2d:e9:1b:44:d5:ea:b3:
+         3f:7a:76:fa:9c:0c:0c:43:fc:2a:74:91:1c:5f:d4:1a:bc:78:
+         dc:ab:4c:c1:a2:4c:14:c5
 -----BEGIN CERTIFICATE-----
-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
-DbgpV68rGaLvMkbE9ghOqHWQ813Su2Nhs+bgyY2PgW+fkEcB+OU9Fw==
+MIIHXDCCBUSgAwIBAgIBATANBgkqhkiG9w0BAQsFADCBqzELMAkGA1UEBhMCTVkx
+DjAMBgNVBAgTBVNhYmFoMRYwFAYDVQQHEw1Lb3RhIEtpbmFiYWx1MRUwEwYDVQQK
+EwxLYWl6ZW5WUE4uY28xFjAUBgNVBAsTDUthaXplbnZwbi5vcmcxEjAQBgNVBAMT
+CUthaXplblZQTjEPMA0GA1UEKRMGS2FpemVuMSAwHgYJKoZIhvcNAQkBFhFoYXpi
+b3l6QGdtYWlsLmNvbTAeFw0yMDA1MDMxNzAwMjFaFw0zMDA1MDExNzAwMjFaMIGr
+MQswCQYDVQQGEwJNWTEOMAwGA1UECBMFU2FiYWgxFjAUBgNVBAcTDUtvdGEgS2lu
+YWJhbHUxFTATBgNVBAoTDEthaXplblZQTi5jbzEWMBQGA1UECxMNS2FpemVuVlBO
+Lm9yZzESMBAGA1UEAxMJS2FpemVuVlBOMQ8wDQYDVQQpEwZLYWl6ZW4xIDAeBgkq
+hkiG9w0BCQEWEWhhemJveXpAZ21haWwuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC
+Ag8AMIICCgKCAgEA6dCUEuEffZhYlG2GhuJfttItxr1Ywrb+7hH1C3GhSygcA321
+ue4n2WLuzYGjVXiwrGGxvPBL+4jr/1QOxKzCW6godHGJrLkIB7mZvxinKneuiAgX
+d+crq8QbmioWXUqeQ5WobvTmqQGX2bYmhvepkEqTHJK/7bvOm3q5y8lTtWjZODBO
+WCYsq8S+7goV5MXkn9SwXvyxUydfrSCvqBv8ONal4uY/5dS9bkrJxYNro/cP1Y7B
+QrwJwd3jl1rgfB+g1HXMePY/SlrD4X1y4OodobtC68PMvIJdic6S6XqtNmfQXFkY
+6IgbWb1v/ysomLuCYseKq9iMXuV7R7YopDoffgv+eL4kza1G8jFUcqD/QFtT/MzX
+narfBQu/Fkl01Ph68aQIK7AMnnay8c4OPW/Jeq7h4Z1W/l53NTRh+EbZI1UdPIX8
+G7yxMssXGqoK+3g9DyQGNN0UnqXH+9sQco1gjyjmKSK8jC2+ljXFfAm/WvAnhwZ3
+BA1KDU2y6jwvF7Ra9eoxJUNZ7ecN9qhXXdJlAr2aDsSt4iZPKparvdsTVP3lKIfd
+4Zzp8trURWCj2+BBQV98hot6cS9XqiwJCbvKc5cDsk3AyExqXr6EL9CVzJYTJaN+
+T5y93xLcTlbVjzl+6CvHDlMeEfz8reEFFNo68IkeWqW0y7OmJMrEzrC4dKsCAwEA
+AaOCAYcwggGDMAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgZAMDQGCWCGSAGG
++EIBDQQnFiVFYXN5LVJTQSBHZW5lcmF0ZWQgU2VydmVyIENlcnRpZmljYXRlMB0G
+A1UdDgQWBBSPQeqo/X5Qumo+K+1Z9fnJT2P1MzCB6wYDVR0jBIHjMIHggBSjayFf
+XWmZyltbPpGNJNAd4TVpD6GBsaSBrjCBqzELMAkGA1UEBhMCTVkxDjAMBgNVBAgT
+BVNhYmFoMRYwFAYDVQQHEw1Lb3RhIEtpbmFiYWx1MRUwEwYDVQQKEwxLYWl6ZW5W
+UE4uY28xFjAUBgNVBAsTDUthaXplbnZwbi5vcmcxEjAQBgNVBAMTCUthaXplblZQ
+TjEPMA0GA1UEKRMGS2FpemVuMSAwHgYJKoZIhvcNAQkBFhFoYXpib3l6QGdtYWls
+LmNvbYIUJWekorsiMtlPx4dLr6yh1teIZogwEwYDVR0lBAwwCgYIKwYBBQUHAwEw
+CwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQBDE2n4pNxUh/mWgrydEcQf
+ZqYm2L4cvJ5MgAPWnpS2MXawc3UAtWKCymbzORu8MdVkdgfBIFac5S0yqx5RTS6R
+qr7oG5EYFDglWl20Fa2f/RuJhOFgp40x0fEqBA7W2uYfZSfu67F1tCMsgIe8YQwY
+kPRZ5TnY5TKVFAVR8c3OjeZzxHQcKpnIV1+XmLSi0VeECNyF6ORaYBSxn792+LfD
+hnkTyxFgWjRV6MeOgLyaKJDjIN6g8N4bzQwVR0gIvW1354C/wzEjhKitisfQpC7L
+nxaYq5OR1XdNAGME8Y+ORZkTw2z2qUGRBzDFI0E3Sqkr9s8czeW/5UCxL2F4Gh1W
+E2qYLsghTdRHbqmlhXYOO6pi7gai78LAVP+ZS7V82SiFxDyVmofaNLAFy8Q/uH/4
+7ClWi5MJWEINU32qtarr/0949jdbrwv+uIxl8vF6UwM2qjDp6MK4sXE1EEQFO9PJ
+XuwpgxatUXJLqvx27d8QQyBAmRafayU92rGOAF2Gnn8/4K44IkrPvChMrzcZ8oQA
+DN+WJHbZFyKKXtpdLlJQK2R00PfHCE+DrPleXUwBVazxVj/ApdznBdW2SsMgZ0iM
+c/yPJGDnpoN+KqmIhuqdC+XZWmOltrpugvE6RmKezi3pG0TV6rM/enb6nAwMQ/wq
+dJEcX9QavHjcq0zBokwUxQ==
 -----END CERTIFICATE-----
 EOF9
  cat <<'EOF10'> /etc/openvpn/server.key
 -----BEGIN PRIVATE KEY-----
-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
-hgiphZwZY1XzAThlsxdBEzK+6kMIjYo=
+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
+sjcrdW6AYqXMqFEKVoY0kFXLyZBdwOw=
 -----END PRIVATE KEY-----
 EOF10
  cat <<'EOF13'> /etc/openvpn/dh2048.pem
 -----BEGIN DH PARAMETERS-----
-MIIBCAKCAQEA8sZPuFbSjnjVIi5Iat2nhEMj9SHZL11plX5jhujN/plKIWljUEzC
-xiIzIltWSmpDV4o2HZL8T5RPLLu4Sv0Zidh6C4C+b8KdZdvjQfbvBGqxh2Ia9/d/
-HI/Y3oYnatDp6Futb5bm/xbJVNRzwu1ayzr4X9F4VpCCFFK0vnt1VQUORjeif5QI
-3XnugwZDihB3j7XEkSI9N05oNx5FsRNEUMhhTpYDaeGggATftZGGDf7KXYg2v4Wb
-+Wp3vNZ/8m4l2pK8gaIVVTB7fdY0cG5iNaJ12QFBRJGUD0IVe+Ob7xcoBhZPTXC+
-FI2L3z3pdTqq2HEZmuZShPvxiHbE3xn+kwIBAg==
+MIIBCAKCAQEA5ofbRy6s+i5D30dZhsjDwb/KJ+0wwriHk72Nu9t/zHxwdH6fRMyn
+GWrtKlneGoizqr7DvABjRp4tw4LYGPII26DLQPm/VPpWGiVW9iV44PRh0r3sVhaS
+x5ENqef1dohaMQtggJ5dRwtyNGLUSEt7oyN7MeQ+PqgLfTx54EQoKLKBhfFjsLLt
+QeVFuKEi/11zvD2XiboC5xSVxW/bTBXukRlXjrwT++/v3Xe54FPdjYgTOVvHurHQ
+nwa5KzPyF5psMXfvjhyrwt2+36hGGkGlHnTHEJqk3kiWL0x7znV3oA3S92REYhkn
+Oavyn36KwNDG8VPOfJYMIlUBRY3lX7pDcwIBAg==
 -----END DH PARAMETERS-----
 EOF13
+
  # Getting all dns inside resolv.conf then use as Default DNS for our openvpn server
  grep -v '#' /etc/resolv.conf | grep 'nameserver' | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | while read -r line; do
 	echo "push \"dhcp-option DNS $line\"" >> /etc/openvpn/server_tcp.conf
