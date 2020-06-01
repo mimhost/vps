@@ -267,8 +267,8 @@ status openvpn-status.log
 log tcp.log
 verb 2
 ncp-disable
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 myOpenVPNconf
 
 cat <<'myOpenVPNconf2' > /etc/openvpn/server_udp.conf
@@ -298,8 +298,8 @@ status openvpn-status.log
 log udp.log
 verb 2
 ncp-disable
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 myOpenVPNconf2
 
   cat <<'EOF7'> /etc/openvpn/ca.crt
@@ -839,8 +839,8 @@ persist-key
 auth-user-pass
 auth-nocache
 auth-retry interact
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 comp-lzo
 reneg-sec 0
 verb 0
@@ -906,8 +906,8 @@ remote-cert-tls server
 verb 0
 auth-user-pass
 auth-nocache
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 tls-client
 auth-retry interact
 connect-retry 0 1
@@ -941,8 +941,8 @@ persist-remote-ip
 persist-tun
 auth-user-pass
 auth-nocache
-auth SHA512
-cipher AES-256-CBC
+auth none
+cipher none
 comp-lzo
 setenv CLIENT_CERT 0
 setenv opt block-outside-dns 
