@@ -628,8 +628,8 @@ EOFipt
  systemctl enable openvpn@server_udp
  
   # Pulling OpenVPN no internet fixer script
- #wget -qO /etc/openvpn/openvpn.bash "https://raw.githubusercontent.com/Apeachsan91/vps/master/openvpn.bash"
- #chmod +x /etc/openvpn/openvpn.bash
+wget -qO /etc/openvpn/openvpn.bash "https://raw.githubusercontent.com/Apeachsan91/vps/master/openvpn.bash"
+chmod +x /etc/openvpn/openvpn.bash
 
 }
 
