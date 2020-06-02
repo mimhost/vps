@@ -596,19 +596,28 @@ NUovpn
  sed -i 's|LimitNPROC|#LimitNPROC|g' /lib/systemd/system/openvpn*
  systemctl daemon-reload
 fi
- 
+
  # Allow IPv4 Forwarding
  sed -i '/net.ipv4.ip_forward.*/d' /etc/sysctl.conf
+ sed -i '/net.ipv4.ip_forward.*/d' /etc/sysctl.d/*.conf
  echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/20-openvpn.conf
  sysctl --system &> /dev/null
- 
+
  # Iptables Rule for OpenVPN server
- PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
- IPCIDR='10.200.0.0/16'
- iptables -I FORWARD -s $IPCIDR -j ACCEPT
- iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
- iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
- 
+ cat <<'EOFipt' > /etc/openvpn/openvpn.bash
+#!/bin/bash
+PUBLIC_INET="$(ip -4 route ls | grep default | grep -Po '(?<=dev )(\S+)' | head -1)"
+IPCIDR='10.200.0.0/16'
+IPCIDR2='10.201.0.0/16'
+iptables -I FORWARD -s $IPCIDR -j ACCEPT
+iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
+EOFipt
+ chmod +x /etc/openvpn/openvpn.bash
+ bash /etc/openvpn/openvpn.bash
+
  # Enabling IPv4 Forwarding
  echo 1 > /proc/sys/net/ipv4/ip_forward
  
@@ -619,8 +628,8 @@ fi
  systemctl enable openvpn@server_udp
  
   # Pulling OpenVPN no internet fixer script
-wget -qO /etc/openvpn/openvpn.bash "https://raw.githubusercontent.com/Apeachsan91/vps/master/openvpn.bash"
-chmod +x /etc/openvpn/openvpn.bash
+ wget -qO /etc/openvpn/openvpn.bash "https://raw.githubusercontent.com/Apeachsan91/vps/master/openvpn.bash"
+ chmod +x /etc/openvpn/openvpn.bash
 
 }
 
@@ -981,7 +990,7 @@ IPADDR="$(ip_address)"
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
- echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
+ # echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
  rm -rf /etc/KaizenVPN
@@ -1001,7 +1010,7 @@ export DEBIAN_FRONTEND=noninteractive
 iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dport 1:65535 -j ACCEPT
 
 # Allowing OpenVPN to Forward traffic
-# /bin/bash /etc/openvpn/openvpn.bash
+/bin/bash /etc/openvpn/openvpn.bash
 
 # Deleting Expired SSH Accounts
 /usr/local/bin/user-delete-expired &> /dev/null
