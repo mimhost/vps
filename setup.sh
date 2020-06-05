@@ -1176,15 +1176,15 @@ ln -s /usr/games/fortune /bin
 echo "clear" >> .bashrc
 echo 'echo -e ""' >> .bashrc
 echo 'echo -e ""' >> .bashrc
-echo 'cowsay -f dragon "SELAMAT DATANG BOSKU."' >> .bashrc
+echo 'cowsay -f dragon "MOONLIGT VPN."' >> .bashrc
 echo 'figlet -k AUTOSCRIPT' >> .bashrc
 echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
+echo 'echo -e "     *                Autoscript By MoonlightVPN             *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
-echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
+echo 'echo -e "     *                     Telegram: @Kyowon                 *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
@@ -1200,7 +1200,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
-echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
+echo "*                                -MoonlightVPN-                                *"  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
@@ -1240,7 +1240,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by Â©KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by ©MoonlightVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
