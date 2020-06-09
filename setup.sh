@@ -990,7 +990,7 @@ IPADDR="$(ip_address)"
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
- echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
+ #echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
  rm -rf /etc/KaizenVPN
