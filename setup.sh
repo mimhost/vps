@@ -1015,7 +1015,7 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
-chmod +x /etc/KaizenVPN/startup.sh
+cat <<'KaizenServ' > /etc/systemd/system/KaizenVPN.service
  
  # Setting server local time every time this machine reboots
  sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/KaizenVPN/startup.sh
@@ -1157,7 +1157,7 @@ fi
 
  # Some assistance and startup scripts
  ConfStartup
-
+ 
  # VPS Menu script v1.0
  ConfMenu
  
