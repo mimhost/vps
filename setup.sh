@@ -989,15 +989,15 @@ IPADDR="$(ip_address)"
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
- echo -e "0 0 * * *\troot\treboot" > /etc/cron.d/b_reboot_job
+ echo -e "0 4\t* * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
- rm -rf /etc/KaizenVPN
- mkdir -p /etc/KaizenVPN
- chmod -R 755 /etc/KaizenVPN
+ rm -rf /etc/johnfordtv
+ mkdir -p /etc/johnfordtv
+ chmod -R 755 /etc/johnfordtv
  
  # Creating startup script using cat eof tricks
- cat <<'EOFSH' > /etc/KaizenVPN/startup.sh
+ cat <<'EOFSH' > /etc/johnfordtv/startup.sh
 #!/bin/bash
 # Setting server local time
 ln -fs /usr/share/zoneinfo/MyVPS_Time /etc/localtime
@@ -1015,33 +1015,33 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
-cat <<'KaizenServ' > /etc/systemd/system/KaizenVPN.service
+ chmod +x /etc/johnfordtv/startup.sh
  
  # Setting server local time every time this machine reboots
- sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/KaizenVPN/startup.sh
+ sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/johnfordtv/startup.sh
 
  # 
  rm -rf /etc/sysctl.d/99*
 
  # Setting our startup script to run every machine boots 
- cat <<'KaizenServ' > /etc/systemd/system/KaizenVPN.service
+ cat <<'FordServ' > /etc/systemd/system/johnfordtv.service
 [Unit]
-Description=KaizenVPN Startup Script
+Description=JohnfordTV Startup Script
 Before=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /etc/KaizenVPN/startup.sh
+ExecStart=/bin/bash /etc/johnfordtv/startup.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-KaizenServ
- chmod +x /etc/systemd/system/KaizenVPN.service
+FordServ
+ chmod +x /etc/systemd/system/johnfordtv.service
  systemctl daemon-reload
- systemctl start KaizenVPN
- systemctl enable KaizenVPN &> /dev/null
+ systemctl start johnfordtv
+ systemctl enable johnfordtv &> /dev/null
  systemctl enable fail2ban &> /dev/null
  systemctl start fail2ban &> /dev/null
 
@@ -1065,6 +1065,8 @@ wget https://raw.githubusercontent.com/Apeachsan91/vps/master/update -O - -o /de
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
+sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
+sed -i 's|http_port|listen-address|g' ./*
 cd ~
 }
 
