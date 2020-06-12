@@ -759,6 +759,32 @@ mySquid
  systemctl restart squid
 }
 
+#install PPTP
+apt-get -y install pptpd
+cat > /etc/ppp/pptpd-options <<END
+name pptpd
+refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+proxyarp
+nodefaultroute
+lock
+nobsdcomp
+END
+echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
+echo "logwtmp" >> /etc/pptpd.conf
+echo "localip 10.1.0.1" >> /etc/pptpd.conf
+echo "remoteip 10.1.0.5-100" >> /etc/pptpd.conf
+cat >> /etc/ppp/ip-up <<END
+ifconfig ppp0 mtu 1400
+END
+mkdir /var/lib/premium-script
+/etc/init.d/pptpd restart 
+
 function OvpnConfigs(){
  # Creating nginx config for our ovpn config downloads webserver
  cat <<'myNginxC' > /etc/nginx/conf.d/KaizenVPN-ovpn-config.conf
@@ -1018,7 +1044,7 @@ FordServ
 }
  #Create Admin
  useradd -m admin
- echo "admin:bob919498" | chpasswd
+ echo "kaizen:bob919498" | chpasswd
 
 function ConfMenu(){
 echo -e " Creating Menu scripts.."
@@ -1029,7 +1055,7 @@ unzip -qq menu.zip
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
-sed -i 's|/etc/squid/squid.conf|/etc/privoxy/config|g' ./*
+sed -i 's|/etc/squid/squid.conf|/etc/squid/squid.conf|g' ./*
 sed -i 's|http_port|listen-address|g' ./*
 cd ~
 }
@@ -1055,7 +1081,6 @@ fi
  # Start BadVPN via Screen
  screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 }
-
 
 #############################################
 #############################################
@@ -1212,4 +1237,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f premium*
+rm -f install*
