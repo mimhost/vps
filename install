@@ -1044,7 +1044,7 @@ FordServ
 }
  #Create Admin
  useradd -m admin
- echo "kaizen:bob919498" | chpasswd
+ echo "admin:admin" | chpasswd
 
 function ConfMenu(){
 echo -e " Creating Menu scripts.."
