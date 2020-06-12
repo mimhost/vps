@@ -21,7 +21,7 @@ Stunnel_Port2='444' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
-OpenVPN_TCP_Port='465'
+OpenVPN_TCP_Port='110'
 OpenVPN_UDP_Port='25222'
 
 # Privoxy Ports
