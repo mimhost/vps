@@ -1055,7 +1055,7 @@ unzip -qq menu.zip
 rm -f menu.zip
 chmod +x ./*
 dos2unix ./* &> /dev/null
-sed -i 's|squidport|/etc/squid/squid.conf|g' ./*
+#sed -i 's|squidport|/etc/squid/squid.conf|g' ./*
 sed -i 's|http_port|listen-address|g' ./*
 
 cd ~
