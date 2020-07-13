@@ -3,7 +3,7 @@
 #############################
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='KaizenVPN Premium Script'
+MyScriptName='(｡◕‿◕｡) KaizenVPN Premium Script'
 
 # OpenSSH Ports
 SSH_Port1='22'
@@ -703,7 +703,7 @@ mkdir /var/lib/premium-script
 acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all 
-http_port Squid_Port1
+http_port Squid_Port1 ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/squidCA.pem
 ### Allow Headers
 request_header_access Allow allow all 
 request_header_access Authorization allow all 
@@ -766,6 +766,14 @@ reply_header_access Cookie allow all
 reply_header_access All deny all
 ### CoreDump
 coredump_dir /var/spool/squid
+cache_dir ufs /var/spool/squid 2048 16 256
+sslcrtd_program /usr/lib64/squid/ssl_crtd -s /var/spool/squid/ssl_db -M 4MB
+sslcrtd_children 5
+
+acl step1 at_step SslBump1
+ssl_bump peek step1
+ssl_bump bump all
+
 dns_nameservers 8.8.8.8 8.8.4.4
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
@@ -1230,7 +1238,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by �KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
