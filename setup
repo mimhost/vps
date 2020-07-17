@@ -1,0 +1,58 @@
+#!/bin/sh
+# ====================================
+# Script Owner: KaizenVPN
+# File : VPS Installer
+# ===================================
+sudo apt-get update
+apt-get install figlet
+clear
+echo "
+                             _---__
+                          _-       /--______
+                     __--( /     \ )XXXXXXXXXXX\v.
+                   .-XXX(   O   O  )XXXXXXXXXXXXXXX-
+                  /XXX(       U     )        XXXXXXX
+                /XXXXX(              )--_  XXXXXXXXXXX
+               /XXXXX/ (      O     )   XXXXXX   \XXXXX
+               XXXXX/   /            XXXXXX   \__ \XXXXX
+              XXXXXX__/          XXXXXX         \__---->
+      ---___  XXX__/          XXXXXX      \__         /
+         \-  --__/   ___/\  XXXXXX            /  ___--/=
+          \-\    ___/    XXXXXX              '--- XXXXXX
+            \-\/XXX\ XXXXXX                      /XXXXX
+               \XXXXXXXXX   \                    /XXXXX/
+                \XXXXXX      >                 _/XXXXX/
+                  \XXXXX--__/              __-- XXXX/
+                   -XXXXXXXX---------------  XXXXXX-
+                      \XXXXXXXXXXXXXXXXXXXXXXXXXX/
+                       ''VXXXXXXXXXXXXXXXXXXV''"
+figlet -k AUTOSCRIPT
+echo "     ========================================================="
+echo "     *            AUTOSCRIPT CREATED BY KAIZENVPN            *"
+echo "     ========================================================="
+echo "     * Creator  : KaizenVPN                                  *"
+echo "     * Telegram : @KaizenA                                   *"
+echo "     * Email    : hazboyz@gmail.com                          *"
+echo "     ========================================================="
+echo "     * 1. Install VPS Debian 9/ Debian 10 [32bit&64bit]      *"
+echo "     * 2. Install OCS Panel Debian 9                         *"
+echo "     * 3. Install OCS Panel Debian 10                        *"
+echo "     * 4. Exit                                               *"
+echo "     ========================================================="
+echo "     *       Sila masukkan nombor pilihan anda (Nombor)      *"
+echo "     ========================================================="
+read -p "Nombor Pilihan Anda (Nombor): " x
+echo " "
+
+if test $x -eq 1; then
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/install && chmod +x install && ./install
+elif test $x -eq 2; then
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
+elif test $x -eq 3; then
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs10 && chmod +x ocs9 && ./ocs10
+elif test $x -eq 4; then
+exit
+else
+echo "Pilihan tidak terdapat di dalam Menu."
+cd
+fi
