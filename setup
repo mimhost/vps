@@ -3,8 +3,8 @@
 # Script Owner: KaizenVPN
 # File : VPS Installer
 # ===================================
-sudo apt-get update
-apt-get install figlet
+#sudo apt-get update
+#apt-get install figlet
 clear
 echo "
                              _---__
@@ -26,7 +26,8 @@ echo "
                    -XXXXXXXX---------------  XXXXXX-
                       \XXXXXXXXXXXXXXXXXXXXXXXXXX/
                        ''VXXXXXXXXXXXXXXXXXXV''"
-figlet -k AUTOSCRIPT
+#figlet -k AUTOSCRIPT
+echo " "
 echo "     ========================================================="
 echo "     *            AUTOSCRIPT CREATED BY KAIZENVPN            *"
 echo "     ========================================================="
