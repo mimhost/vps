@@ -36,9 +36,10 @@ echo "     * Telegram : @KaizenA                                   *"
 echo "     * Email    : hazboyz@gmail.com                          *"
 echo "     ========================================================="
 echo "     * 1. Install VPS Debian 9/ Debian 10 [32bit&64bit]      *"
-echo "     * 2. Install OCS Panel Debian 9                         *"
-echo "     * 3. Install OCS Panel Debian 10                        *"
-echo "     * 4. Exit                                               *"
+echo "     * 2. Install SSL Bump Squid 4.6                         *"
+echo "     * 3. Install OCS Panel Debian 9                         *"
+echo "     * 4. Install OCS Panel Debian 10                        *"
+echo "     * 5. Exit                                               *"
 echo "     ========================================================="
 echo "     *       Sila masukkan nombor pilihan anda (Nombor)      *"
 echo "     ========================================================="
@@ -48,10 +49,12 @@ echo " "
 if test $x -eq 1; then
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/install && chmod +x install && ./install
 elif test $x -eq 2; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/sslbump && chmod +x ocs9 && ./ocs9
 elif test $x -eq 3; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs10 && chmod +x ocs9 && ./ocs10
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
 elif test $x -eq 4; then
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs10 && chmod +x ocs9 && ./ocs10
+elif test $x -eq 5; then
 exit
 else
 echo "Pilihan tidak terdapat di dalam Menu."
