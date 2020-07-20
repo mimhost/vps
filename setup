@@ -35,7 +35,7 @@ echo "     * Creator  : KaizenVPN                                  *"
 echo "     * Telegram : @KaizenA                                   *"
 echo "     * Email    : hazboyz@gmail.com                          *"
 echo "     ========================================================="
-echo "     * 1. Install VPS Debian 9/ Debian 10 [32bit&64bit]      *"
+echo "     * 1. Install VPS Debian 9/Debian 10 [32bit&64bit]      *"
 echo "     * 2. Install SSL Bump Squid 4.6                         *"
 echo "     * 3. Install OCS Panel Debian 9                         *"
 echo "     * 4. Install OCS Panel Debian 10                        *"
@@ -45,7 +45,6 @@ echo "     *       Sila masukkan nombor pilihan anda (Nombor)      *"
 echo "     ========================================================="
 read -p "Nombor Pilihan Anda (Nombor): " x
 echo " "
-
 if test $x -eq 1; then
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/install && chmod +x install && ./install
 elif test $x -eq 2; then
