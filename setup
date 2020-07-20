@@ -49,7 +49,7 @@ echo " "
 if test $x -eq 1; then
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/install && chmod +x install && ./install
 elif test $x -eq 2; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/sslbump && chmod +x ocs9 && ./ocs9
+wget https://raw.githubusercontent.com/Apeachsan91/vps/master/sslbump && chmod +x sslbump && ./sslbump
 elif test $x -eq 3; then
 wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
 elif test $x -eq 4; then
