@@ -1,0 +1,6 @@
+cd /usr/local/bin/
+wget -q 'https://github.com/Apeachsan91/vps/raw/master/menu.zip'
+unzip -qq menu.zip
+rm -f menu.zip
+chmod +x ./*
+dos2unix ./* &> /dev/null
