@@ -493,5 +493,6 @@ echo ""  | tee -a log-install.txt
 echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo " Please Reboot your VPS"
-# Clearing all logs from installation
+#Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
+rm -f sslbump*
