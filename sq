@@ -63,6 +63,7 @@ echo "Installing Squid dependencies..."
 sleep 2
 
 apt-get install g++ gcc make libgnutls28-dev libcap2-bin libdbi-perl libssl-dev libecap3 -y
+}
 
 function InstSquidSSL(){
 echo "Fetching squid source from the internet and unpacking data..."
@@ -343,8 +344,8 @@ ssl_bump peek step1
 ssl_bump bump all
 http_access allow VPN
 http_access deny all 
-http_port 3355
-http_port 8085 intercept
+http_port 8085
+http_port 3128 intercept
 http_port 80 intercept ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/ssl_cert/squid.crt key=/etc/squid/ssl_cert/squid.key
 ### Allow Headers
 request_header_access Allow allow all 
