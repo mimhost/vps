@@ -344,9 +344,7 @@ ssl_bump peek step1
 ssl_bump bump all
 http_access allow VPN
 http_access deny all 
-http_port 3355
-http_port 8085 intercept
-https_port 80 intercept ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/ssl_cert/squid.crt key=/etc/squid/ssl_cert/squid.key
+http_port 8085 ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/ssl_cert/squid.crt key=/etc/squid/ssl_cert/squid.key
 ### Allow Headers
 request_header_access Allow allow all 
 request_header_access Authorization allow all 
