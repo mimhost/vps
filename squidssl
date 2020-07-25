@@ -3,7 +3,7 @@
 ###########################################################################
 #
 #    Script that configures and installs Squid with SSL Bump
-#    Copyright (C) 2020 JohnFordTV
+#    Copyright (C) 2020 KaizenVPN
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,7 +20,7 @@
 #############################
 
 # Script Name
-MyScriptName='JohnFordTV-Squid SSLBump'
+MyScriptName='KaizenVPN-Squid SSLBump'
 
 # Get Machine IP Address
 function ip_address(){
@@ -32,7 +32,7 @@ function ip_address(){
 IPADDR="$(ip_address)"
 
 # Server local time
-MyVPS_Time='Asia/Manila'
+MyVPS_Time='Asia/Kuala_Lumpur'
 #############################
 
 function InstDependencies(){
@@ -318,16 +318,15 @@ echo "Creating self-signed certificate for Squid..."
 sleep 2
 mkdir /etc/squid/ssl_cert
 cd /etc/squid/ssl_cert
-openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=PH/ST=Concepcion/L=Tarlac/O=SSSLBump Co./CN=johnfordtv.tech" -keyout squid.key  -out squid.crt
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=MYST=Sabah/L=KotaKinabalu/O=SSSLBump Co./CN=KaizenVPN.co" -keyout squid.key  -out squid.crt
 chown -R proxy:proxy .
 chmod -R 700 .
 }
 
 function ScriptMessage(){
- echo -e " [\e[1;32m$MyScriptName\e[0m]"
+ echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e " https://fb.com/johndesu090"
- echo -e "[GCASH] 09206200840 [PAYPAL] johnford090@gmail.com"
+ echo -e "(｡◕‿◕｡) Script by KaizenVPN"
  echo -e ""
 }
 
@@ -343,8 +342,10 @@ acl step1 at_step SslBump1
 ssl_bump peek step1
 ssl_bump bump all
 http_access allow VPN
-http_access deny all 
-http_port 8085 ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/ssl_cert/squid.crt key=/etc/squid/ssl_cert/squid.key
+http_access deny all
+http_port 8085
+http_port 3355 intercept
+https_port 8080 intercept ssl-bump generate-host-certificates=on dynamic_cert_mem_cache_size=4MB cert=/etc/squid/ssl_cert/squid.crt key=/etc/squid/ssl_cert/squid.key
 ### Allow Headers
 request_header_access Allow allow all 
 request_header_access Authorization allow all 
@@ -415,7 +416,7 @@ refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname JohnFordTV
+visible_hostname KaizenVPN
 EOF
 
 # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
@@ -484,17 +485,16 @@ echo " "
 echo "Installation has been completed!!"
 echo "--------------------------------------------------------------------------------"
 echo "                          Debian Squid SSL Script                               "
-echo "                               -FordSenpai-                                     "
+echo "                               -KaizenVPN-                                      "
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
-echo "Server Information"  | tee -a log-install.txt
-echo "   - Squid SSLBump    : Port 80"  | tee -a log-install.txt
+echo "Maklumat Server"  | tee -a log-install.txt
+echo "   - Squid SSLBump    : Port 8080"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Â©JohnFordTV"  | tee -a log-install.txt
-echo " Facebook: https://fb.me/johndesu090"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " This script is under project of https://github.com/johndesu090"  | tee -a log-install.txt
 echo " Please Reboot your VPS"
 
 # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
+rm -f squidssl*
