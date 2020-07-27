@@ -35,7 +35,6 @@ Privoxy_Port1='8086'
 
 # Squid Ports
 Squid_Port1='80'
-Squid_Port2='8080'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -711,7 +710,6 @@ acl VPN dst IP-ADDRESS/32
 http_access allow VPN
 http_access deny all 
 http_port Squid_Port1
-http_port Squid_Port2
 ### Allow Headers
 request_header_access Allow allow all 
 request_header_access Authorization allow all 
@@ -787,7 +785,6 @@ mySquid
  
  # Setting squid ports
  sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
- sed -i "s|Squid_Port2|$Squid_Port2|g" /etc/squid/squid.conf
 
  # Starting Proxy server
  echo -e "Restarting proxy server..."
