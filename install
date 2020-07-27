@@ -79,7 +79,7 @@ function InstUpdates(){
  echo "deb http://build.openvpn.net/debian/openvpn/stable $(lsb_release -sc) main" > /etc/apt/sources.list.d/openvpn.list
  wget -qO - http://build.openvpn.net/debian/openvpn/stable/pubkey.gpg|apt-key add -
  apt-get update
- apt-get install openvpn -y
+ apt-get install openvpn
 }
 
 function InstWebmin(){
