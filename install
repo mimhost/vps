@@ -1,15 +1,9 @@
 #!/bin/bash
+#############################
+#############################
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='(｡◕‿◕｡)KaizenVPN Premium Script'
-
-function ip_address(){
-  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
-  [ ! -z "${IP}" ] && echo "${IP}" || echo
-} 
-IPADDR="$(ip_address)"
+MyScriptName='KaizenVPN Premium Script'
 
 # OpenSSH Ports
 SSH_Port1='22'
@@ -18,8 +12,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='440'
-Dropbear_Port2='441'
+Dropbear_Port1='445'
+Dropbear_Port2='442'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -67,7 +61,7 @@ function InstUpdates(){
  apt-get install nano wget curl zip unzip tar gzip p7zip-full bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 ccrypt -y
  
  # Now installing all our wanted services
- apt-get install gnupg tcpdump grepcidr dropbear stunnel4 privoxy ca-certificates nginx ruby apt-transport-https lsb-release squid -y
+ apt-get install gnupg tcpdump grepcidr dropbear stunnel4 privoxy ca-certificates nginx ruby apt-transport-https lsb-release -y
 
  # Installing all required packages to install Webmin
  apt-get install perl libnet-ssleay-perl openssl libauthen-pam-perl libpam-runtime libio-pty-perl apt-show-versions python dbus libxml-parser-perl -y
@@ -586,7 +580,7 @@ done
  # executed/raised from this script (OpenVPN_TCP_Port/OpenVPN_UDP_Port)
  #
  # Enjoy the new update
- # Script Updated by KaizenVPN
+ # Script Updated by JohnFordTV
 NUovpn
 
  # setting openvpn server port
@@ -595,7 +589,7 @@ NUovpn
  
  # Getting some OpenVPN plugins for unix authentication
  cd
- wget https://github.com/Apeachsan91/vps/raw/master/plugin.tgz
+ wget https://github.com/johndesu090/AutoScriptDB/raw/master/Files/Plugins/plugin.tgz
  tar -xzvf /root/plugin.tgz -C /etc/openvpn/
  rm -f plugin.tgz
  
@@ -700,95 +694,95 @@ END
 mkdir /var/lib/premium-script
 /etc/init.d/pptpd restart 
 
- # Removing Duplicate Squid config
- rm -rf /etc/squid/squid.conf*
+# # Removing Duplicate Squid config
+# rm -rf /etc/squid/squid.conf*
  
- # Creating Squid server config using cat eof tricks
- cat <<'mySquid' > /etc/squid/squid.conf
-# My Squid Proxy Server Config
-acl VPN dst IP-ADDRESS/32
-http_access allow VPN
-http_access deny all 
-http_port Squid_Port1
-### Allow Headers
-request_header_access Allow allow all 
-request_header_access Authorization allow all 
-request_header_access WWW-Authenticate allow all 
-request_header_access Proxy-Authorization allow all 
-request_header_access Proxy-Authenticate allow all 
-request_header_access Cache-Control allow all 
-request_header_access Content-Encoding allow all 
-request_header_access Content-Length allow all 
-request_header_access Content-Type allow all 
-request_header_access Date allow all 
-request_header_access Expires allow all 
-request_header_access Host allow all 
-request_header_access If-Modified-Since allow all 
-request_header_access Last-Modified allow all 
-request_header_access Location allow all 
-request_header_access Pragma allow all 
-request_header_access Accept allow all 
-request_header_access Accept-Charset allow all 
-request_header_access Accept-Encoding allow all 
-request_header_access Accept-Language allow all 
-request_header_access Content-Language allow all 
-request_header_access Mime-Version allow all 
-request_header_access Retry-After allow all 
-request_header_access Title allow all 
-request_header_access Connection allow all 
-request_header_access Proxy-Connection allow all 
-request_header_access User-Agent allow all 
-request_header_access Cookie allow all 
-request_header_access All deny all
-### HTTP Anonymizer Paranoid
-reply_header_access Allow allow all 
-reply_header_access Authorization allow all 
-reply_header_access WWW-Authenticate allow all 
-reply_header_access Proxy-Authorization allow all 
-reply_header_access Proxy-Authenticate allow all 
-reply_header_access Cache-Control allow all 
-reply_header_access Content-Encoding allow all 
-reply_header_access Content-Length allow all 
-reply_header_access Content-Type allow all 
-reply_header_access Date allow all 
-reply_header_access Expires allow all 
-reply_header_access Host allow all 
-reply_header_access If-Modified-Since allow all 
-reply_header_access Last-Modified allow all 
-reply_header_access Location allow all 
-reply_header_access Pragma allow all 
-reply_header_access Accept allow all 
-reply_header_access Accept-Charset allow all 
-reply_header_access Accept-Encoding allow all 
-reply_header_access Accept-Language allow all 
-reply_header_access Content-Language allow all 
-reply_header_access Mime-Version allow all 
-reply_header_access Retry-After allow all 
-reply_header_access Title allow all 
-reply_header_access Connection allow all 
-reply_header_access Proxy-Connection allow all 
-reply_header_access User-Agent allow all 
-reply_header_access Cookie allow all 
-reply_header_access All deny all
-### CoreDump
-coredump_dir /var/spool/squid
-dns_nameservers 8.8.8.8 8.8.4.4
-refresh_pattern ^ftp: 1440 20% 10080
-refresh_pattern ^gopher: 1440 0% 1440
-refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
-refresh_pattern . 0 20% 4320
-visible_hostname KaizenVPN
-mySquid
+# # Creating Squid server config using cat eof tricks
+# cat <<'mySquid' > /etc/squid/squid.conf
+## My Squid Proxy Server Config
+#acl VPN dst IP-ADDRESS/32
+#http_access allow VPN
+#http_access deny all 
+#http_port Squid_Port1
+#### Allow Headers
+#request_header_access Allow allow all 
+#request_header_access Authorization allow all 
+#request_header_access WWW-Authenticate allow all 
+#request_header_access Proxy-Authorization allow all 
+#request_header_access Proxy-Authenticate allow all 
+#request_header_access Cache-Control allow all 
+#request_header_access Content-Encoding allow all 
+#request_header_access Content-Length allow all 
+#request_header_access Content-Type allow all 
+#request_header_access Date allow all 
+#request_header_access Expires allow all 
+#request_header_access Host allow all 
+#request_header_access If-Modified-Since allow all 
+#request_header_access Last-Modified allow all 
+#request_header_access Location allow all 
+#request_header_access Pragma allow all 
+#request_header_access Accept allow all 
+#request_header_access Accept-Charset allow all 
+#request_header_access Accept-Encoding allow all 
+#request_header_access Accept-Language allow all 
+#request_header_access Content-Language allow all 
+#request_header_access Mime-Version allow all 
+#request_header_access Retry-After allow all 
+#request_header_access Title allow all 
+#request_header_access Connection allow all 
+#request_header_access Proxy-Connection allow all 
+#request_header_access User-Agent allow all 
+#request_header_access Cookie allow all 
+#request_header_access All deny all
+#### HTTP Anonymizer Paranoid
+#reply_header_access Allow allow all 
+#reply_header_access Authorization allow all 
+#reply_header_access WWW-Authenticate allow all 
+#reply_header_access Proxy-Authorization allow all 
+#reply_header_access Proxy-Authenticate allow all 
+#reply_header_access Cache-Control allow all 
+#reply_header_access Content-Encoding allow all 
+#reply_header_access Content-Length allow all 
+#reply_header_access Content-Type allow all 
+#reply_header_access Date allow all 
+#reply_header_access Expires allow all 
+#reply_header_access Host allow all 
+#reply_header_access If-Modified-Since allow all 
+#reply_header_access Last-Modified allow all 
+#reply_header_access Location allow all 
+#reply_header_access Pragma allow all 
+#reply_header_access Accept allow all 
+#reply_header_access Accept-Charset allow all 
+#reply_header_access Accept-Encoding allow all 
+#reply_header_access Accept-Language allow all 
+#reply_header_access Content-Language allow all 
+#reply_header_access Mime-Version allow all 
+#reply_header_access Retry-After allow all 
+#reply_header_access Title allow all 
+#reply_header_access Connection allow all 
+#reply_header_access Proxy-Connection allow all 
+#reply_header_access User-Agent allow all 
+#reply_header_access Cookie allow all 
+#reply_header_access All deny all
+#### CoreDump
+#coredump_dir /var/spool/squid
+#dns_nameservers 8.8.8.8 8.8.4.4
+#refresh_pattern ^ftp: 1440 20% 10080
+#refresh_pattern ^gopher: 1440 0% 1440
+#refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
+#refresh_pattern . 0 20% 4320
+#visible_hostname KaizenVPN
+#mySquid
 
- # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
- sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/squid/squid.conf
+# # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
+# sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/squid/squid.conf
  
- # Setting squid ports
- sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
-
- # Starting Proxy server
- echo -e "Restarting proxy server..."
- systemctl restart squid
+# # Setting squid ports
+# sed -i "s|Squid_Port1|$Squid_Port1|g" /etc/squid/squid.conf
+#
+# # Starting Proxy server
+# echo -e "Restarting proxy server..."
+# systemctl restart squid
 }
 
 function OvpnConfigs(){
@@ -824,7 +818,6 @@ proto tcp-client
 setenv FRIENDLY_NAME "KaizenVPN"
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
-http-proxy-retry
 remote-cert-tls server
 bind
 float
@@ -977,18 +970,26 @@ mySiteOvpn
  cd
 }
 
+function ip_address(){
+  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
+  [ ! -z "${IP}" ] && echo "${IP}" || echo
+} 
+IPADDR="$(ip_address)"
+
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
  echo -e "0 0 * * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
- rm -rf /etc/kaizenvpnserver
- mkdir -p /etc/kaizenvpnserver
- chmod -R 755 /etc/kaizenvpnserver
+ rm -rf /etc/johnfordtv
+ mkdir -p /etc/johnfordtv
+ chmod -R 755 /etc/johnfordtv
  
  # Creating startup script using cat eof tricks
- cat <<'EOFSH' > /etc/kaizenvpnserver/startup.sh
+ cat <<'EOFSH' > /etc/johnfordtv/startup.sh
 #!/bin/bash
 # Setting server local time
 ln -fs /usr/share/zoneinfo/MyVPS_Time /etc/localtime
@@ -1006,33 +1007,33 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
- chmod +x /etc/kaizenvpnserver/startup.sh
+ chmod +x /etc/johnfordtv/startup.sh
  
  # Setting server local time every time this machine reboots
- sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/kaizenvpnserver/startup.sh
+ sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/johnfordtv/startup.sh
 
  # 
  rm -rf /etc/sysctl.d/99*
 
  # Setting our startup script to run every machine boots 
- cat <<'KaizenServ' > /etc/systemd/system/kaizenvpnserver.service
+ cat <<'FordServ' > /etc/systemd/system/johnfordtv.service
 [Unit]
-Description=KaizenVpnServer Startup Script
+Description=JohnfordTV Startup Script
 Before=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /etc/kaizenvpnserver/startup.sh
+ExecStart=/bin/bash /etc/johnfordtv/startup.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-KaizenServ
- chmod +x /etc/systemd/system/kaizenvpnserver.service
+FordServ
+ chmod +x /etc/systemd/system/johnfordtv.service
  systemctl daemon-reload
- systemctl start kaizenvpnserver
- systemctl enable kaizenvpnserver &> /dev/null
+ systemctl start johnfordtv
+ systemctl enable johnfordtv &> /dev/null
  systemctl enable fail2ban &> /dev/null
  systemctl start fail2ban &> /dev/null
 
@@ -1061,7 +1062,7 @@ dos2unix ./* &> /dev/null
 function ScriptMessage(){
  echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e "(｡◕‿◕｡) Script by KaizenVPN"
+ echo -e " Script by KaizenVPN"
  echo -e ""
 }
 
@@ -1208,7 +1209,7 @@ echo "   - OpenVPN		: TCP $OpenVPN_TCP_Port UDP $OpenVPN_UDP_Port SSL $Stunnel_P
 echo "   - OpenSSH		: $SSH_Port1"  | tee -a log-install.txt
 echo "   - Dropbear		: $Dropbear_Port1, $Dropbear_Port2"  | tee -a log-install.txt
 echo "   - Stunnel/SSL 	: $Stunnel_Port1, $Stunnel_Port2"  | tee -a log-install.txt
-echo "   - Squid Proxy	: $Squid_Port1 (limit to IP Server)"  | tee -a log-install.txt
+echo "   - Squid Proxy	: To be installed"  | tee -a log-install.txt
 echo "   - Privoxy		: $Privoxy_Port1 (limit to IP Server)"  | tee -a log-install.txt
 echo "   - PPTPD		: 1723 (limit to IP Server)"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
@@ -1229,10 +1230,11 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (?????)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
+sleep 5
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f kaizen*
+rm -f install*
