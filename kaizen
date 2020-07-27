@@ -1,9 +1,15 @@
 #!/bin/bash
-#############################
-#############################
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='KaizenVPN Premium Script'
+MyScriptName='(｡◕‿◕｡)KaizenVPN Premium Script'
+
+function ip_address(){
+  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
+  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
+  [ ! -z "${IP}" ] && echo "${IP}" || echo
+} 
+IPADDR="$(ip_address)"
 
 # OpenSSH Ports
 SSH_Port1='22'
@@ -12,8 +18,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='445'
-Dropbear_Port2='442'
+Dropbear_Port1='440'
+Dropbear_Port2='441'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -28,7 +34,7 @@ OpenVPN_UDP_Port='25222'
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8085'
+Squid_Port1='80'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -580,7 +586,7 @@ done
  # executed/raised from this script (OpenVPN_TCP_Port/OpenVPN_UDP_Port)
  #
  # Enjoy the new update
- # Script Updated by JohnFordTV
+ # Script Updated by KaizenVPN
 NUovpn
 
  # setting openvpn server port
@@ -589,7 +595,7 @@ NUovpn
  
  # Getting some OpenVPN plugins for unix authentication
  cd
- wget https://github.com/johndesu090/AutoScriptDB/raw/master/Files/Plugins/plugin.tgz
+ wget https://github.com/Apeachsan91/vps/raw/master/plugin.tgz
  tar -xzvf /root/plugin.tgz -C /etc/openvpn/
  rm -f plugin.tgz
  
@@ -818,6 +824,7 @@ proto tcp-client
 setenv FRIENDLY_NAME "KaizenVPN"
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
+http-proxy-retry
 remote-cert-tls server
 bind
 float
@@ -970,26 +977,18 @@ mySiteOvpn
  cd
 }
 
-function ip_address(){
-  local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
-  [ -z "${IP}" ] && IP="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
-  [ ! -z "${IP}" ] && echo "${IP}" || echo
-} 
-IPADDR="$(ip_address)"
-
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
  echo -e "0 0 * * *\troot\treboot" > /etc/cron.d/b_reboot_job
 
  # Creating directory for startup script
- rm -rf /etc/johnfordtv
- mkdir -p /etc/johnfordtv
- chmod -R 755 /etc/johnfordtv
+ rm -rf /etc/kaizenvpnserver
+ mkdir -p /etc/kaizenvpnserver
+ chmod -R 755 /etc/kaizenvpnserver
  
  # Creating startup script using cat eof tricks
- cat <<'EOFSH' > /etc/johnfordtv/startup.sh
+ cat <<'EOFSH' > /etc/kaizenvpnserver/startup.sh
 #!/bin/bash
 # Setting server local time
 ln -fs /usr/share/zoneinfo/MyVPS_Time /etc/localtime
@@ -1007,33 +1006,33 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 /usr/local/bin/user-delete-expired &> /dev/null
 exit 0
 EOFSH
- chmod +x /etc/johnfordtv/startup.sh
+ chmod +x /etc/kaizenvpnserver/startup.sh
  
  # Setting server local time every time this machine reboots
- sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/johnfordtv/startup.sh
+ sed -i "s|MyVPS_Time|$MyVPS_Time|g" /etc/kaizenvpnserver/startup.sh
 
  # 
  rm -rf /etc/sysctl.d/99*
 
  # Setting our startup script to run every machine boots 
- cat <<'FordServ' > /etc/systemd/system/johnfordtv.service
+ cat <<'KaizenServ' > /etc/systemd/system/kaizenvpnserver.service
 [Unit]
-Description=JohnfordTV Startup Script
+Description=KaizenVpnServer Startup Script
 Before=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /etc/johnfordtv/startup.sh
+ExecStart=/bin/bash /etc/kaizenvpnserver/startup.sh
 RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-FordServ
- chmod +x /etc/systemd/system/johnfordtv.service
+KaizenServ
+ chmod +x /etc/systemd/system/kaizenvpnserver.service
  systemctl daemon-reload
- systemctl start johnfordtv
- systemctl enable johnfordtv &> /dev/null
+ systemctl start kaizenvpnserver
+ systemctl enable kaizenvpnserver &> /dev/null
  systemctl enable fail2ban &> /dev/null
  systemctl start fail2ban &> /dev/null
 
@@ -1062,7 +1061,7 @@ dos2unix ./* &> /dev/null
 function ScriptMessage(){
  echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e " Script by KaizenVPN"
+ echo -e "(｡◕‿◕｡) Script by KaizenVPN"
  echo -e ""
 }
 
@@ -1230,9 +1229,10 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (?????)KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
+
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f install*
+rm -f kaizen*
