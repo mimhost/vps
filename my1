@@ -18,8 +18,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='440'
-Dropbear_Port2='441'
+Dropbear_Port1='441'
+Dropbear_Port2='442'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -619,10 +619,10 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source $IPADDR
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 124.217.230.233
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 124.217.230.233
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.233
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.233
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -981,7 +981,8 @@ mySiteOvpn
 function ConfStartup(){
  # Daily reboot time of our machine
  # For cron commands, visit https://crontab.guru
- echo -e "0 0 * * *\troot\treboot" > /etc/cron.d/b_reboot_job
+ #echo -e "0 0 * * *\troot\treboot" > /etc/cron.d/b_reboot_job
+ echo -e "0 0 * * * root /usr/local/bin/reboot_sys" > /etc/cron.d/reboot_sys
 
  # Creating directory for startup script
  rm -rf /etc/kaizenvpnserver
@@ -1236,4 +1237,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f mykz1*
+rm -f my1*
