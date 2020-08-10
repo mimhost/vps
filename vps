@@ -619,10 +619,10 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.192
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -1237,4 +1237,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f install*
+rm -f vps*
