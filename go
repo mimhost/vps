@@ -22,8 +22,8 @@ Dropbear_Port1='440'
 Dropbear_Port2='441'
 
 # Stunnel Ports
-Stunnel_Port1='444' # through Dropbear
-Stunnel_Port2='445' # through OpenSSH
+Stunnel_Port1='443' # through Dropbear
+Stunnel_Port2='444' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
@@ -1237,4 +1237,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f install*
+rm -f go*
