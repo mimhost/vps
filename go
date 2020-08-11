@@ -18,8 +18,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='440'
-Dropbear_Port2='441'
+Dropbear_Port1='441'
+Dropbear_Port2='442'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -28,13 +28,13 @@ Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='25222'
+OpenVPN_UDP_Port='80'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='80'
+Squid_Port1='8080'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -619,9 +619,9 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.72
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.86
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -1237,4 +1237,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f goo*
+rm -f go*
