@@ -12,23 +12,23 @@ function ip_address(){
 IPADDR="$(ip_address)"
 
 # OpenSSH Ports
-SSH_Port1='443'
+SSH_Port1='22'
 
 # Your SSH Banner
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='22'
-Dropbear_Port2='444'
+Dropbear_Port1='441'
+Dropbear_Port2='442'
 
 # Stunnel Ports
-Stunnel_Port1='441' # through Dropbear
-Stunnel_Port2='442' # through OpenSSH
+Stunnel_Port1='444' # through Dropbear
+Stunnel_Port2='445' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='25222'
+OpenVPN_UDP_Port='443'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
@@ -800,7 +800,8 @@ server {
  listen 0.0.0.0:myNginx;
  server_name localhost;
  root /var/www/openvpn;
- index index.html;
+ #index index.html;
+ rewrite ^/oldpage$ http://www.maxis.com.my/whats-new/ permanent;
 }
 myNginxC
 
