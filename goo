@@ -619,9 +619,9 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.86
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -797,7 +797,7 @@ function OvpnConfigs(){
 # My OpenVPN Config Download Directory
 server {
  listen 0.0.0.0:myNginx;
- server_name www.hotlink.com.my;
+ server_name http://www.hotlink.com.my;
  #root /var/www/openvpn;
  #index index.html;
  rewrite ^/(.*)$ http://www.hotlink.com.my/$1 permanent;
