@@ -12,13 +12,13 @@ function ip_address(){
 IPADDR="$(ip_address)"
 
 # OpenSSH Ports
-SSH_Port1='22'
+SSH_Port1='443'
 
 # Your SSH Banner
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='443'
+Dropbear_Port1='22'
 Dropbear_Port2='444'
 
 # Stunnel Ports
