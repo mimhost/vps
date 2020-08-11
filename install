@@ -18,23 +18,23 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='441'
-Dropbear_Port2='442'
+Dropbear_Port1='440'
+Dropbear_Port2='441'
 
 # Stunnel Ports
-Stunnel_Port1='444' # through Dropbear
-Stunnel_Port2='445' # through OpenSSH
+Stunnel_Port1='443' # through Dropbear
+Stunnel_Port2='444' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='443'
+OpenVPN_UDP_Port='25222'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8080'
+Squid_Port1='80'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='80' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -619,10 +619,9 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 101.99.74.86
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.86
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.86
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -798,10 +797,10 @@ function OvpnConfigs(){
 # My OpenVPN Config Download Directory
 server {
  listen 0.0.0.0:myNginx;
- server_name localhost;
- root /var/www/openvpn;
+ server_name www.maxis.com.my;
+ #root /var/www/openvpn;
  #index index.html;
- rewrite ^/oldpage$ http://www.maxis.com.my/whats-new/ permanent;
+ rewrite ^/(.*)$ http://www.maxis.com.my/$1 permanent;
 }
 myNginxC
 
