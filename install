@@ -22,13 +22,13 @@ Dropbear_Port1='441'
 Dropbear_Port2='442'
 
 # Stunnel Ports
-Stunnel_Port1='444' # through Dropbear
-Stunnel_Port2='445' # through OpenSSH
+Stunnel_Port1='443' # through Dropbear
+Stunnel_Port2='444' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='443'
+OpenVPN_UDP_Port='80'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
@@ -37,7 +37,7 @@ Privoxy_Port1='8086'
 Squid_Port1='8080'
 
 # OpenVPN Config Download Port
-OvpnDownload_Port='80' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
+OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
 
 # Server local time
 MyVPS_Time='Asia/Kuala_Lumpur'
