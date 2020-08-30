@@ -22,13 +22,13 @@ Dropbear_Port1='441'
 Dropbear_Port2='442'
 
 # Stunnel Ports
-Stunnel_Port1='443' # through Dropbear
-Stunnel_Port2='444' # through OpenSSH
+Stunnel_Port1='444' # through Dropbear
+Stunnel_Port2='445' # through OpenSSH
 Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='80'
+OpenVPN_UDP_Port='443'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
@@ -797,10 +797,10 @@ function OvpnConfigs(){
 # My OpenVPN Config Download Directory
 server {
  listen 0.0.0.0:myNginx;
- server_name http://www.u.com.my;
+ server_name blog.instagram.com;
  #root /var/www/openvpn;
  #index index.html;
- rewrite ^/(.*)$ http://www.u.com.my/$1 permanent;
+ rewrite ^/(.*)$ http://blog.instagram.com/$1 permanent;
 }
 myNginxC
 
