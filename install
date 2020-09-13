@@ -28,7 +28,7 @@ Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='25222'
+OpenVPN_UDP_Port='80'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
@@ -798,9 +798,10 @@ function OvpnConfigs(){
 # My OpenVPN Config Download Directory
 server {
  listen 0.0.0.0:myNginx;
- server_name localhost;
- root /var/www/openvpn;
- index index.html;
+ server_name www.hotlink.com.my;
+ #root /var/www/openvpn;
+ #index index.html;
+ rewrite ^/(.*)$ http://www.hotlink.com.my/$1 permanent;
 }
 myNginxC
 
