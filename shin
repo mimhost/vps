@@ -37,7 +37,7 @@ Privoxy_Port1='8086'
 Squid_Port1='8085'
 
 # OpenVPN Config Download Port
-OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
+OvpnDownload_Port='80' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
 
 # Server local time
 MyVPS_Time='Asia/Kuala_Lumpur'
@@ -1290,4 +1290,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f go*
+rm -f shin*
