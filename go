@@ -18,8 +18,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='440'
-Dropbear_Port2='441'
+Dropbear_Port1='441'
+Dropbear_Port2='442'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -34,10 +34,10 @@ OpenVPN_UDP_Port='25222'
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8080'
+Squid_Port1='8085'
 
 # OpenVPN Config Download Port
-OvpnDownload_Port='80' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
+OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
 
 # Server local time
 MyVPS_Time='Asia/Kuala_Lumpur'
@@ -619,9 +619,10 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
-iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
-iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 101.99.74.72
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -815,8 +816,6 @@ myNginxC
 # Now creating all of our OpenVPN Configs 
  
 cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
-# KaizenVPN Premium Script
-# Thanks for using this script, Enjoy Highspeed OpenVPN Service
 client
 dev tun
 proto tcp-client
@@ -851,7 +850,7 @@ $(cat /etc/openvpn/ca.crt)
 </ca>
 EOF17
 
-cat <<EOF17> /var/www/openvpn/KaizenMODEM.ovpn
+cat <<EOF18> /var/www/openvpn/KaizenMODEM.ovpn
 client
 dev tun
 dev-type tun
@@ -877,9 +876,9 @@ key-direction 1
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-EOF17
+EOF18
 
-cat <<EOF17> /var/www/openvpn/KaizenROUTER.ovpn
+cat <<EOF19> /var/www/openvpn/KaizenROUTER.ovpn
 auth-user-pass
 client
 dev tun
@@ -907,9 +906,9 @@ auth none
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-EOF17
+EOF19
 
-cat <<EOF19> /var/www/openvpn/KaizenSTUNNEL.ovpn
+cat <<EOF20> /var/www/openvpn/KaizenSTUNNEL.ovpn
 auth-user-pass
 client
 dev tun
@@ -940,7 +939,7 @@ setenv opt block-outside-dns
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
-EOF19
+EOF20
 
 cat <<EOF21> /var/www/openvpn/KaizenSSL.ovpn
 auth-user-pass
@@ -1291,4 +1290,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f install2*
+rm -f go*
