@@ -619,9 +619,10 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
-iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
-iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 124.217.230.198
+iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 124.217.230.198
+iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.198
+iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.198
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
