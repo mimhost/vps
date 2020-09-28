@@ -18,8 +18,8 @@ SSH_Port1='22'
 SSH_Banner='https://raw.githubusercontent.com/Apeachsan91/vps/master/banner'
 
 # Dropbear Ports
-Dropbear_Port1='441'
-Dropbear_Port2='442'
+Dropbear_Port1='440'
+Dropbear_Port2='441'
 
 # Stunnel Ports
 Stunnel_Port1='443' # through Dropbear
@@ -34,7 +34,7 @@ OpenVPN_UDP_Port='25222'
 Privoxy_Port1='8086'
 
 # Squid Ports
-Squid_Port1='8085'
+Squid_Port1='80'
 
 # OpenVPN Config Download Port
 OvpnDownload_Port='85' # Before changing this value, please read this document. It contains all unsafe ports for Google Chrome Browser, please read from line #23 to line #89: https://chromium.googlesource.com/chromium/src.git/+/refs/heads/master/net/base/port_util.cc
@@ -619,10 +619,9 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.192
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source 124.217.230.192
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -799,7 +798,7 @@ function OvpnConfigs(){
 server {
  listen 0.0.0.0:myNginx;
  server_name 123.136.98.90;
- return 301 http://music.u.com.my;
+ return 301 https://music.u.com.my;
 }
 myNginxC
 
@@ -1017,6 +1016,7 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 
 <head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config MODEM<span class="badge light-blue darken-4">Huawei/BrandLain</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenMODEM.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config ROUTER<span class="badge light-blue darken-4">Asus/BrandLain</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenROUTER.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
+
 
  # Setting template's correct name,IP address and nginx Port
  sed -i "s|NGINXPORT|$OvpnDownload_Port|g" /var/www/openvpn/index.html
@@ -1290,4 +1290,4 @@ echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------
 
  # Clearing all logs from installation
 rm -rf /root/.bash_history && history -c && echo '' > /var/log/syslog
-rm -f install*
+rm -f vpsgo*
