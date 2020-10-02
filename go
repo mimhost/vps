@@ -1146,13 +1146,6 @@ fi
 #############################################
 #############################################
 
- # First thing to do is check if this machine is Debian
- source /etc/os-release
-if [[ "$ID" != 'debian' ]]; then
- ScriptMessage
- echo -e "[\e[1;31mError\e[0m] This script is for Debian only, exiting..." 
- exit 1
-fi
 
  # Now check if our machine is in root user, if not, this script exits
  # If you're on sudo user, run `sudo su -` first before running this script
