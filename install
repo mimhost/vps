@@ -1,7 +1,7 @@
 #!/bin/bash
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='(｡◕‿◕｡)MoonlightVPN Premium Script'
+MyScriptName='(｡◕‿◕｡)KaizenVPN Premium Script'
 
 function ip_address(){
   local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
@@ -28,7 +28,7 @@ Stunnel_Port3='587' # through OpenVPN
 
 # OpenVPN Ports
 OpenVPN_TCP_Port='110'
-OpenVPN_UDP_Port='25222'
+OpenVPN_UDP_Port='80'
 
 # Privoxy Ports
 Privoxy_Port1='8086'
@@ -1117,7 +1117,7 @@ dos2unix ./* &> /dev/null
 function ScriptMessage(){
  echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e "(｡◕‿◕｡) Script by MoonlightVPN"
+ echo -e "(｡◕‿◕｡) Script by KaizenVPN"
  echo -e ""
 }
 
@@ -1227,9 +1227,9 @@ echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                Autoscript By MoonlightVPN             *"' >> .bashrc
+echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
-echo 'echo -e "     *                    Telegram: @Biskut17                *"' >> .bashrc
+echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
@@ -1245,7 +1245,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
-echo "*                                -MoonlightVPN-                                *"  | tee -a log-install.txt
+echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
@@ -1285,7 +1285,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (｡◕‿◕｡)MoonlightVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
