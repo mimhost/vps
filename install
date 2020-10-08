@@ -1,7 +1,7 @@
 #!/bin/bash
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='(｡◕‿◕｡)KaizenVPN Premium Script'
+MyScriptName='(｡◕‿◕｡)AmyMariah Premium Script'
 
 function ip_address(){
   local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
@@ -819,7 +819,7 @@ cat <<EOF17> /var/www/openvpn/KaizenTCP.ovpn
 client
 dev tun
 proto tcp-client
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "AmyMariah"
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
 http-proxy-retry
@@ -919,7 +919,7 @@ auth-user-pass
 client
 dev tun
 proto tcp
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "AmyMariah"
 remote 127.0.0.1 $OpenVPN_TCP_Port
 route $IPADDR 255.255.255.255 net_gateway
 nobind
@@ -952,7 +952,7 @@ auth-user-pass
 client
 dev tun
 proto tcp
-setenv FRIENDLY_NAME "KaizenVPN"
+setenv FRIENDLY_NAME "AmyMariah"
 remote $IPADDR $OpenVPN_TCP_Port
 port $Stunnel_Port3
 nobind
@@ -1125,7 +1125,7 @@ dos2unix ./* &> /dev/null
 function ScriptMessage(){
  echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e "(｡◕‿◕｡) Script by KaizenVPN"
+ echo -e "(｡◕‿◕｡) Script by AmyMariah"
  echo -e ""
 }
 
@@ -1235,9 +1235,9 @@ echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
+echo 'echo -e "     *                 Autoscript By AmyMariah               *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
-echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
+echo 'echo -e "     *                   Telegram: @amymariah                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
@@ -1253,7 +1253,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
-echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
+echo "*                                 -AmyMariah-                                  *"  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
@@ -1293,7 +1293,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡) AmyMariah"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
