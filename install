@@ -1,7 +1,7 @@
 #!/bin/bash
 # Variables (Can be changed depends on your preferred values)
 # Script name
-MyScriptName='(｡◕‿◕｡)KaizenVPN Premium Script'
+MyScriptName='(｡◕‿◕｡)MoonlightVPN Premium Script'
 
 function ip_address(){
   local IP="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\." | head -n 1 )"
@@ -611,9 +611,6 @@ fi
  echo 'net.ipv4.ip_forward=1' > /etc/sysctl.d/20-openvpn.conf
  sysctl --system &> /dev/null
 
-# Setting machine's IP Address inside of our openvpn bash(security that only allows this machine to use this proxy server)
- sed -i "s|IP-ADDRESS|$IPADDR|g" /etc/openvpn/openvpn.bash
-
  # Iptables Rule for OpenVPN server
  cat <<'EOFipt' > /etc/openvpn/openvpn.bash
 #!/bin/bash
@@ -622,10 +619,9 @@ IPCIDR='10.200.0.0/16'
 IPCIDR2='10.201.0.0/16'
 iptables -I FORWARD -s $IPCIDR -j ACCEPT
 iptables -I FORWARD -s $IPCIDR2 -j ACCEPT
-iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -o venet0 -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -s 10.200.0.0/16 -o venet0 -j SNAT --to-source $IPADDR
-iptables -t nat -A POSTROUTING -s 10.201.0.0/16 -o venet0 -j SNAT --to-source $IPADDR
+iptables -t nat -A POSTROUTING -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR -o $PUBLIC_INET -j MASQUERADE
+iptables -t nat -A POSTROUTING -s $IPCIDR2 -o $PUBLIC_INET -j MASQUERADE
 EOFipt
  chmod +x /etc/openvpn/openvpn.bash
  bash /etc/openvpn/openvpn.bash
@@ -776,7 +772,7 @@ reply_header_access Cookie allow all
 reply_header_access All deny all
 ### CoreDump
 coredump_dir /var/spool/squid
-dns_nameservers 1.1.1.1 1.0.0.1
+dns_nameservers 8.8.8.8 8.8.4.4
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
@@ -848,7 +844,7 @@ comp-lzo
 reneg-sec 0
 verb 0
 log /dev/null
-setenv opt block-outside-dns
+setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
@@ -858,8 +854,7 @@ cat <<EOF18> /var/www/openvpn/KaizenMODEM.ovpn
 client
 dev tun
 dev-type tun
-remote $IPADDR $OpenVPN_TCP_Port tcp
-http-proxy $IPADDR $Squid_Port1
+remote $IPADDR $OpenVPN_TCP_Port
 redirect-gateway def1 bypass-dhcp
 nobind
 persist-tun
@@ -884,24 +879,30 @@ $(cat /etc/openvpn/ca.crt)
 EOF18
 
 cat <<EOF19> /var/www/openvpn/KaizenROUTER.ovpn
+auth-user-pass
 client
 dev tun
 proto tcp
 remote $IPADDR $OpenVPN_TCP_Port
 http-proxy $IPADDR $Squid_Port1
-redirect-gateway def1
-resolv-retry infinite
-nobind
+http-proxy-retry
 persist-key
 persist-tun
-remote-cert-tls server
-auth none
-cipher none
+pull
+resolv-retry infinite
+nobind
+user nobody
 comp-lzo
-setenv opt block-outside-dns
-key-direction 1
+remote-cert-tls server
 verb 3
-auth-user-pass
+mute 2
+connect-retry 5 5
+connect-retry-max 8080
+mute-replay-warnings
+redirect-gateway def1
+script-security 2
+cipher none
+auth none
 <ca>
 $(cat /etc/openvpn/ca.crt)
 </ca>
@@ -1001,8 +1002,6 @@ comp-lzo
 reneg-sec 0
 verb 0
 log /dev/null
-dhcp-option DNS 1.1.1.1
-dhcp-option DNS 1.0.0.1
 setenv opt block-outside-dns 
 <ca>
 $(cat /etc/openvpn/ca.crt)
@@ -1018,6 +1017,7 @@ cat <<'mySiteOvpn' > /var/www/openvpn/index.html
 
 <head><meta charset="utf-8" /><title>KaizenVPN OVPN Config Download</title><meta name="description" content="MyScriptName Server" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" /><meta name="theme-color" content="#000000" /><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.3/css/mdb.min.css" rel="stylesheet"></head><body><div class="container justify-content-center" style="margin-top:9em;margin-bottom:5em;"><div class="col-md"><div class="view"><img src="https://i.ibb.co/P6LDbF3/Kaizen-VPN.jpg" class="card-img-top"><div class="mask rgba-white-slight"></div></div><div class="card"><div class="card-body"><h5 class="card-title">Senarai Config</h5><br /><ul class="list-group"><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config TCP <span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenTCP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config UDP<span class="badge light-blue darken-4">Android/iOS</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenUDP.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config MODEM<span class="badge light-blue darken-4">Huawei/BrandLain</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenMODEM.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li><li class="list-group-item justify-content-between align-items-center" style="margin-bottom:1em;"><p>Untuk Config ROUTER<span class="badge light-blue darken-4">Asus/BrandLain</span><br /><small> Sila tekan butang Download di sebelah kanan ini</small></p><a class="btn btn-outline-success waves-effect btn-sm" href="http://IP-ADDRESS:NGINXPORT/KaizenROUTER.ovpn" style="float:right;"><i class="fa fa-download"></i> Download</a></li></ul></div></div></div></div></body></html>
 mySiteOvpn
+
 
  # Setting template's correct name,IP address and nginx Port
  sed -i "s|NGINXPORT|$OvpnDownload_Port|g" /var/www/openvpn/index.html
@@ -1084,7 +1084,6 @@ RemainAfterExit=yes
 
 [Install]
 WantedBy=multi-user.target
-
 KaizenServ
  chmod +x /etc/systemd/system/kaizenvpnserver.service
  systemctl daemon-reload
@@ -1228,9 +1227,9 @@ echo 'echo -e ""' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *                  WELCOME TO VPS SERVER                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
-echo 'echo -e "     *                 Autoscript By KaizenVPN               *"' >> .bashrc
+echo 'echo -e "     *                Autoscript By MoonlightVPN             *"' >> .bashrc
 echo 'echo -e "     *                   Debian 9 & Debian 10                *"' >> .bashrc
-echo 'echo -e "     *                    Telegram: @KaizenA                 *"' >> .bashrc
+echo 'echo -e "     *                    Telegram: @Biskut17                *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
 echo 'echo -e "     *     Taip \033[1;32mmainmenu\033[0m untuk menampilkan senarai menu      *"' >> .bashrc
 echo 'echo -e "     ========================================================="' >> .bashrc
@@ -1246,7 +1245,7 @@ echo "Server sudah siap dipasang 100%. Sila baca peraturan server dan reboot VPS
 echo " "  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo "*                            Debian Premium Script                             *"  | tee -a log-install.txt
-echo "*                                 -KaizenVPN-                                  *"  | tee -a log-install.txt
+echo "*                                -MoonlightVPN-                                *"  | tee -a log-install.txt
 echo "--------------------------------------------------------------------------------"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------"  | tee -a log-install.txt
@@ -1286,7 +1285,7 @@ echo "Maklumat Premium Script"  | tee -a log-install.txt
 echo "-----------------------"  | tee -a log-install.txt
 echo "Untuk menampilkan senarai menu,sila taip: mainmenu"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)MoonlightVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "---------------------------- SILA REBOOT VPS ANDA! -----------------------------"
 
