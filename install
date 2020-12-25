@@ -775,7 +775,7 @@ reply_header_access Cookie allow all
 reply_header_access All deny all
 ### CoreDump
 coredump_dir /var/spool/squid
-dns_nameservers 1.1.1.1 1.0.0.1
+dns_nameservers 8.8.8.8 8.8.4.4
 refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
