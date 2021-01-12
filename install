@@ -1060,6 +1060,9 @@ iptables -A INPUT -s $(wget -4qO- http://ipinfo.io/ip) -p tcp -m multiport --dpo
 
 # Deleting Expired SSH Accounts
 /usr/local/bin/user-delete-expired &> /dev/null
+
+service dropbear restart
+
 exit 0
 EOFSH
  chmod +x /etc/kaizenvpnserver/startup.sh
