@@ -46,13 +46,13 @@ echo "     ========================================================="
 read -p "Nombor Pilihan Anda (Nombor): " x
 echo " "
 if test $x -eq 1; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/install && chmod +x install && ./install
+wget https://raw.githubusercontent.com/irwan-aidan/vps/master/install && chmod +x install && ./install
 elif test $x -eq 2; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/squidssl && chmod +x squidssl && ./squidssl
+wget https://raw.githubusercontent.com/irwan-aidan/vps/master/squidssl && chmod +x squidssl && ./squidssl
 elif test $x -eq 3; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
+wget https://raw.githubusercontent.com/irwan-aidan/vps/master/ocs9 && chmod +x ocs9 && ./ocs9
 elif test $x -eq 4; then
-wget https://raw.githubusercontent.com/Apeachsan91/vps/master/ocs10 && chmod +x ocs9 && ./ocs10
+wget https://raw.githubusercontent.com/irwan-aidan/vps/master/ocs10 && chmod +x ocs9 && ./ocs10
 elif test $x -eq 5; then
 exit
 else
