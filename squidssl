@@ -3,7 +3,7 @@
 ###########################################################################
 #
 #    Script that configures and installs Squid with SSL Bump
-#    Copyright (C) 2020 KaizenVPN
+#    Copyright (C) 2020 AidanVPN
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,7 +20,7 @@
 #############################
 
 # Script Name
-MyScriptName='KaizenVPN-Squid SSLBump'
+MyScriptName='AidanVPN-Squid SSLBump'
 
 # Get Machine IP Address
 function ip_address(){
@@ -32,7 +32,7 @@ function ip_address(){
 IPADDR="$(ip_address)"
 
 # Server local time
-MyVPS_Time='Asia/Manila'
+MyVPS_Time='Asia/Kuala_Lumpur'
 #############################
 
 function InstDependencies(){
@@ -318,7 +318,7 @@ echo "Creating self-signed certificate for Squid..."
 sleep 2
 mkdir /etc/squid/ssl_cert
 cd /etc/squid/ssl_cert
-openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=PH/ST=Concepcion/L=Tarlac/O=SSSLBump Co./CN=johnfordtv.tech" -keyout squid.key  -out squid.crt
+openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -subj "/C=MY/ST=selangor/L=Gombak/O=AidanVPN/CN=aidan.my" -keyout squid.key  -out squid.crt
 chown -R proxy:proxy .
 chmod -R 700 .
 }
@@ -326,7 +326,7 @@ chmod -R 700 .
 function ScriptMessage(){
  echo -e " [\e[1;32m$MyScriptName VPS Installer\e[0m]"
  echo -e ""
- echo -e "(｡◕‿◕｡) Script by KaizenVPN"
+ echo -e "(｡◕‿◕｡) Script by AidanVPN"
  echo -e ""
 }
 
@@ -416,7 +416,7 @@ refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname KaizenVPN
+visible_hostname AidanVPN
 EOF
 
 # Setting machine's IP Address inside of our Squid config(security that only allows this machine to use this proxy server)
@@ -485,13 +485,13 @@ echo " "
 echo "Installation has been completed!!"
 echo "--------------------------------------------------------------------------------"
 echo "                          Debian Squid SSL Script                               "
-echo "                               -KaizenVPN-                                      "
+echo "                               -AidanVPN-                                      "
 echo "--------------------------------------------------------------------------------"
 echo ""  | tee -a log-install.txt
 echo "Maklumat Server"  | tee -a log-install.txt
 echo "   - Squid SSLBump    : Port 85"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo " Copyright by (｡◕‿◕｡)KaizenVPN"  | tee -a log-install.txt
+echo " Copyright by (｡◕‿◕｡)AidanVPN"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo " Please Reboot your VPS"
 
