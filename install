@@ -15,7 +15,7 @@ IPADDR="$(ip_address)"
 SSH_Port1='22'
 
 # Your SSH Banner
-SSH_Banner='https://notabug.org/irwan-aidan/vps/raw/master/banner'
+SSH_Banner='https://raw.githubusercontent.com/mimhost/vps/master/banner'
 
 # Dropbear Ports
 Dropbear_Port1='440'
@@ -91,7 +91,7 @@ function InstUpdates(){
 function InstWebmin(){
  # Download the webmin .deb package
  # You may change its webmin version depends on the link you've loaded in this variable(.deb file only, do not load .zip or .tar.gz file):
- WebminFile='https://notabug.org/irwan-aidan/vps/raw/master/webmin_1.920_all.deb'
+ WebminFile='https://raw.githubusercontent.com/mimhost/vps/master/webmin_1.920_all.deb'
  wget -qO webmin.deb "$WebminFile"
  
  # Installing .deb package for webmin
@@ -501,7 +501,7 @@ NUovpn
  
  # Getting some OpenVPN plugins for unix authentication
  cd
- wget https://notabug.org/irwan-aidan/vps/raw/master/plugin.tgz
+ wget https://raw.githubusercontent.com/mimhost/vps/master/plugin.tgz
  tar -xzvf /root/plugin.tgz -C /etc/openvpn/
  rm -f plugin.tgz
  
@@ -1005,7 +1005,7 @@ function ConfMenu(){
 echo -e " Creating Menu scripts.."
 
 cd /usr/local/bin/
-wget -q 'https://notabug.org/irwan-aidan/vps/raw/master/menu.zip'
+wget -q 'https://raw.githubusercontent.com/mimhost/vps/master/menu.zip'
 unzip -qq menu.zip
 rm -f menu.zip
 chmod +x ./*
@@ -1024,9 +1024,9 @@ function ScriptMessage(){
 function InstBadVPN(){
  # Pull BadVPN Binary 64bit or 32bit
 if [ "$(getconf LONG_BIT)" == "64" ]; then
- wget -O /usr/bin/badvpn-udpgw "https://notabug.org/irwan-aidan/vps/raw/master/badvpn-udpgw64"
+ wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/mimhost/vps/master/badvpn-udpgw64"
 else
- wget -O /usr/bin/badvpn-udpgw "https://notabug.org/irwan-aidan/vps/raw/master/badvpn-udpgw"
+ wget -O /usr/bin/badvpn-udpgw "https://raw.githubusercontent.com/mimhost/vps/master/badvpn-udpgw"
 fi
  # Set BadVPN to Start on Boot via .profile
  sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /root/.profile
